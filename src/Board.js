@@ -1,11 +1,11 @@
 import React from 'react';
-import Square from './Square';
+import SmartSquare from './SmartSquare';
 
 function renderSquare(squareNum, gameState) {
   const x = squareNum % 12;
   const y = Math.floor(squareNum / 12);
 
-  return <Square key={squareNum} x={x} y={y} />;
+  return <SmartSquare key={squareNum} x={x} y={y} />;
 }
 
 export default function Board({ gameState }) {

@@ -176,8 +176,6 @@ const initialState = {
 };
 
 function reducer(state, action) {
-  console.log(state);
-  console.log(action);
   switch (action.type) {
     case 'move':
       const oldX = action.xOrg;
@@ -195,7 +193,6 @@ function reducer(state, action) {
         ...newState,
         [newX]: { ...newState[newX], [newY]: action.piece },
       };
-      console.log(newState);
       return newState;
     case 'else':
       return {};
