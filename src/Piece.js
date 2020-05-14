@@ -2,9 +2,9 @@ import React from 'react';
 import { DndItemTypes } from './DndItemTypes';
 import { useDrag } from 'react-dnd';
 
-export default function Piece({ symbol }) {
+export default function Piece({ symbol, x, y }) {
   const [{ isDragging }, drag] = useDrag({
-    item: { type: DndItemTypes.PIECE },
+    item: { type: DndItemTypes.PIECE, symbol: symbol, x: x, y: y },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

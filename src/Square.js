@@ -5,29 +5,52 @@ import { DndItemTypes } from './DndItemTypes';
 import Piece from './Piece';
 import HighlightSquare from './HighlightSquare';
 
-const squareIsValidMove = function squareIsValidMove(x, y) {
-  console.log(x, y);
-  return false;
+const canMoveFromTo = function canMoveFromTo(fromX, fromY, toX, toY, piece) {
+  console.log(fromX, fromY, toX, toY, piece);
+  switch (piece) {
+    case '☙':
+      if (toX === fromX) {
+        return true;
+      } else if (toY === fromY) {
+        return true;
+      }
+      return false;
+    default:
+      return true;
+  }
 };
 
 export default function Square({ x, y }) {
   const dispatch = useContext(DispatchContext);
   const gameState = useContext(GameStateContext);
 
-  const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ isOver, canDrop, item }, drop] = useDrop({
     accept: DndItemTypes.PIECE,
-    drop: () => dispatch({ type: 'move', xDest: x, yDest: y, piece: 'B' }),
-    canDrop: () => squareIsValidMove(x, y),
-    collect: (mon) => ({
-      isOver: !!mon.isOver(),
-      canDrop: !!mon.canDrop(),
+    drop: () => {
+      console.log(item);
+      console.log(x);
+      console.log(y);
+      dispatch({
+        type: 'move',
+        xDest: x,
+        yDest: y,
+        xOrg: item.x,
+        yOrg: item.y,
+        piece: item.symbol,
+      });
+    },
+    canDrop: () => item && canMoveFromTo(item.x, item.y, x, y, item.symbol),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+      item: monitor.getItem(),
     }),
   });
 
   const squareColor =
     (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
   const pieceType = gameState[x] ? gameState[x][y] : null;
-  const piece = pieceType ? <Piece symbol={pieceType} /> : null;
+  const piece = pieceType ? <Piece symbol={pieceType} x={x} y={y} /> : null;
 
   return (
     <div ref={drop} className='square' style={{ backgroundColor: squareColor }}>

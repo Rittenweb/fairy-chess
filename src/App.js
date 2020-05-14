@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import './App.css';
 import Board from './Board';
 import { DispatchContext } from './Contexts';
@@ -176,17 +176,27 @@ const initialState = {
 };
 
 function reducer(state, action) {
+  console.log(state);
+  console.log(action);
   switch (action.type) {
     case 'move':
       const oldX = action.xOrg;
       const oldY = action.yOrg;
       const newX = action.xDest;
       const newY = action.yDest;
-      return {
+      if (oldX === newX && oldY === newY) {
+        return { ...state };
+      }
+      let newState = {
         ...state,
-        [newX]: { ...state[newX], [newY]: action.piece },
         [oldX]: { ...state[oldX], [oldY]: null },
       };
+      newState = {
+        ...newState,
+        [newX]: { ...newState[newX], [newY]: action.piece },
+      };
+      console.log(newState);
+      return newState;
     case 'else':
       return {};
     default:
@@ -196,8 +206,6 @@ function reducer(state, action) {
 
 function App() {
   const [gameState, dispatch] = useReducer(reducer, initialState);
-
-  // useEffect(() => observe((newGameState) => setGameState(newGameState)));
 
   return (
     <div className='App'>
