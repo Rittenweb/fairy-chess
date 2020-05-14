@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { DndProvider } from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DndProvider backend={Backend}>
+      <App />
+    </DndProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
