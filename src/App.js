@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import './App.css';
 import Board from './Board';
 import { DispatchContext } from './Contexts';
-import { GameStateContext } from './Contexts';
 
 const initialState = {
   '0': {
@@ -209,9 +208,7 @@ function App() {
       <header></header>
       <main>
         <DispatchContext.Provider value={dispatch}>
-          <GameStateContext.Provider value={gameState}>
-            <Board gameState={gameState} />
-          </GameStateContext.Provider>
+          <Board gameState={gameState} />
         </DispatchContext.Provider>
       </main>
     </div>

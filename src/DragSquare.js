@@ -1,28 +1,13 @@
 import React, { useContext } from 'react';
-import { DispatchContext, GameStateContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 import { useDrop } from 'react-dnd';
 import { DndItemTypes } from './DndItemTypes';
-import Piece from './Piece';
 import Square from './Square';
 import HighlightSquare from './HighlightSquare';
+import canMoveFromTo from './pieces';
 
-const canMoveFromTo = function canMoveFromTo(fromX, fromY, toX, toY, piece) {
-  switch (piece) {
-    case '☙':
-      if (toX === fromX) {
-        return true;
-      } else if (toY === fromY) {
-        return true;
-      }
-      return false;
-    default:
-      return true;
-  }
-};
-
-export default function SmartSquare({ x, y }) {
+const DragSquare = React.memo(({ x, y, piece }) => {
   const dispatch = useContext(DispatchContext);
-  const gameState = useContext(GameStateContext);
 
   const [{ isOver, canDrop, item }, drop] = useDrop({
     accept: DndItemTypes.PIECE,
@@ -44,20 +29,15 @@ export default function SmartSquare({ x, y }) {
     }),
   });
 
-  const squareColor =
-    (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
-  const pieceType = gameState[x] ? gameState[x][y] : null;
-  const piece = pieceType ? <Piece symbol={pieceType} x={x} y={y} /> : null;
-
-  // console.count('smartsquare');
-  console.log(isOver);
-  console.log(canDrop);
+  console.count('dragsquare');
   return (
     <div ref={drop} className='square-container'>
-      <Square color={squareColor} piece={piece}></Square>
+      <Square piece={piece} x={x} y={y}></Square>
       {isOver && !canDrop && <HighlightSquare color='red' />}
       {!isOver && canDrop && <HighlightSquare color='yellow' />}
       {isOver && canDrop && <HighlightSquare color='green' />}
     </div>
   );
-}
+});
+
+export default DragSquare;

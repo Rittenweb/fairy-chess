@@ -50,6 +50,20 @@
 //Actually you don't have to. Check for that elsewhere.
 //This function only defines largest theoretical movespace.
 
+const canMoveFromTo = function canMoveFromTo(fromX, fromY, toX, toY, piece) {
+  switch (piece) {
+    case '☙':
+      if (toX === fromX) {
+        return true;
+      } else if (toY === fromY) {
+        return true;
+      }
+      return false;
+    default:
+      return true;
+  }
+};
+
 const moveTypes = {
   'leaper': function leaper(moveSquare, startingSquare, leapA, leapB) {
     let difX = Math.abs(moveSquare.x - startingSquare.x);
@@ -159,4 +173,4 @@ const pieces = {
   }
 }
 
-export default pieces;
+export default canMoveFromTo;
