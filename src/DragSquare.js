@@ -8,18 +8,21 @@ import canMoveFromTo from './pieces';
 
 const DragSquare = React.memo(({ x, y, piece }) => {
   const dispatch = useContext(DispatchContext);
+  const dispatchMove = () => {
+    dispatch({
+      type: 'move',
+      xDest: x,
+      yDest: y,
+      xOrg: item.x,
+      yOrg: item.y,
+      piece: item.symbol,
+    });
+  };
 
   const [{ isOver, canDrop, item }, drop] = useDrop({
     accept: DndItemTypes.PIECE,
     drop: () => {
-      dispatch({
-        type: 'move',
-        xDest: x,
-        yDest: y,
-        xOrg: item.x,
-        yOrg: item.y,
-        piece: item.symbol,
-      });
+      requestAnimationFrame(dispatchMove);
     },
     canDrop: () => item && canMoveFromTo(item.x, item.y, x, y, item.symbol),
     collect: (monitor) => ({
@@ -29,7 +32,7 @@ const DragSquare = React.memo(({ x, y, piece }) => {
     }),
   });
 
-  console.count('dragsquare');
+  console.count(x + ' ' + y + ' ' + piece);
   return (
     <div ref={drop} className='square-container'>
       <Square piece={piece} x={x} y={y}></Square>
