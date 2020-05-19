@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { DispatchContext } from './Contexts';
+import { PieceDispatchContext } from './Contexts';
 import Square from './Square';
 import HighlightSquare from './HighlightSquare';
 import canMoveFromTo from './pieces';
 
 const DragSquare = React.memo(({ x, y, piece }) => {
-  const dispatch = useContext(DispatchContext);
+  const dispatch = useContext(PieceDispatchContext);
   // const dispatchMove = () => {
   //   dispatch({
   //     type: 'move',
@@ -22,7 +22,7 @@ const DragSquare = React.memo(({ x, y, piece }) => {
 
   const handleDragOver = function handleDragOver(e) {
     e.preventDefault();
-    console.log('over');
+    console.log('over' + x + y);
   };
 
   const handleDrop = function handleDrop(e) {
@@ -37,7 +37,7 @@ const DragSquare = React.memo(({ x, y, piece }) => {
     });
   };
 
-  console.count(x + ' ' + y + ' ' + piece);
+  console.count('dragsquare');
   return (
     <div
       className='square-container'

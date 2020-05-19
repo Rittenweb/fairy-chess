@@ -14,5 +14,6 @@ export default function Board({ gameState }) {
   for (let i = 0; i < 144; i++) {
     squareList.push(renderSquare(i, gameState));
   }
+  console.count('board');
   return <div className='board'>{squareList}</div>;
 }

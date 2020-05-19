@@ -1,3 +1,4 @@
 import React from 'react';
 
-export const DispatchContext = React.createContext();
+export const PieceDispatchContext = React.createContext();
+export const SquareDispatchContext = React.createContext();
