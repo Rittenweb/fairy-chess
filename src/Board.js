@@ -1,8 +1,6 @@
 import React from 'react';
 import DragSquare from './DragSquare';
 
-//TODO: Divide into rows for performance?
-
 function renderSquare(squareNum, gameState) {
   const x = squareNum % 12;
   const y = Math.floor(squareNum / 12);

@@ -120,7 +120,7 @@ const initialState = {
     '0': null,
     '1': null,
     '2': null,
-    '3': '☄',
+    '3': '☄️',
     '4': null,
     '5': null,
     '6': null,
