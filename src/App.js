@@ -20,7 +20,9 @@ function App() {
       <header></header>
       <main>
         <PieceDispatchContext.Provider value={pieceDispatch}>
-          <Board gameState={pieceState} />
+          <SquareDispatchContext.Provider value={squareDispatch}>
+            <Board pieceState={pieceState} squareState={squareState} />
+          </SquareDispatchContext.Provider>
         </PieceDispatchContext.Provider>
       </main>
     </div>

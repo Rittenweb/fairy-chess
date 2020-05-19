@@ -27,11 +27,6 @@
   color: white;
 }
 
-.square {
-  width: 100%;
-  height: 100%;
-}
-
 .highlight-square {
   position: absolute;
   top: 0;

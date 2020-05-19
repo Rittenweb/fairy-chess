@@ -1,3 +1,8 @@
+import canMoveFromTo from './pieces';
+import {
+  initialSquareState,
+} from './Constants';
+
 export function pieceReducer(state, action) {
   switch (action.type) {
     case 'move':
@@ -6,14 +11,14 @@ export function pieceReducer(state, action) {
       const newX = action.xDest;
       const newY = action.yDest;
       if (oldX === newX && oldY === newY) {
-        return {
-          ...state
-        };
+        return state;
       }
+      let stateClone = JSON.parse(JSON.stringify(state));
+
       let newState = {
-        ...state,
+        ...stateClone,
         [oldX]: {
-          ...state[oldX],
+          ...stateClone[oldX],
           [oldY]: null
         },
       };
@@ -35,8 +40,22 @@ export function pieceReducer(state, action) {
 export function squareReducer(state, action) {
   switch (action.type) {
     case 'dragging':
-      return {}
-      default:
-        throw new Error('No square reducer for action type');
+      let newState = JSON.parse(JSON.stringify(state));
+      for (let x = 0; x < 12; x++) {
+        for (let y = 0; y < 12; y++) {
+          if (canMoveFromTo(action.x, action.y, x, y, action.symbol)) {
+            newState[x][y] = 'yes';
+          } else {
+            newState[x][y] = 'no'
+          }
+        }
+      }
+      console.log(newState)
+      return newState;
+    case 'enddrag':
+      console.log(initialSquareState);
+      return initialSquareState;
+    default:
+      throw new Error('No square reducer for action type');
   }
 }
