@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
 import Piece from './Piece';
-import HighlightSquare from './HighlightSquare';
 
-const DragSquare = React.memo(({ x, y, piece, canDrop }) => {
+//TODO: Fix persistent yellow squares when piece is dropped off board.
+//Probably define all outer space as a drop zone to dispatch clean board.
+
+const DragSquare = ({ x, y, piece, canDrop }) => {
   const dispatchPiece = useContext(PieceDispatchContext);
   const dispatchSquare = useContext(SquareDispatchContext);
 
@@ -11,23 +13,28 @@ const DragSquare = React.memo(({ x, y, piece, canDrop }) => {
 
   const handleDragOver = function handleDragOver(e) {
     e.preventDefault();
+    e.stopPropagation();
   };
 
   const handleDragEnter = function handleDragEnter(e) {
     e.preventDefault();
+    e.stopPropagation();
     setDraggingOver(true);
   };
 
   const handleDragLeave = function handleDragLeave(e) {
     e.preventDefault();
+    e.stopPropagation();
     setDraggingOver(false);
   };
 
   const handleDrop = function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
     setDraggingOver(false);
     if (canDrop === 'no') {
       dispatchSquare({
-        type: 'enddrag',
+        type: 'dehighlight',
       });
       return;
     }
@@ -41,7 +48,7 @@ const DragSquare = React.memo(({ x, y, piece, canDrop }) => {
       piece: piece.symbol,
     });
     dispatchSquare({
-      type: 'enddrag',
+      type: 'dehighlight',
     });
   };
 
@@ -55,18 +62,15 @@ const DragSquare = React.memo(({ x, y, piece, canDrop }) => {
   console.count('dragsquare');
   return (
     <div
-      className='square-container'
+      className='square'
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       style={{ backgroundColor: squareColor }}>
       {piece && <Piece symbol={piece} x={x} y={y} />}
-      {/* {isOver && !canDrop && <HighlightSquare color='red' />}
-      {!isOver && canDrop && <HighlightSquare color='yellow' />}
-      {isOver && canDrop && <HighlightSquare color='green' />} */}
     </div>
   );
-});
+};
 
 export default DragSquare;

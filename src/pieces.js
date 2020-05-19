@@ -68,7 +68,7 @@ const moveTypes = {
   'leaper': function leaper(moveSquare, startingSquare, leapA, leapB) {
     let difX = Math.abs(moveSquare.x - startingSquare.x);
     let difY = Math.abs(moveSquare.y - startingSquare.y);
-    if ((difX === leapA && difY === leapB) || (difX === leapB) && difY === leapB) {
+    if ((difX === leapA && difY === leapB) || (difX === leapB && difY === leapB)) {
       return true;
     }
     return false;

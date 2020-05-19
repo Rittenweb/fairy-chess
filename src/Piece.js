@@ -9,16 +9,35 @@ export default function Piece({ symbol, x, y }) {
     const json = JSON.stringify(obj);
     e.dataTransfer.setData('text/plain', json);
     dispatch({
-      type: 'dragging',
+      type: 'highlight',
       symbol,
       x,
       y,
     });
   };
 
+  const handleMouseOver = function handleMouseOver(e) {
+    dispatch({
+      type: 'highlight',
+      symbol,
+      x,
+      y,
+    });
+  };
+
+  const handleMouseLeave = function handleMouseLeave(e) {
+    dispatch({
+      type: 'dehighlight',
+    });
+  };
+
   return (
-    <div className='piece' draggable='true' onDragStart={handleDragStart}>
-      {/* style={{ opacity: isDragging ? 0.5 : 1 }} */}
+    <div
+      className='piece'
+      draggable='true'
+      onDragStart={handleDragStart}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}>
       {symbol}
     </div>
   );

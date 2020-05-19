@@ -39,7 +39,7 @@ export function pieceReducer(state, action) {
 
 export function squareReducer(state, action) {
   switch (action.type) {
-    case 'dragging':
+    case 'highlight':
       let newState = JSON.parse(JSON.stringify(state));
       for (let x = 0; x < 12; x++) {
         for (let y = 0; y < 12; y++) {
@@ -52,7 +52,7 @@ export function squareReducer(state, action) {
       }
       console.log(newState)
       return newState;
-    case 'enddrag':
+    case 'dehighlight':
       console.log(initialSquareState);
       return initialSquareState;
     default:
