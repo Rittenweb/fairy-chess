@@ -38,14 +38,14 @@ const DragSquare = ({ x, y, piece, canDrop }) => {
       });
       return;
     }
-    const piece = JSON.parse(e.dataTransfer.getData('text'));
+    const pieceData = JSON.parse(e.dataTransfer.getData('text'));
     dispatchPiece({
       type: 'move',
       xDest: x,
       yDest: y,
-      xOrg: piece.x,
-      yOrg: piece.y,
-      piece: piece.symbol,
+      xOrg: pieceData.x,
+      yOrg: pieceData.y,
+      piece: pieceData.piece,
     });
     dispatchSquare({
       type: 'dehighlight',
@@ -68,7 +68,7 @@ const DragSquare = ({ x, y, piece, canDrop }) => {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       style={{ backgroundColor: squareColor }}>
-      {piece && <Piece symbol={piece} x={x} y={y} />}
+      {piece && <Piece piece={piece} x={x} y={y} />}
     </div>
   );
 };
