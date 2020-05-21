@@ -52,6 +52,7 @@ function App() {
   function squareReducer(state, action) {
     switch (action.type) {
       case 'highlight':
+        debugger;
         let newState = JSON.parse(JSON.stringify(state));
         const moveableSquares = getMoveableSquares(
           action.x,

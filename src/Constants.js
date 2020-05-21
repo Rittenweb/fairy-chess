@@ -21,7 +21,10 @@ export const initialPieceState = {
     '4': null,
     '5': null,
     '6': null,
-    '7': null,
+    '7': {
+      name: "king",
+      symbol: "☘"
+    },
     '8': null,
     '9': null,
     '10': null,
@@ -30,7 +33,10 @@ export const initialPieceState = {
   '2': {
     '0': null,
     '1': null,
-    '2': null,
+    '2': {
+      name: 'knight',
+      symbol: '⛮'
+    },
     '3': null,
     '4': null,
     '5': null,
@@ -151,7 +157,7 @@ export const initialPieceState = {
     '2': null,
     '3': null,
     '4': {
-      name: 'rook',
+      name: 'queen',
       symbol: '☃'
     },
     '5': null,
