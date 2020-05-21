@@ -85,7 +85,10 @@ export const initialPieceState = {
     '3': null,
     '4': null,
     '5': null,
-    '6': null,
+    '6': {
+      name: "pawn",
+      symbol: "⚕"
+    },
     '7': null,
     '8': null,
     '9': null,

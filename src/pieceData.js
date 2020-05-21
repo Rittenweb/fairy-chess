@@ -47,156 +47,245 @@ const MAX_MOVE = 12;
 const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
   let moveableSquares = [];
   let moveTypes = [];
+  let moveNoCapTypes = [];
+  let capNoMoveTypes = [];
+  debugger;
   if (compoundPieces[pieceName]) {
-    let basePieceMoveArrays = compoundPieces[pieceName]["move"].map((componentPieceName) => {
-      return basePieces[componentPieceName]["move"]
-    });
-    basePieceMoveArrays.forEach((moveArray) => {
-      moveArray.forEach((moveType) => {
-        moveTypes.push(moveType)
-      })
-    });
+    let components = compoundPieces[pieceName]["components"];
+    components.forEach((component) => {
+      moveTypes = moveTypes.concat(basePieces[component]["move"] || []);
+      moveNoCapTypes = moveNoCapTypes.concat(basePieces[component]["moveNoCap"] || []);
+      capNoMoveTypes = capNoMoveTypes.concat(basePieces[component]["capNoMove"] || []);
+    })
   } else {
-    moveTypes = basePieces[pieceName]["move"];
+    moveTypes = basePieces[pieceName]["move"] || [];
+    moveNoCapTypes = basePieces[pieceName]["moveNoCap"] || [];
+    capNoMoveTypes = basePieces[pieceName]["capNoMove"] || [];
   }
   moveTypes.forEach((moveType) => {
-    moveableSquares = moveableSquares.concat(baseAlgs[moveType[0]](x, y, moveType[1], pieceState, moveType[2]))
+    moveableSquares = moveableSquares.concat(baseAlgs[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
+  })
+  moveNoCapTypes.forEach((moveType) => {
+    moveableSquares = moveableSquares.concat(baseAlgs[moveType[0]](x, y, moveType[1], pieceState, moveType[2], true, false))
+  })
+  capNoMoveTypes.forEach((moveType) => {
+    moveableSquares = moveableSquares.concat(baseAlgs[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, true))
   })
   return moveableSquares;
 };
 
 const baseAlgs = {
-  N: (x, y, distance, pieceState, leaping) => {
+  N: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
       y--
       if (y < 0) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
     return moveableSquares;
   },
-  E: (x, y, distance, pieceState, leaping) => {
+  E: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
       x++
-      if (x > 11) {
+      if (x >= MAX_MOVE) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
     return moveableSquares;
   },
-  S: (x, y, distance, pieceState, leaping) => {
+  S: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
-      y++;
+      y++
       if (y >= MAX_MOVE) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
     return moveableSquares;
   },
-  W: (x, y, distance, pieceState, leaping) => {
+  W: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
       x--
       if (x < 0) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
     return moveableSquares;
   },
-  NE: (x, y, distance, pieceState, leaping) => {
+  NE: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
-      x++;
-      y--;
-      if (x >= MAX_MOVE || y < 0) {
+      x++
+      y--
+      if (y < 0 || x >= MAX_MOVE) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
-    return moveableSquares
+    return moveableSquares;
   },
-  SE: (x, y, distance, pieceState, leaping) => {
+  SE: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
       x++;
       y++;
-      if (x >= MAX_MOVE || y >= MAX_MOVE) {
+      if (y >= MAX_MOVE || x >= MAX_MOVE) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
-    return moveableSquares
+    return moveableSquares;
   },
-  SW: (x, y, distance, pieceState, leaping) => {
+  SW: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
+      y++;
       x--;
-      y++;
       if (x < 0 || y >= MAX_MOVE) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
-    return moveableSquares
+    return moveableSquares;
   },
-  NW: (x, y, distance, pieceState, leaping) => {
+  NW: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     while (distance > 0) {
-      x--;
       y--;
-      if (x < 0 || y < 0) {
+      x--;
+      if (y < 0 || x < 0) {
         break;
       }
+      //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
+        if (noCapture) {
+          break;
+        }
         moveableSquares.push([x, y]);
         break;
       }
-      moveableSquares.push([x, y]);
+      //Skip square-push step if there's a piece and you can leap over, but not capture
+      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+        //Skips square push step if there is no piece and onlyCapture
+        if (!(onlyCapture && pieceState[x][y] === null)) {
+          moveableSquares.push([x, y])
+        }
+      }
       distance--;
     }
-    return moveableSquares
+    return moveableSquares;
   },
   leap: (x, y, target) => {
     const moveableSquares = [];
@@ -223,9 +312,15 @@ const baseAlgs = {
 //   },
 
 const basePieces = {
-  "berolina": {
-    "move": 'berolina',
-    "icon": "berolina.svg",
+  "pawn": {
+    "moveNoCap": [
+      ["N", 1, false]
+    ],
+    "capNoMove": [
+      ["NE", 1, false],
+      ["NW", 1, false]
+    ],
+    "icon": "pawn.svg",
     "rarity": 1
   },
   "knight": {
@@ -271,7 +366,7 @@ const basePieces = {
 
 const compoundPieces = {
   "queen": {
-    "move": ['bishop', 'rook'],
+    "components": ['bishop', 'rook'],
     'icon': 'queen.svg',
     'rarity': 3
   }
