@@ -119,7 +119,7 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': {
-      name: 'rook',
+      name: 'bishop',
       symbol: '☄️'
     },
     '4': null,

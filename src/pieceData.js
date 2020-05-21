@@ -68,8 +68,8 @@ const baseAlgs = {
   N: (x, y, distance, pieceState) => {
     const moveableSquares = [];
     while (distance > 0) {
-      y++
-      if (y > 11) {
+      y--
+      if (y < 0) {
         break;
       }
       if (pieceState[x][y] !== null) {
@@ -100,8 +100,8 @@ const baseAlgs = {
   S: (x, y, distance, pieceState) => {
     const moveableSquares = [];
     while (distance > 0) {
-      y--
-      if (y < 0) {
+      y++;
+      if (y > 11) {
         break;
       }
       if (pieceState[x][y] !== null) {
@@ -128,7 +128,75 @@ const baseAlgs = {
       distance--;
     }
     return moveableSquares;
-  }
+  },
+  NE: (x, y, distance, pieceState) => {
+    const moveableSquares = [];
+    while (distance > 0) {
+      x++;
+      y--;
+      if (x > 11 || y < 0) {
+        break;
+      }
+      if (pieceState[x][y] !== null) {
+        moveableSquares.push([x, y]);
+        break;
+      }
+      moveableSquares.push([x, y]);
+      distance--;
+    }
+    return moveableSquares
+  },
+  SE: (x, y, distance, pieceState) => {
+    const moveableSquares = [];
+    while (distance > 0) {
+      x++;
+      y++;
+      if (x > 11 || y > 11) {
+        break;
+      }
+      if (pieceState[x][y] !== null) {
+        moveableSquares.push([x, y]);
+        break;
+      }
+      moveableSquares.push([x, y]);
+      distance--;
+    }
+    return moveableSquares
+  },
+  SW: (x, y, distance, pieceState) => {
+    const moveableSquares = [];
+    while (distance > 0) {
+      x--;
+      y++;
+      if (x < 0 || y > 11) {
+        break;
+      }
+      if (pieceState[x][y] !== null) {
+        moveableSquares.push([x, y]);
+        break;
+      }
+      moveableSquares.push([x, y]);
+      distance--;
+    }
+    return moveableSquares
+  },
+  NW: (x, y, distance, pieceState) => {
+    const moveableSquares = [];
+    while (distance > 0) {
+      x--;
+      y--;
+      if (x < 0 || y < 0) {
+        break;
+      }
+      if (pieceState[x][y] !== null) {
+        moveableSquares.push([x, y]);
+        break;
+      }
+      moveableSquares.push([x, y]);
+      distance--;
+    }
+    return moveableSquares
+  },
 }
 
 const basePieces = {
