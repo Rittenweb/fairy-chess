@@ -49,7 +49,6 @@ const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceSta
   let moveTypes = [];
   let moveNoCapTypes = [];
   let capNoMoveTypes = [];
-  debugger;
   if (compoundPieces[pieceName]) {
     let components = compoundPieces[pieceName]["components"];
     components.forEach((component) => {

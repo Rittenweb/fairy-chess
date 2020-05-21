@@ -38,7 +38,10 @@ export default function Piece({ piece, x, y }) {
       onDragStart={handleDragStart}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}>
-      {piece.symbol}
+      <img
+        className='piece-symbol'
+        src={require(`./img/${piece.symbol}.png`)}
+        alt={`${piece.symbol}`}></img>
     </div>
   );
 }
