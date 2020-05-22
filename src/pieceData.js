@@ -302,6 +302,52 @@ const baseAlgs = {
       }
     }
     return moveableSquares;
+  },
+  preciseLeap: (x, y, targets) => {
+    const moveableSquares = [];
+    targets.forEach((target) => {
+      moveableSquares.push([x + target[0], y + target[1]])
+    })
+    return moveableSquares;
+  },
+  repeatingLeap: (x, y, target) => {
+    let moveableSquares = [];
+
+    let posDelta1 = target[0];
+    let posDelta2 = target[1];
+    let negDelta1 = posDelta1 * -1;
+    let negDelta2 = posDelta2 * -1;
+    let newX = x;
+    let newY = y;
+
+    const helper = function helper(x, y, delta1, delta2) {
+      const squares = [];
+      x += delta1;
+      y += delta2;
+      while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
+        squares.push(x, y);
+        x += delta1;
+        y += delta2;
+      }
+      return squares;
+    }
+
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2));
+    if (posDelta1 === posDelta2) {
+      return moveableSquares
+    }
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, negDelta1));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1));
+
+    return moveableSquares;
+  },
+  leapThenMove: (x, y, target) => {
+
   }
 }
 
