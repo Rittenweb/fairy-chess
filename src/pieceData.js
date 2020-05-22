@@ -346,8 +346,12 @@ const baseAlgs = {
 
     return moveableSquares;
   },
-  leapThenMove: (x, y, target) => {
+  leapThenMove: (x, y, targetAndMove, pieceState) => {
+    let moveableSquares = [];
 
+    const anchorSquare = [x + targetAndMove[0][0], y + targetAndMove[0][1]];
+    moveableSquares.push(anchorSquare);
+    return moveableSquares.concat(baseAlgs[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState));
   }
 }
 
