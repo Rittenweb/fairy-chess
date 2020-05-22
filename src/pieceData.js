@@ -50,12 +50,16 @@ const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceSta
   let moveNoCapTypes = [];
   let capNoMoveTypes = [];
   if (compoundPieces[pieceName]) {
-    let components = compoundPieces[pieceName]["components"];
+    let compoundPiece = compoundPieces[pieceName]
+    let components = compoundPiece["components"];
     components.forEach((component) => {
       moveTypes = moveTypes.concat(basePieces[component]["move"] || []);
       moveNoCapTypes = moveNoCapTypes.concat(basePieces[component]["moveNoCap"] || []);
       capNoMoveTypes = capNoMoveTypes.concat(basePieces[component]["capNoMove"] || []);
     })
+    moveTypes = moveTypes.concat(compoundPiece['move'] || []);
+    moveNoCapTypes = moveNoCapTypes.concat(compoundPiece['moveNoCap'] || []);
+    capNoMoveTypes = capNoMoveTypes.concat(compoundPiece['capNoMove'] || []);
   } else {
     moveTypes = basePieces[pieceName]["move"] || [];
     moveNoCapTypes = basePieces[pieceName]["moveNoCap"] || [];
@@ -412,18 +416,24 @@ const basePieces = {
 
 const compoundPieces = {
   plus: {
-    components: ['berolina', ['E', 1, false],
+    components: ['berolina'],
+    capNoMove: [
+      ['E', 1, false],
       ['W', 1, false]
     ],
-    move: ['E', 1, false],
     rarity: 1
   },
   silver: {
-    components: ['ferz', ['N', 1, false]],
+    components: ['ferz'],
+    move: [
+      ['N', 1, false]
+    ],
     rarity: 1
   },
   golden: {
-    components: ['centurion', ['E', 1, false],
+    components: ['centurion'],
+    move: [
+      ['E', 1, false],
       ['W', 1, false]
     ],
     rarity: 1

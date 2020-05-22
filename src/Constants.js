@@ -115,7 +115,10 @@ export const initialPieceState = {
     '2': null,
     '3': null,
     '4': null,
-    '5': null,
+    '5': {
+      name: 'plus',
+      symbol: 'plus'
+    },
     '6': null,
     '7': null,
     '8': null,
@@ -143,7 +146,10 @@ export const initialPieceState = {
   '9': {
     '0': null,
     '1': null,
-    '2': null,
+    '2': {
+      name: 'elephant',
+      symbol: 'elephant'
+    },
     '3': null,
     '4': null,
     '5': null,
