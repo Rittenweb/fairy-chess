@@ -469,6 +469,19 @@ const basePieces = {
     ],
     rarity: 2
   },
+  squrrel: {
+    move: [
+      ["N", 3, false],
+      ["E", 3, false],
+      ["S", 3, false],
+      ["W", 3, false],
+      ["NE", 3, false],
+      ["SE", 3, false],
+      ["SW", 3, false],
+      ["NW", 3, false],
+    ],
+    rarity: 3
+  },
 }
 
 const compoundPieces = {
@@ -508,10 +521,7 @@ const compoundPieces = {
     rarity: 2
   },
   moon: {
-    components: ['ferz'],
-    move: [
-      ['leap', [2, 0]]
-    ],
+    components: ['ferz', 'dababba'],
     rarity: 2
   },
   frog: {
@@ -519,24 +529,15 @@ const compoundPieces = {
     rarity: 2
   },
   phoenix: {
-    components: ['wazir'],
-    move: [
-      ['leap', [2, 2]]
-    ],
+    components: ['wazir', 'alfil'],
     rarity: 2
   },
   woolly: {
-    components: ['king'],
-    move: [
-      ['leap', [2, 2]]
-    ],
+    components: ['king', 'alfil'],
     rarity: 2
   },
   cannon: {
-    components: ['king'],
-    move: [
-      ['leap', [2, 2]]
-    ],
+    components: ['king', 'dababba'],
     rarity: 2
   },
   lance: {
@@ -601,8 +602,69 @@ const compoundPieces = {
     components: ['rook', 'ferz'],
     rarity: 2
   },
+  pasha: {
+    components: ['ferz', 'wazir', 'dababba', 'alfil'],
+    rarity: 3
+  },
+  master: {
+    components: ['knight', 'ferz', 'wazir', 'alfil', 'tripper'],
+    rarity: 3
+  },
+  spider: {
+    components: ['ferz', 'alfil', 'dababba', 'knight'],
+    rarity: 3
+  },
+  dragon: {
+    components: ['squirrel', 'knight'],
+    rarity: 3
+  },
+  princess: {
+    components: ['bishop', 'knight'],
+    rarity: 3
+  },
+  empress: {
+    components: ['rook', 'knight'],
+    rarity: 3
+  },
+  boar: {
+    components: ['bishop'],
+    move: [
+      ['E', MAX_MOVE, false],
+      ['W', MAX_MOVE, false]
+    ],
+    rarity: 3
+  },
+  ox: {
+    components: ['bishop'],
+    move: [
+      ['N', MAX_MOVE, false],
+      ['S', MAX_MOVE, false]
+    ],
+    rarity: 3
+  },
+  eagle: {
+    components: ['rook'],
+    move: [
+      ['SE', MAX_MOVE, false],
+      ['SW', MAX_MOVE, false]
+    ],
+    rarity: 3
+  },
+  glatisant: {
+    components: ['bishop'],
+    move: [
+      ['E', MAX_MOVE, false],
+      ['S', MAX_MOVE, false],
+      ['W', MAX_MOVE, false]
+    ],
+    rarity: 3
+  },
   queen: {
     components: ['bishop', 'rook'],
+    rarity: 3
+  },
+  amazon: {
+    components: ['knight', 'rook', 'bishop'],
     rarity: 3
   }
 }
