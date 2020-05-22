@@ -301,56 +301,78 @@ const baseAlgs = {
   }
 }
 
-//   'leaper': function leaper(moveSquare, startingSquare, leapA, leapB) {
-//     let difX = Math.abs(moveSquare.x - startingSquare.x);
-//     let difY = Math.abs(moveSquare.y - startingSquare.y);
-//     if ((difX === leapA && difY === leapB) || (difX === leapB && difY === leapB)) {
-//       return true;
-//     }
-//     return false;
-//   },
-
 const basePieces = {
-  "pawn": {
-    "moveNoCap": [
+  pawn: {
+    moveNoCap: [
       ["N", 1, false]
     ],
-    "capNoMove": [
+    capNoMove: [
       ["NE", 1, false],
       ["NW", 1, false]
     ],
-    "icon": "pawn.svg",
-    "rarity": 1
+    rarity: 1
   },
-  "knight": {
-    "move": [
-      ["leap", [2, 1]]
+  berolina: {
+    moveNoCap: [
+      ["NE", 1, false],
+      ["NW", 1, false]
     ],
-    "icon": "knight.svg",
-    "rarity": 2
-  },
-  "rook": {
-    "move": [
-      ["N", MAX_MOVE, false],
-      ["E", MAX_MOVE, false],
-      ["S", MAX_MOVE, false],
-      ["W", MAX_MOVE, false]
+    capNoMove: [
+      ["N", 1, false]
     ],
-    "icon": "rook.svg",
-    'rarity': 2
+    rarity: 1
   },
-  "bishop": {
-    "move": [
-      ["NE", MAX_MOVE, false],
-      ["SE", MAX_MOVE, false],
-      ["SW", MAX_MOVE, false],
-      ["NW", MAX_MOVE, false]
+  wazir: {
+    move: [
+      ["N", 1, false],
+      ["E", 1, false],
+      ["S", 1, false],
+      ["W", 1, false],
     ],
-    'icon': 'bishop.svg',
-    'rarity': 2
+    rarity: 1
   },
-  "king": {
-    "move": [
+  trebuchet: {
+    move: [
+      ["leap", [3, 0]]
+    ],
+    rarity: 1
+  },
+  dababba: {
+    move: [
+      ['leap', [2, 0]]
+    ],
+    rarity: 1
+  },
+  ferz: {
+    move: [
+      ["NE", 1, false],
+      ["SE", 1, false],
+      ["SW", 1, false],
+      ["NW", 1, false],
+    ],
+    rarity: 1
+  },
+  centurion: {
+    move: [
+      ["NW", 1, false],
+      ["N", 1, false],
+      ["NE", 1, false],
+    ],
+    rarity: 1
+  },
+  tripper: {
+    move: [
+      ['leap', [3, 3]]
+    ],
+    rarity: 1
+  },
+  alfil: {
+    move: [
+      ['leap', [2, 2]]
+    ]
+  },
+  king: {
+    move: [
       ["N", 1, false],
       ["E", 1, false],
       ["S", 1, false],
@@ -359,43 +381,65 @@ const basePieces = {
       ["SE", 1, false],
       ["SW", 1, false],
       ["NW", 1, false],
-    ]
-  }
+    ],
+    rarity: 1
+  },
+  knight: {
+    move: [
+      ["leap", [2, 1]]
+    ],
+    rarity: 2
+  },
+  rook: {
+    move: [
+      ["N", MAX_MOVE, false],
+      ["E", MAX_MOVE, false],
+      ["S", MAX_MOVE, false],
+      ["W", MAX_MOVE, false]
+    ],
+    rarity: 2
+  },
+  bishop: {
+    move: [
+      ["NE", MAX_MOVE, false],
+      ["SE", MAX_MOVE, false],
+      ["SW", MAX_MOVE, false],
+      ["NW", MAX_MOVE, false]
+    ],
+    rarity: 2
+  },
 }
 
 const compoundPieces = {
-  "queen": {
-    "components": ['bishop', 'rook'],
-    'icon': 'queen.svg',
-    'rarity': 3
+  plus: {
+    components: ['berolina', ['E', 1, false],
+      ['W', 1, false]
+    ],
+    move: ['E', 1, false],
+    rarity: 1
+  },
+  silver: {
+    components: ['ferz', ['N', 1, false]],
+    rarity: 1
+  },
+  golden: {
+    components: ['centurion', ['E', 1, false],
+      ['W', 1, false]
+    ],
+    rarity: 1
+  },
+  machine: {
+    components: ['wazir', 'dababba'],
+    rarity: 1
+  },
+  elephant: {
+    components: ['ferz', 'alfil'],
+    rarity: 1
+  },
+  queen: {
+    components: ['bishop', 'rook'],
+    rarity: 3
   }
 }
 
 export default getMoveableSquares;
-
-// const moveTypes = {
-//   'leaper': function leaper(moveSquare, startingSquare, leapA, leapB) {
-//     let difX = Math.abs(moveSquare.x - startingSquare.x);
-//     let difY = Math.abs(moveSquare.y - startingSquare.y);
-//     if ((difX === leapA && difY === leapB) || (difX === leapB && difY === leapB)) {
-//       return true;
-//     }
-//     return false;
-//   },
-//   'bishop': function bishop(moveSquare, startingSquare) {
-//     let difX = Math.abs(moveSquare.x - startingSquare.x);
-//     let difY = Math.abs(moveSquare.y - startingSquare.y);
-//     if (difX === difY) {
-//       return true;
-//     }
-//     return false
-//   },
-//   'rook': function rook(moveSquare, startingSquare) {
-//     if (moveSquare.x === startingSquare.x) {
-//       return true;
-//     } else if (moveSquare.y === startingSquare.y) {
-//       return true;
-//     }
-//     return false;
-//   },
-// }
