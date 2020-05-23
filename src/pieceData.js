@@ -310,39 +310,40 @@ const baseAlgs = {
     })
     return moveableSquares;
   },
-  repeatingLeap: (x, y, target) => {
+  repeatingLeap: (x, y, target, pieceState) => {
     let moveableSquares = [];
 
     let posDelta1 = target[0];
     let posDelta2 = target[1];
     let negDelta1 = posDelta1 * -1;
     let negDelta2 = posDelta2 * -1;
-    let newX = x;
-    let newY = y;
 
-    const helper = function helper(x, y, delta1, delta2) {
+    const helper = function helper(x, y, delta1, delta2, pieceState) {
       const squares = [];
       x += delta1;
       y += delta2;
       while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
-        squares.push(x, y);
+        squares.push([x, y]);
+        if (pieceState[x][y] !== null) {
+          break;
+        }
         x += delta1;
         y += delta2;
       }
       return squares;
     }
 
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2));
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2, pieceState));
     if (posDelta1 === posDelta2) {
       return moveableSquares
     }
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, negDelta1));
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, negDelta1, pieceState));
+    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1, pieceState));
 
     return moveableSquares;
   },
@@ -351,7 +352,10 @@ const baseAlgs = {
 
     const anchorSquare = [x + targetAndMove[0][0], y + targetAndMove[0][1]];
     moveableSquares.push(anchorSquare);
-    return moveableSquares.concat(baseAlgs[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState));
+    if (pieceState[anchorSquare[0]][anchorSquare[1]] === null) {
+      moveableSquares = moveableSquares.concat(baseAlgs[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState));
+    }
+    return moveableSquares;
   }
 }
 
@@ -495,6 +499,27 @@ const basePieces = {
       ['S', 1, false]
     ]
   },
+  picket: {
+    move: [
+      ["leapThenMove", [
+        [2, 2],
+        ["SE", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [2, -2],
+        ["NE", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [-2, 2],
+        ["SW", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [-2, -2],
+        ["NW", MAX_MOVE]
+      ]],
+    ],
+    rarity: 2
+  },
   knight: {
     move: [
       ["leap", [2, 1]]
@@ -510,6 +535,18 @@ const basePieces = {
     ],
     rarity: 2
   },
+  skiprook: {
+    move: [
+      ['repeatingLeap', [2, 0]]
+    ],
+    rarity: 2
+  },
+  nightrider: {
+    move: [
+      ['repeatingLeap', [2, 1]]
+    ],
+    rarity: 2
+  },
   rook: {
     move: [
       ["N", MAX_MOVE, false],
@@ -518,6 +555,48 @@ const basePieces = {
       ["W", MAX_MOVE, false]
     ],
     rarity: 2
+  },
+  anticorn: {
+    move: [
+      ['leapThenMove', [
+        [1, 2],
+        ["NE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -2],
+        ["SE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -2],
+        ["SW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 2],
+        ["NW", MAX_MOVE]
+      ]],
+    ],
+    rarity: 2
+  },
+  ship: {
+    move: [
+      ['leapThenMove', [
+        [1, 1],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -1],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 1],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -1],
+        ['N', MAX_MOVE]
+      ]],
+    ],
+    rarity: 3
   },
   squrrel: {
     move: [
@@ -529,6 +608,43 @@ const basePieces = {
       ["SE", 3, false],
       ["SW", 3, false],
       ["NW", 3, false],
+    ],
+    rarity: 3
+  },
+  unicorn: {
+    move: [
+      ['leapThenMove', [
+        [1, 2],
+        ["SE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, 1],
+        ["SE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -2],
+        ["NE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, -1],
+        ["NE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -2],
+        ["NW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, -1],
+        ["NW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 2],
+        ["SW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, 1],
+        ["SW", MAX_MOVE]
+      ]],
     ],
     rarity: 3
   },
@@ -609,6 +725,10 @@ const compoundPieces = {
     components: ['wazir', 'dababba', 'alfil'],
     rarity: 2
   },
+  gaja: {
+    components: ['dababba', 'alfil', 'knight'],
+    rarity: 2
+  },
   wildebeast: {
     components: ['knight', 'camel'],
     rarity: 2
@@ -668,6 +788,15 @@ const compoundPieces = {
     components: ['squirrel', 'knight'],
     rarity: 3
   },
+  rose: {
+    components: ['knight'],
+    move: [
+      ['leap', [4, 0]],
+      ['leap', [4, 4]],
+      ['leap', [2, 5]]
+    ],
+    rarity: 3
+  },
   princess: {
     components: ['bishop', 'knight'],
     rarity: 3
@@ -699,6 +828,27 @@ const compoundPieces = {
       ['SW', MAX_MOVE, false]
     ],
     rarity: 3
+  },
+  gryphon: {
+    components: ['ship'],
+    move: [
+      ['leapThenMove', [
+        [1, 1],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -1],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 1],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -1],
+        ['W', MAX_MOVE]
+      ]],
+    ]
   },
   glatisant: {
     components: ['bishop'],

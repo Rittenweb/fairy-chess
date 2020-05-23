@@ -69,7 +69,10 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': null,
-    '4': null,
+    '4': {
+      name: 'nightrider',
+      symbol: 'nightrider'
+    },
     '5': null,
     '6': null,
     '7': null,
@@ -98,13 +101,19 @@ export const initialPieceState = {
   '6': {
     '0': null,
     '1': null,
-    '2': null,
+    '2': {
+      name: 'unicorn',
+      symbol: 'unicorn'
+    },
     '3': null,
     '4': null,
     '5': null,
     '6': null,
     '7': null,
-    '8': null,
+    '8': {
+      name: 'skiprook',
+      symbol: 'skiprook'
+    },
     '9': null,
     '10': null,
     '11': null,
