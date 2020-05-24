@@ -49,22 +49,62 @@ const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceSta
   let moveTypes = [];
   let moveNoCapTypes = [];
   let capNoMoveTypes = [];
-  if (pieceDefs[pieceName].components) {
-    let compoundPiece = pieceDefs[pieceName]
-    let components = compoundPiece["components"];
+  let piece = pieceDefs[pieceName];
+  if (piece.components) {
+    let components = piece.components;
     components.forEach((component) => {
       moveTypes = moveTypes.concat(pieceDefs[component]["move"] || []);
       moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[component]["moveNoCap"] || []);
       capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[component]["capNoMove"] || []);
     })
-    moveTypes = moveTypes.concat(compoundPiece['move'] || []);
-    moveNoCapTypes = moveNoCapTypes.concat(compoundPiece['moveNoCap'] || []);
-    capNoMoveTypes = capNoMoveTypes.concat(compoundPiece['capNoMove'] || []);
-  } else {
-    moveTypes = pieceDefs[pieceName]["move"] || [];
-    moveNoCapTypes = pieceDefs[pieceName]["moveNoCap"] || [];
-    capNoMoveTypes = pieceDefs[pieceName]["capNoMove"] || [];
   }
+  if (piece.frontComponents) {
+    let components = piece.frontComponents;
+    let tempMoveableSquares = []
+    components.forEach((component) => {
+      let tempMoveTypes = pieceDefs[component]["move"] || [];
+      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
+      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      tempMoveTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
+      })
+      tempMoveNoCapTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], true, false))
+      })
+      tempCapNoMoveTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, true))
+      })
+    })
+    moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
+      return moveableSquare[1] < y;
+    }))
+  }
+  if (piece.backComponents) {
+    let components = piece.backComponents;
+    let tempMoveableSquares = []
+    components.forEach((component) => {
+      let tempMoveTypes = pieceDefs[component]["move"] || [];
+      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
+      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      tempMoveTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
+      })
+      tempMoveNoCapTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], true, false))
+      })
+      tempCapNoMoveTypes.forEach((moveType) => {
+        tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, true))
+      })
+    })
+    moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
+      return moveableSquare[1] > y;
+    }))
+  }
+
+  moveTypes = moveTypes.concat(pieceDefs[pieceName]["move"] || []);
+  moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[pieceName]["moveNoCap"] || []);
+  capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[pieceName]["capNoMove"] || []);
+
   moveTypes.forEach((moveType) => {
     moveableSquares = moveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
   })
@@ -443,11 +483,8 @@ const pieceDefs = {
     rarity: 1
   },
   hunter: {
-    move: [
-      ['N', MAX_MOVE, false],
-      ['SE', MAX_MOVE, false],
-      ['SW', MAX_MOVE, false]
-    ],
+    frontComponents: ["rook"],
+    backComponents: ["bishop"],
     rarity: 2
   },
   falcon: {

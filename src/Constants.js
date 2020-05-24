@@ -40,7 +40,10 @@ export const initialPieceState = {
     '3': null,
     '4': null,
     '5': null,
-    '6': null,
+    '6': {
+      name: 'hunter',
+      symbol: 'hunter'
+    },
     '7': null,
     '8': null,
     '9': null,
