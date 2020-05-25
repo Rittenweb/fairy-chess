@@ -43,7 +43,6 @@
 
 const MAX_MOVE = 12;
 
-
 const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
   let moveableSquares = [];
   let moveTypes = [];
@@ -498,6 +497,13 @@ const pieceDefs = {
     ],
     rarity: 1
   },
+  woodenman: {
+    move: [
+      ['NW', 3],
+      ['NE', 3]
+    ],
+    rarity: 1
+  },
   centurion: {
     move: [
       ["NW", 1],
@@ -509,6 +515,14 @@ const pieceDefs = {
   tripper: {
     move: [
       ['leap', [3, 3]]
+    ],
+    rarity: 1
+  },
+  bird: {
+    frontComponents: ['king', 'alfil', 'dababba'],
+    move: [
+      ['E', 1],
+      ['W', 1]
     ],
     rarity: 1
   },
@@ -582,6 +596,31 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  napoleon: {
+    components: ['ferz'],
+    move: [
+      ['preciseLeap', [
+        [1, -2],
+        [1, 2],
+        [-1, -2],
+        [-1, 2]
+      ]]
+    ],
+    rarity: 2
+  },
+  knave: {
+    move: [
+      ['preciseLeap', [
+        [0, 2],
+        [0, -2],
+        [2, 1],
+        [-2, 1],
+        [-2, -1],
+        [2, -1]
+      ]]
+    ],
+    rarity: 2
+  },
   bull: {
     move: [
       ['leap', [3, 4]]
@@ -632,6 +671,11 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  deer: {
+    frontComponents: ['bishop'],
+    backComponents: ['elephant'],
+    rarity: 2
+  },
   sword: {
     components: ["wazir"],
     move: [
@@ -646,6 +690,31 @@ const pieceDefs = {
       ['E', MAX_MOVE],
       ['W', MAX_MOVE],
     ]
+  },
+  rightdog: {
+    move: [
+      ['N', MAX_MOVE],
+      ['SW', MAX_MOVE],
+      ['S', 1]
+    ],
+    rarity: 2
+  },
+  leftdog: {
+    move: [
+      ['N', MAX_MOVE],
+      ['SE', MAX_MOVE],
+      ['S', 1]
+    ],
+    rarity: 2
+  },
+  monkey: {
+    move: [
+      ['E', MAX_MOVE],
+      ['W', MAX_MOVE],
+      ['SE', 2],
+      ['NW', 2]
+    ],
+    rarity: 2
   },
   shortrook: {
     move: [
@@ -694,6 +763,34 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  sausage: {
+    components: ['ferz'],
+    move: [
+      ['repeatingLeap', [
+        [1, 2],
+        [1, -2],
+        [-1, -2],
+        [-1, 2],
+        [0, 3],
+        [0, -3]
+      ]]
+    ],
+    rarity: 2
+  },
+  shroomer: {
+    backComponents: ['ferz'],
+    move: [
+      ['repeatingLeap', [
+        [1, 2],
+        [1, -2],
+        [-1, -2],
+        [-1, 2],
+        [3, -1],
+        [-3, -1]
+      ]]
+    ],
+    rarity: 2
+  },
   knight: {
     move: [
       ["leap", [2, 1]]
@@ -718,6 +815,21 @@ const pieceDefs = {
       ["SE", MAX_MOVE],
       ["SW", MAX_MOVE],
       ["NW", MAX_MOVE]
+    ],
+    rarity: 2
+  },
+  crabinal: {
+    move: [
+      ["NE", 5],
+      ["SE", 5],
+      ["SW", 5],
+      ["NW", 5],
+      ['preciseLeap', [
+        [1, -2],
+        [-1, -2],
+        [2, -1],
+        [-2, -1]
+      ]]
     ],
     rarity: 2
   },
@@ -764,6 +876,11 @@ const pieceDefs = {
       ["S", MAX_MOVE],
       ["W", MAX_MOVE]
     ],
+    rarity: 2
+  },
+  redcap: {
+    components: ['shield'],
+    frontComponents: ['bishop'],
     rarity: 2
   },
   anticorn: {
@@ -850,8 +967,34 @@ const pieceDefs = {
     components: ['antelope', 'alfil', 'tripper'],
     rarity: 2
   },
+  mountain: {
+    components: ['bishop'],
+    move: [
+      ['N', 4],
+      ['W', 4]
+    ],
+    rarity: 2
+  },
+  valley: {
+    components: ['bishop'],
+    move: [
+      ['E', 4],
+      ['S', 4]
+    ],
+    rarity: 2
+  },
   centaur: {
     components: ['knight', 'king'],
+    rarity: 2
+  },
+  dove: {
+    move: [
+      ['NE', 5],
+      ['NW', 5],
+      ['E', 1],
+      ['W', 1],
+      ['S', 1]
+    ],
     rarity: 2
   },
   whale: {
@@ -865,6 +1008,14 @@ const pieceDefs = {
     components: ['king', 'sword'],
     rarity: 2
   },
+  turtlesnake: {
+    components: ['king'],
+    move: [
+      ['NW', MAX_MOVE],
+      ['SE', MAX_MOVE]
+    ],
+    rarity: 2
+  },
   butcher: {
     frontComponents: ['centurion', 'alfil'],
     backComponents: ['bishop'],
@@ -873,6 +1024,39 @@ const pieceDefs = {
       [-2, 0]
     ]],
     rarity: 2,
+  },
+  firstwing: {
+    components: ['king'],
+    move: [
+      ['NW', MAX_MOVE],
+      ['SW', MAX_MOVE],
+      ['preciseLeap', [
+        [2, 1],
+        [2, -1]
+      ]]
+    ],
+    rarity: 2
+  },
+  secondwing: {
+    move: [
+      ['NE', MAX_MOVE],
+      ['E', MAX_MOVE],
+      ['SE', MAX_MOVE],
+      ['preciseLeap', [
+        [-2, 0],
+        [-3, 0]
+      ]]
+    ],
+    rarity: 2
+  },
+  vermillion: {
+    move: [
+      ['NE', MAX_MOVE],
+      ['SW', MAX_MOVE],
+      ['N', 3],
+      ['S', 3],
+    ],
+    rarity: 2
   },
   whitehorse: {
     components: ['falcon'],
@@ -920,8 +1104,66 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  bowman: {
+    components: ['woodenman'],
+    move: [
+      ['N', MAX_MOVE],
+      ['E', 2],
+      ['W', 2],
+      ['S', 1]
+    ],
+    rarity: 2
+  },
+  clouddragon: {
+    components: ['bishop', 'king'],
+    move: [
+      ['S', MAX_MOVE]
+    ],
+    rarity: 3
+  },
+  winddragon: {
+    components: ['secondwing'],
+    move: [
+      ['W', MAX_MOVE],
+      ['NW', MAX_MOVE],
+      ['SW', 1]
+    ],
+    rarity: 3
+  },
+  earthdragon: {
+    backComponents: ["bishop"],
+    frontComponents: ['king', 'alfil'],
+    move: [
+      ['preciseLeap', [
+        [2, -1],
+        [-2, -1],
+        [3, -1],
+        [-3, -1]
+      ]]
+    ],
+    rarity: 3
+  },
   duchess: {
     components: ['skiprook', 'bishop'],
+    rarity: 3
+  },
+  goldenbird: {
+    components: ['machine', 'wooden man'],
+    frontComponents: ['rook'],
+    backComponents: ['rook'],
+    move: [
+      ['SE', MAX_MOVE],
+      ['SW', MAX_MOVE]
+    ],
+    rarity: 3
+  },
+  demon: {
+    components: ['shortrook'],
+    frontComponents: ['bishop'],
+    move: [
+      ['E', MAX_MOVE],
+      ['W', MAX_MOVE]
+    ],
     rarity: 3
   },
   stag: {
