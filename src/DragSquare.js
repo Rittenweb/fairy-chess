@@ -59,7 +59,6 @@ const DragSquare = ({ x, y, piece, canDrop }) => {
     squareColor = 'yellow';
   }
 
-  console.count('dragsquare');
   return (
     <div
       className='square'
