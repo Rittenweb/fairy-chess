@@ -462,6 +462,17 @@ const pieceDefs = {
     ],
     rarity: 1
   },
+  mantis: {
+    backComponents: ['alfil'],
+    moveNoCap: [
+      ['N', 1],
+      ['S', 1]
+    ],
+    capNoMove: [
+      ['NE', 3]
+    ],
+    rarity: 1
+  },
   silver: {
     components: ['ferz'],
     move: [
@@ -488,12 +499,77 @@ const pieceDefs = {
     frontComponents: ['alfil'],
     rarity: 1
   },
+  narrow: {
+    move: [
+      ['preciseLeap', [
+        [1, 2],
+        [1, -2],
+        [-1, -2],
+        [-1, 2]
+      ]]
+    ],
+    rarity: 1
+  },
+  hobbit: {
+    moveNoCap: [
+      ['N', 2],
+      ['E', 2],
+      ['S', 2],
+      ['W', 2],
+    ],
+    capNoMove: [
+      ['NE', 1],
+      ['SE', 1],
+      ['SW', 1],
+      ['NW', 1],
+    ],
+    rarity: 1
+  },
+  goat: {
+    moveNoCap: [
+      ['NE', 1],
+      ['SE', 1],
+      ['SW', 1],
+      ['NW', 1],
+    ],
+    capNoMove: [
+      ['N', 2],
+      ['E', 2],
+      ['S', 2],
+      ['W', 2],
+    ],
+    rarity: 1
+  },
+  drunk: {
+    moveNoCap: [
+      ['NE', 1],
+      ['SE', 1],
+      ['SW', 1],
+      ['NW', 1],
+      ['E', 1],
+      ['W', 1],
+      ['S', 1]
+    ],
+    capNoMove: [
+      ['N', 1]
+    ],
+    rarity: 1
+  },
   ferz: {
     move: [
       ["NE", 1],
       ["SE", 1],
       ["SW", 1],
       ["NW", 1],
+    ],
+    rarity: 1
+  },
+  pikeman: {
+    move: [
+      ['NW', 1],
+      ['W', 1],
+      ['SE', 1],
+      ['E', 1]
     ],
     rarity: 1
   },
@@ -512,9 +588,29 @@ const pieceDefs = {
     ],
     rarity: 1
   },
+  stork: {
+    components: ['alfil'],
+    capNoMove: [
+      ['N', 1],
+      ['E', 1],
+      ['S', 1],
+      ['W', 1],
+    ],
+    rarity: 1
+  },
   tripper: {
     move: [
       ['leap', [3, 3]]
+    ],
+    rarity: 1
+  },
+  arrowpawn: {
+    moveNoCap: [
+      ['N', MAX_MOVE]
+    ],
+    capNoMove: [
+      ['NE', MAX_MOVE],
+      ['NW', MAX_MOVE]
     ],
     rarity: 1
   },
@@ -547,7 +643,15 @@ const pieceDefs = {
         [2, 0]
       ]]
     ],
-    rarity: 2,
+    rarity: 1,
+  },
+  elemental: {
+    components: ['plus', 'dabbaba'],
+    moveNoCap: [
+      ['SE', 1],
+      ['SW', 1]
+    ],
+    rarity: 1
   },
   machine: {
     components: ['wazir', 'dababba'],
@@ -584,6 +688,16 @@ const pieceDefs = {
     ],
     rarity: 1
   },
+  tadpole: {
+    components: ['ferz', 'trebuchet'],
+    capNoMove: [
+      ['N', 1],
+      ['S', 1],
+      ['E', 1],
+      ['W', 1],
+    ],
+    rarity: 2
+  },
   giraffe: {
     move: [
       ['leap', [4, 1]]
@@ -597,15 +711,7 @@ const pieceDefs = {
     rarity: 2
   },
   napoleon: {
-    components: ['ferz'],
-    move: [
-      ['preciseLeap', [
-        [1, -2],
-        [1, 2],
-        [-1, -2],
-        [-1, 2]
-      ]]
-    ],
+    components: ['ferz', 'narrow'],
     rarity: 2
   },
   knave: {
@@ -640,6 +746,54 @@ const pieceDefs = {
   camel: {
     move: [
       ['leap', [3, 1]]
+    ],
+    rarity: 2
+  },
+  spectre: {
+    moveNoCap: [
+      ['N', MAX_MOVE],
+      ['E', MAX_MOVE],
+      ['S', MAX_MOVE],
+      ['W', MAX_MOVE]
+    ],
+    capNoMove: [
+      ['NE', 1],
+      ['SE', 1],
+      ['SW', 1],
+      ['NW', 1],
+    ],
+    rarity: 2
+  },
+  warlord: {
+    moveNoCap: [
+      ['NE', MAX_MOVE],
+      ['SE', MAX_MOVE],
+      ['SW', MAX_MOVE],
+      ['NW', MAX_MOVE]
+    ],
+    capNoMove: [
+      ['N', 1],
+      ['E', 1],
+      ['S', 1],
+      ['W', 1],
+    ],
+    rarity: 2
+  },
+  carpenter: {
+    moveNoCap: [
+      ['leap', [2, 0]]
+    ],
+    capNoMove: [
+      ['leap', [2, 1]]
+    ]
+  },
+  gnomon: {
+    components: ['threerider', 'narrow'],
+    move: [
+      ['preciseLeap',
+        [0, -1],
+        [0, 1],
+      ]
     ],
     rarity: 2
   },
@@ -716,6 +870,13 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  elk: {
+    components: ['tripper', 'zebra'],
+    move: [
+      ['leap', [4, 2]]
+    ],
+    rarity: 2
+  },
   shortrook: {
     move: [
       ['N', 4],
@@ -764,30 +925,37 @@ const pieceDefs = {
     rarity: 2
   },
   sausage: {
-    components: ['ferz'],
+    components: ['ferz', 'narrow'],
     move: [
-      ['repeatingLeap', [
-        [1, 2],
-        [1, -2],
-        [-1, -2],
-        [-1, 2],
+      ['preciseLeap', [
         [0, 3],
         [0, -3]
-      ]]
+      ]],
+      ['E', 1],
+      ['W', 1]
     ],
     rarity: 2
   },
   shroomer: {
+    components: ['narrow'],
     backComponents: ['ferz'],
     move: [
-      ['repeatingLeap', [
-        [1, 2],
-        [1, -2],
-        [-1, -2],
-        [-1, 2],
+      ['preciseLeap', [
         [3, -1],
         [-3, -1]
       ]]
+    ],
+    rarity: 2
+  },
+  sprite: {
+    moveNoCap: [
+      ['leap', [2, 1]]
+    ],
+    capNoMove: [
+      ["NE", MAX_MOVE],
+      ["SE", MAX_MOVE],
+      ["SW", MAX_MOVE],
+      ["NW", MAX_MOVE]
     ],
     rarity: 2
   },
@@ -818,18 +986,61 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  woodenbird: {
+    components: ['machine'],
+    move: [
+      ["leapThenMove", [
+        [3, 3],
+        ["SE", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [3, -3],
+        ["NE", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [-3, 3],
+        ["SW", MAX_MOVE]
+      ]],
+      ["leapThenMove", [
+        [-3, -3],
+        ["NW", MAX_MOVE]
+      ]],
+    ],
+    rarity: 2
+  },
+  pixie: {
+    components: ['warlord'],
+    capNoMove: [
+      ['N', MAX_MOVE],
+      ['E', MAX_MOVE],
+      ['S', MAX_MOVE],
+      ['W', MAX_MOVE],
+    ],
+    rarity: 2
+  },
   crabinal: {
+    frontComponents: ['narrow'],
     move: [
       ["NE", 5],
       ["SE", 5],
       ["SW", 5],
       ["NW", 5],
       ['preciseLeap', [
-        [1, -2],
-        [-1, -2],
-        [2, -1],
-        [-2, -1]
+        [2, 1],
+        [-2, 1]
       ]]
+    ],
+    rarity: 2
+  },
+  sylph: {
+    capNoMove: [
+      ['leap', [2, 1]]
+    ],
+    moveNoCap: [
+      ["N", MAX_MOVE],
+      ["E", MAX_MOVE],
+      ["S", MAX_MOVE],
+      ["W", MAX_MOVE]
     ],
     rarity: 2
   },
@@ -904,6 +1115,10 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  macaw: {
+    components: ['sprite', 'skiprook', 'plus'],
+    rarity: 2
+  },
   antelope: {
     components: ['dababba', 'trebuchet'],
     rarity: 2
@@ -939,6 +1154,27 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  pegasus: {
+    components: ['narrow'],
+    move: [
+      ['N', MAX_MOVE]
+    ],
+    rarity: 2
+  },
+  doctor: {
+    move: [
+      ['repeatingLeap', [2, 2]],
+      ['preciseLeap', [
+        [2, 0],
+        [3, 0],
+        [4, 0],
+        [-2, 0],
+        [-3, 0],
+        [-4, 0]
+      ]]
+    ],
+    rarity: 2
+  },
   leopard: {
     components: ['bishop', 'wazir'],
     rarity: 2
@@ -965,6 +1201,33 @@ const pieceDefs = {
   },
   hawk: {
     components: ['antelope', 'alfil', 'tripper'],
+    rarity: 2
+  },
+  albatross: {
+    components: ['sylph', 'camel'],
+    rarity: 2
+  },
+  nurse: {
+    frontComponents: ['centurion', 'alfil'],
+    backComponents: ['rook'],
+    move: [
+      ['preciseLeap', [
+        [2, 0],
+        [4, 0],
+        [6, 0],
+        [8, 0],
+        [-2, 0],
+        [-4, 0],
+        [-6, 0],
+        [-8, 0]
+      ]]
+    ],
+    rarity: 2
+  },
+  darter: {
+    components: ['wazir'],
+    frontComponents: ['knight'],
+    backComponents: ['doctor'],
     rarity: 2
   },
   mountain: {
@@ -995,6 +1258,69 @@ const pieceDefs = {
       ['W', 1],
       ['S', 1]
     ],
+    rarity: 2
+  },
+  hippogriff: {
+    components: ['wazir'],
+    move: [
+      ['leapThenMove', [
+        [1, 4],
+        ["S", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -4],
+        ["N", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 4],
+        ["S", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -4],
+        ["N", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [4, 1],
+        ["E", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [4, -1],
+        ["E", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, 1],
+        ["W", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, -1],
+        ["W", MAX_MOVE]
+      ]],
+    ],
+    rarity: 2
+  },
+  peacock: {
+    backComponents: ['elephant'],
+    move: [
+      ['leapThenMove', [
+        [0, -1],
+        ['NW', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [0, -1],
+        ['NE', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 0],
+        ['NW', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, 0],
+        ['NE', MAX_MOVE]
+      ]],
+    ]
+  },
+  vulture: {
+    components: ['pixie', 'king'],
     rarity: 2
   },
   whale: {
@@ -1114,6 +1440,18 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  dreameater: {
+    components: ['nurse'],
+    frontComponents: ['rook', 'doctor'],
+    backComponents: ['rook'],
+    rarity: 2
+  },
+  raindragon: {
+    components: ['nurse'],
+    frontComponents: ['narrow'],
+    backComponents: ['bishop'],
+    rarity: 3
+  },
   clouddragon: {
     components: ['bishop', 'king'],
     move: [
@@ -1148,7 +1486,7 @@ const pieceDefs = {
     rarity: 3
   },
   goldenbird: {
-    components: ['machine', 'wooden man'],
+    components: ['machine', 'woodenman'],
     frontComponents: ['rook'],
     backComponents: ['rook'],
     move: [
@@ -1168,11 +1506,8 @@ const pieceDefs = {
   },
   stag: {
     components: ['rook'],
+    frontComponents: ['narrow'],
     backComponents: ['elephant'],
-    move: ['preciseLeap', [
-      [1, -2],
-      [-1, -2]
-    ]],
     rarity: 3
   },
   starrider: {
@@ -1204,6 +1539,84 @@ const pieceDefs = {
       ["NW", 3],
     ],
     rarity: 3
+  },
+  kangaroo: {
+    move: [
+      ['leapThenMove', [
+        [0, -3],
+        ["N", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [0, 3],
+        ["S", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, 0],
+        ["W", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, 0],
+        ["E", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, -3],
+        ["NE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, 3],
+        ["SE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, -3],
+        ["NW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, 3],
+        ["SW", MAX_MOVE]
+      ]],
+    ],
+    rarity: 3
+  },
+  elder: {
+    moveNoCap: [
+      ["N", MAX_MOVE],
+      ["E", MAX_MOVE],
+      ["S", MAX_MOVE],
+      ["W", MAX_MOVE],
+      ["NE", MAX_MOVE],
+      ["SE", MAX_MOVE],
+      ["SW", MAX_MOVE],
+      ["NW", MAX_MOVE],
+    ],
+    capNoMove: [
+      ["N", 3],
+      ["E", 3],
+      ["S", 3],
+      ["W", 3],
+      ["NE", 3],
+      ["SE", 3],
+      ["SW", 3],
+      ["NW", 3],
+    ],
+    rarity: 3
+  },
+  spiritbird: {
+    components: ['shortrook'],
+    frontComponents: ['rook'],
+    backComponents: ['rook'],
+    move: [
+      ['SW', 4],
+      ['SE', 4],
+      ['leapThenMove', [
+        [4, -4],
+        ['NE', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, -4],
+        ['NW', MAX_MOVE]
+      ]],
+    ],
+    rarity: 3,
   },
   unicorn: {
     move: [
@@ -1251,13 +1664,135 @@ const pieceDefs = {
     ],
     rarity: 3
   },
+  wolf: {
+    move: [
+      ['leapThenMove', [
+        [0, 2],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [0, -2],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, 0],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, 0],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, 2],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, 2],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, -2],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [2, -2],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, 2],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, 2],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, -2],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-2, -2],
+        ['W', MAX_MOVE]
+      ]],
+    ],
+    rarity: 3
+  },
+  zurafa: {
+    move: [
+      ['leapThenMove', [
+        [1, 3],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, 3],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, 1],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, 1],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -3],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [1, -3],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, -1],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [3, -1],
+        ['E', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -3],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, -3],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, -1],
+        ['N', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, -1],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 3],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-1, 3],
+        ['W', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, 1],
+        ['S', MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-3, 1],
+        ['W', MAX_MOVE]
+      ]],
+    ],
+    rarity: 3
+  },
   witch: {
     components: ['nightrider'],
     move: [
       ['repeatingLeap', [3, 1]],
       ['repeatingLeap', [3, 2]]
     ],
-    rarity: 2,
+    rarity: 3,
   },
   warlock: {
     components: ['knight', 'camel', 'zebra'],
