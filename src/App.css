@@ -22,8 +22,8 @@
 .square {
   position: relative;
   font-size: 2rem;
-  height: 8.3%;
-  width: 8.3%;
+  height: 8.33%;
+  width: 8.33%;
   color: white;
   display: flex;
   justify-content: center;

@@ -44,11 +44,6 @@
 const MAX_MOVE = 12;
 
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
-  let num = 0;
-  for (let thing in pieceDefs) {
-    num++;
-  }
-  console.log(num);
   let moveableSquares = [];
   let moveTypes = [];
   let moveNoCapTypes = [];
@@ -497,10 +492,92 @@ const moveAlgorithms = {
       }
     }
     return moveableSquares;
+  },
+  reflect: (x, y, direction, pieceState) => {
+    const moveableSquares = [];
+    let xdelta;
+    let ydelta
+    if (direction === 'NE') {
+      xdelta = 1;
+      ydelta = -1;
+    } else if (direction === 'SE') {
+      xdelta = 1;
+      ydelta = 1;
+    } else if (direction === 'SW') {
+      xdelta = -1;
+      ydelta = 1;
+    } else {
+      xdelta = -1;
+      ydelta = -1;
+    }
+    x = x + xdelta;
+    y = y + ydelta;
+    while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
+      moveableSquares.push([x, y]);
+      if (pieceState[x][y] !== null) {
+        break;
+      }
+      x = x + xdelta;
+      y = y + ydelta;
+    }
+    if (x < 0) {
+      xdelta = xdelta * -1;
+      x = 0;
+      y = y + (ydelta * -1)
+    } else if (x >= MAX_MOVE) {
+      xdelta = xdelta * -1;
+      x = MAX_MOVE - 1;
+      y = y + (ydelta * -1)
+    } else if (y < 0) {
+      ydelta = ydelta * -1;
+      y = 0;
+      x = x + (xdelta * -1)
+    } else if (y >= MAX_MOVE) {
+      ydelta = ydelta * -1;
+      y = MAX_MOVE - 1
+      x = x + (xdelta * -1)
+    }
+    while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
+      moveableSquares.push([x, y]);
+      if (pieceState[x][y] !== null) {
+        break;
+      }
+      x = x + xdelta;
+      y = y + ydelta;
+    }
+    return moveableSquares;
+  },
+  all: (x, y, nullArg, pieceState) => {
+    const moveableSquares = [];
+    for (let i = 0; i < MAX_MOVE; i++) {
+      for (let j = 0; j < MAX_MOVE; j++) {
+        if (pieceState[i][j] === null) {
+          moveableSquares.push([i, j]);
+        }
+      }
+    }
+    return moveableSquares;
+  },
+  bugeye: (x, y) => {
+    debugger;
+    const moveableSquares = [];
+    for (let i = 0; i < MAX_MOVE; i++) {
+      for (let j = 0; j < MAX_MOVE; j++) {
+        let difx = Math.abs(x - i);
+        let dify = Math.abs(y - j)
+        if (i !== x && j !== y && difx !== dify && !(dify / difx === 2) && !(difx / dify === 2)) {
+          moveableSquares.push([i, j]);
+        }
+      }
+    }
+    return moveableSquares;
   }
 }
 
 const pieceDefs = {
+  dummy: {
+    rarity: 1
+  },
   pawn: {
     moveNoCap: [
       ["N", 1]
@@ -1387,6 +1464,15 @@ const pieceDefs = {
     components: ['knight', 'king'],
     rarity: 2
   },
+  reflector: {
+    move: [
+      ['reflect', 'NE'],
+      ['reflect', 'SE'],
+      ['reflect', 'SW'],
+      ['reflect', 'NW'],
+    ],
+    rarity: 2
+  },
   dove: {
     move: [
       ['NE', 5],
@@ -2032,6 +2118,19 @@ const pieceDefs = {
   },
   nightqueen: {
     components: ['queen', 'nightrider'],
+    rarity: 3
+  },
+  kraken: {
+    components: ['king'],
+    moveNoCap: [
+      ['all']
+    ],
+    rarity: 3,
+  },
+  bugeyedmonster: {
+    move: [
+      ['bugeye']
+    ],
     rarity: 3
   }
 }
