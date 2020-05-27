@@ -15,7 +15,15 @@ export default function Modal({ piece, handleClick }) {
               style={{
                 backgroundColor: 'blue',
               }}></div>
-            Move or Capture
+            Move or Capture (Slide)
+          </div>
+          <div className='flex'>
+            <div
+              className='modal-square'
+              style={{
+                backgroundColor: 'purple',
+              }}></div>
+            Move or Capture (Leap)
           </div>
           <div className='flex'>
             <div

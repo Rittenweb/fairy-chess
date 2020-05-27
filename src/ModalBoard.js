@@ -20,10 +20,16 @@ for (let i = 0; i < 12; i++) {
 export default function ModalBoard({ piece }) {
   let squares = {};
   let moveSquares = [];
+  let leapSquares = [];
   let moveNoCapSquares = [];
   let capNoMoveSquares = [];
 
-  [moveSquares, moveNoCapSquares, capNoMoveSquares] = getSquareHighlights(
+  [
+    moveSquares,
+    leapSquares,
+    moveNoCapSquares,
+    capNoMoveSquares,
+  ] = getSquareHighlights(
     11,
     11,
     piece.name,
@@ -32,6 +38,7 @@ export default function ModalBoard({ piece }) {
   );
   let [
     tempMoveSquares,
+    tempLeapSquares,
     tempMoveNoCapSquares,
     tempCapNoMoveSquares,
   ] = getSquareHighlights(
@@ -44,6 +51,9 @@ export default function ModalBoard({ piece }) {
   moveSquares = moveSquares.concat(
     tempMoveSquares.map((square) => [square[0] + 11, square[1]]) || []
   );
+  leapSquares = leapSquares.concat(
+    tempLeapSquares.map((square) => [square[0] + 11, square[1]]) || []
+  );
   moveNoCapSquares = moveNoCapSquares.concat(
     tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1]]) || []
   );
@@ -53,6 +63,7 @@ export default function ModalBoard({ piece }) {
 
   [
     tempMoveSquares,
+    tempLeapSquares,
     tempMoveNoCapSquares,
     tempCapNoMoveSquares,
   ] = getSquareHighlights(
@@ -65,6 +76,9 @@ export default function ModalBoard({ piece }) {
   moveSquares = moveSquares.concat(
     tempMoveSquares.map((square) => [square[0], square[1] + 11]) || []
   );
+  leapSquares = leapSquares.concat(
+    tempLeapSquares.map((square) => [square[0], square[1] + 11]) || []
+  );
   moveNoCapSquares = moveNoCapSquares.concat(
     tempMoveNoCapSquares.map((square) => [square[0], square[1] + 11]) || []
   );
@@ -74,6 +88,7 @@ export default function ModalBoard({ piece }) {
 
   [
     tempMoveSquares,
+    tempLeapSquares,
     tempMoveNoCapSquares,
     tempCapNoMoveSquares,
   ] = getSquareHighlights(
@@ -85,6 +100,9 @@ export default function ModalBoard({ piece }) {
   );
   moveSquares = moveSquares.concat(
     tempMoveSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
+  );
+  leapSquares = leapSquares.concat(
+    tempLeapSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
   );
   moveNoCapSquares = moveNoCapSquares.concat(
     tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
@@ -109,6 +127,9 @@ export default function ModalBoard({ piece }) {
   });
   moveSquares.forEach((square) => {
     squares[square[0]][square[1]] = 'blue';
+  });
+  leapSquares.forEach((square) => {
+    squares[square[0]][square[1]] = 'purple';
   });
   squares[11][11] = 'black';
 
