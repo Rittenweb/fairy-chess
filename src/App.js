@@ -3,7 +3,7 @@ import './App.css';
 import Board from './Board';
 import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
 import { initialPieceState, initialSquareState } from './Constants';
-import getMoveableSquares from './pieceData';
+import { getMoveableSquares } from './pieceData';
 
 function App() {
   const [pieceState, pieceDispatch] = useReducer(
@@ -67,10 +67,8 @@ function App() {
         for (const square of moveableSquares) {
           newState[square[0]][square[1]] = 'yes';
         }
-        console.log(newState);
         return newState;
       case 'dehighlight':
-        console.log(initialSquareState);
         return initialSquareState;
       default:
         throw new Error('No square reducer for action type');

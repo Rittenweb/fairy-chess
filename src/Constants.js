@@ -143,8 +143,8 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': {
-      name: 'bishop',
-      symbol: 'bishop'
+      name: 'nurse',
+      symbol: 'nurse'
     },
     '4': null,
     '5': null,

@@ -50,10 +50,35 @@
 }
 
 .modal {
-  margin: 30vh auto auto auto;
-  height: 33vh;
-  width: 33vh;
+  margin: 25vh auto auto auto;
+  height: 50vh;
+  width: 50vh;
   min-width: 300px;
   min-height: 300px;
-  background-color: blue;
+  background-color: darkslategrey;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.modal-board {
+  height: 60%;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  transform: rotate(90deg);
+}
+
+.modal-square {
+  height: 1.5vh;
+  width: 1.5vh;
+  margin-right: 1.5vh;
+}
+.flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }

@@ -43,7 +43,7 @@
 
 const MAX_MOVE = 12;
 
-const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
+export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
   let moveableSquares = [];
   let moveTypes = [];
   let moveNoCapTypes = [];
@@ -115,6 +115,99 @@ const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceSta
   })
   return moveableSquares;
 };
+
+export const getSquareHighlights = function getSquareHighlights(x, y, pieceName, piecesEmpty, piecesFull) {
+
+
+  let moveSquares = [];
+  let moveNoCapSquares = [];
+  let capNoMoveSquares = [];
+  let moveTypes = [];
+  let moveNoCapTypes = [];
+  let capNoMoveTypes = [];
+  let piece = pieceDefs[pieceName];
+  if (piece.components) {
+    let components = piece.components;
+    components.forEach((component) => {
+      moveTypes = moveTypes.concat(pieceDefs[component]["move"] || []);
+      moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[component]["moveNoCap"] || []);
+      capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[component]["capNoMove"] || []);
+    })
+  }
+  if (piece.frontComponents) {
+    let components = piece.frontComponents;
+    let tempMoveSquares = []
+    let tempMoveNoCapSquares = [];
+    let tempCapNoMoveSquares = [];
+    components.forEach((component) => {
+      let tempMoveTypes = pieceDefs[component]["move"] || [];
+      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
+      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      tempMoveTypes.forEach((moveType) => {
+        tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
+      })
+      tempMoveNoCapTypes.forEach((moveType) => {
+        tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
+      })
+      tempCapNoMoveTypes.forEach((moveType) => {
+        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+      })
+    })
+    moveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] < y;
+    }));
+    moveNoCapSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] < y;
+    }));
+    capNoMoveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] < y;
+    }));
+  }
+  if (piece.backComponents) {
+    let components = piece.backComponents;
+    let tempMoveSquares = []
+    let tempMoveNoCapSquares = [];
+    let tempCapNoMoveSquares = [];
+    components.forEach((component) => {
+      let tempMoveTypes = pieceDefs[component]["move"] || [];
+      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
+      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      tempMoveTypes.forEach((moveType) => {
+        tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
+      })
+      tempMoveNoCapTypes.forEach((moveType) => {
+        tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
+      })
+      tempCapNoMoveTypes.forEach((moveType) => {
+        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+      })
+    })
+    moveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] > y;
+    }));
+    moveNoCapSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] > y;
+    }));
+    capNoMoveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
+      return moveableSquare[1] > y;
+    }));
+  }
+  moveTypes = moveTypes.concat(pieceDefs[pieceName]["move"] || []);
+  moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[pieceName]["moveNoCap"] || []);
+  capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[pieceName]["capNoMove"] || []);
+
+  moveTypes.forEach((moveType) => {
+    moveSquares = moveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
+  })
+  moveNoCapTypes.forEach((moveType) => {
+    moveNoCapSquares = moveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
+  })
+  capNoMoveTypes.forEach((moveType) => {
+    capNoMoveSquares = capNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+  })
+  return [moveSquares, moveNoCapSquares, capNoMoveSquares];
+};
+
 
 const moveAlgorithms = {
   N: (x, y, distance, pieceState, leaping, noCapture, onlyCapture) => {
@@ -1909,5 +2002,3 @@ const pieceDefs = {
     rarity: 3
   }
 }
-
-export default getMoveableSquares;
