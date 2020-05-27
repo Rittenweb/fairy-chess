@@ -44,6 +44,11 @@
 const MAX_MOVE = 12;
 
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
+  let num = 0;
+  for (let thing in pieceDefs) {
+    num++;
+  }
+  console.log(num);
   let moveableSquares = [];
   let moveTypes = [];
   let moveNoCapTypes = [];
@@ -524,6 +529,17 @@ const pieceDefs = {
     ],
     rarity: 1
   },
+  fish: {
+    components: ['dwarf'],
+    moveNoCap: [
+      ['S', 1]
+    ],
+    capNoMove: [
+      ['SW', 1],
+      ['SE', 1]
+    ],
+    rarity: 1
+  },
   wazir: {
     move: [
       ["N", 1],
@@ -767,6 +783,7 @@ const pieceDefs = {
       ['E', 2],
       ['W', 2]
     ],
+    rarity: 1
   },
   king: {
     move: [
@@ -878,7 +895,8 @@ const pieceDefs = {
     ],
     capNoMove: [
       ['leap', [2, 1]]
-    ]
+    ],
+    rarity: 2
   },
   gnomon: {
     components: ['threerider', 'narrow'],
@@ -936,7 +954,8 @@ const pieceDefs = {
     move: [
       ['E', MAX_MOVE],
       ['W', MAX_MOVE],
-    ]
+    ],
+    rarity: 2
   },
   rightdog: {
     move: [
@@ -1137,6 +1156,34 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  congo: {
+    components: ['alibaba'],
+    moveNoCap: [
+      ["N", 1],
+      ["E", 1],
+      ["S", 1],
+      ["W", 1],
+      ["NE", 1],
+      ["SE", 1],
+      ["SW", 1],
+      ["NW", 1],
+    ],
+    rarity: 2
+  },
+  bongo: {
+    components: ['alibaba'],
+    capNoMove: [
+      ["N", 1],
+      ["E", 1],
+      ["S", 1],
+      ["W", 1],
+      ["NE", 1],
+      ["SE", 1],
+      ["SW", 1],
+      ["NW", 1],
+    ],
+    rarity: 2
+  },
   deva: {
     components: ['ferz', 'alibaba'],
     rarity: 2
@@ -1171,7 +1218,8 @@ const pieceDefs = {
   },
   snapdragon: {
     components: ['shortrook'],
-    move: ['leap', [4, 2]]
+    move: ['leap', [4, 2]],
+    rarity: 2
   },
   rook: {
     move: [
@@ -1268,10 +1316,6 @@ const pieceDefs = {
     ],
     rarity: 2
   },
-  leopard: {
-    components: ['bishop', 'wazir'],
-    rarity: 2
-  },
   wizard: {
     components: ['ferz', 'camel'],
     rarity: 2
@@ -1284,7 +1328,7 @@ const pieceDefs = {
     components: ['dababba', 'alfil', 'knight'],
     rarity: 2
   },
-  wildebeast: {
+  wildebeest: {
     components: ['knight', 'camel'],
     rarity: 2
   },
@@ -1292,7 +1336,7 @@ const pieceDefs = {
     components: ['trebuchet', 'camel'],
     rarity: 2
   },
-  hawk: {
+  pelican: {
     components: ['antelope', 'alfil', 'tripper'],
     rarity: 2
   },
@@ -1410,7 +1454,8 @@ const pieceDefs = {
         [1, 0],
         ['NE', MAX_MOVE]
       ]],
-    ]
+    ],
+    rarity: 2
   },
   vulture: {
     components: ['pixie', 'king'],
@@ -1492,10 +1537,6 @@ const pieceDefs = {
   },
   fortress: {
     components: ['bishop', 'dababba'],
-    rarity: 2
-  },
-  tiger: {
-    components: ['rook', 'ferz'],
     rarity: 2
   },
   pasha: {
@@ -1620,7 +1661,7 @@ const pieceDefs = {
     ],
     rarity: 3
   },
-  squrrel: {
+  squirrel: {
     move: [
       ["N", 3],
       ["E", 3],
@@ -1940,7 +1981,7 @@ const pieceDefs = {
     components: ['bishop', 'sword'],
     rarity: 3
   },
-  eagle: {
+  glatisant: {
     components: ['boar'],
     move: [
       ['S', MAX_MOVE],
@@ -1970,14 +2011,6 @@ const pieceDefs = {
         [-1, -1],
         ['W', MAX_MOVE]
       ]],
-    ]
-  },
-  glatisant: {
-    components: ['bishop'],
-    move: [
-      ['E', MAX_MOVE],
-      ['S', MAX_MOVE],
-      ['W', MAX_MOVE]
     ],
     rarity: 3
   },

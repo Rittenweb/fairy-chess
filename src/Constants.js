@@ -22,8 +22,8 @@ export const initialPieceState = {
     '5': null,
     '6': null,
     '7': {
-      name: "king",
-      symbol: "king"
+      name: "moon",
+      symbol: "moon"
     },
     '8': null,
     '9': null,
@@ -56,8 +56,8 @@ export const initialPieceState = {
     '2': null,
     '3': null,
     '4': {
-      name: 'rook',
-      symbol: 'rook'
+      name: 'ship',
+      symbol: 'ship'
     },
     '5': null,
     '6': null,
@@ -91,10 +91,7 @@ export const initialPieceState = {
     '3': null,
     '4': null,
     '5': null,
-    '6': {
-      name: "pawn",
-      symbol: "pawn"
-    },
+    '6': null,
     '7': null,
     '8': null,
     '9': null,
@@ -143,8 +140,8 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': {
-      name: 'nurse',
-      symbol: 'nurse'
+      name: 'rose',
+      symbol: 'rose'
     },
     '4': null,
     '5': null,
