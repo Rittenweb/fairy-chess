@@ -10,6 +10,15 @@
   color: white;
 }
 
+.startbutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 45vh;
+  left: 40vw;
+  z-index: 100;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;
@@ -69,7 +78,7 @@
   width: 60%;
   display: flex;
   flex-wrap: wrap;
-  transform: rotate(90deg);
+  /* transform: rotate(-90deg); */
 }
 
 .modal-square {

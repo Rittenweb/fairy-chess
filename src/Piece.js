@@ -35,7 +35,6 @@ export default function Piece({ piece, x, y }) {
 
   const handleRightClick = function handleRightClick(e) {
     e.preventDefault();
-    console.log('did');
     setModalDisplay(!modalDisplay);
   };
 
@@ -49,8 +48,8 @@ export default function Piece({ piece, x, y }) {
       onContextMenu={handleRightClick}>
       <img
         className='piece-symbol'
-        src={require(`./img/${piece.symbol}.png`)}
-        alt={`${piece.symbol}`}></img>
+        src={require(`./img/${piece.name}.png`)}
+        alt={`${piece.name}`}></img>
       {modalDisplay && (
         <Modal piece={piece} handleClick={handleRightClick}></Modal>
       )}

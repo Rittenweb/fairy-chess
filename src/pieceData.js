@@ -43,6 +43,21 @@
 
 const MAX_MOVE = 12;
 
+export const getRarity = function getRarity(pieceName) {
+  return pieceDefs[pieceName].rarity;
+}
+
+export const getPieceWithRarity = function getPieceWithRarity(rarity) {
+  let pieceNames = Object.keys(pieceDefs);
+  let pieceName = pieceNames[pieceNames.length * Math.random() << 0];
+  while (pieceDefs[pieceName].rarity !== rarity) {
+    pieceName = pieceNames[pieceNames.length * Math.random() << 0];
+  }
+  return {
+    name: pieceName
+  };
+}
+
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
   let moveableSquares = [];
   let moveTypes = [];
@@ -177,7 +192,7 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
         tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
       })
       tempCapNoMoveTypes.forEach((moveType) => {
-        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
       })
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         let [veryTempMoveSquares, veryTempLeapSquares, veryTempMoveNoCapSquares, veryTempCapNoMoveSquares] = getSquareHighlights(x, y, component, piecesEmpty, piecesFull);
@@ -223,7 +238,7 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
         tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
       })
       tempCapNoMoveTypes.forEach((moveType) => {
-        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+        tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
       })
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         let [veryTempMoveSquares, veryTempLeapSquares, veryTempMoveNoCapSquares, veryTempCapNoMoveSquares] = getSquareHighlights(x, y, component, piecesEmpty, piecesFull);
@@ -261,7 +276,7 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
     moveNoCapSquares = moveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
   })
   capNoMoveTypes.forEach((moveType) => {
-    capNoMoveSquares = capNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, true, piecesFull, moveType[2], false, true))
+    capNoMoveSquares = capNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
   })
   return [moveSquares, leapSquares, moveNoCapSquares, capNoMoveSquares];
 };
@@ -738,7 +753,7 @@ const pieceDefs = {
     rarity: 1
   },
   goose: {
-    backComponents: ['dabbaba'],
+    backComponents: ['dababba'],
     frontComponents: ['alfil'],
     rarity: 1
   },
@@ -889,7 +904,7 @@ const pieceDefs = {
     rarity: 1,
   },
   elemental: {
-    components: ['plus', 'dabbaba'],
+    components: ['plus', 'dababba'],
     moveNoCap: [
       ['SE', 1],
       ['SW', 1]
@@ -1116,7 +1131,7 @@ const pieceDefs = {
     ],
     rarity: 2
   },
-  elk: {
+  holyghost: {
     components: ['tripper', 'zebra'],
     move: [
       ['leap', [4, 2]]
@@ -1135,10 +1150,12 @@ const pieceDefs = {
   skycat: {
     frontComponents: ['trebuchet', 'tripper'],
     backComponents: ['king'],
-    move: ['preciseLeap', [
-      [3, 0],
-      [-3, 0]
-    ]],
+    move: [
+      ['preciseLeap', [
+        [3, 0],
+        [-3, 0]
+      ]]
+    ],
     rarity: 2
   },
   picket: {
@@ -1352,7 +1369,9 @@ const pieceDefs = {
   },
   snapdragon: {
     components: ['shortrook'],
-    move: ['leap', [4, 2]],
+    move: [
+      ['leap', [4, 2]]
+    ],
     rarity: 2
   },
   rook: {
@@ -1626,10 +1645,12 @@ const pieceDefs = {
   butcher: {
     frontComponents: ['centurion', 'alfil'],
     backComponents: ['bishop'],
-    move: ['preciseLeap', [
-      [2, 0],
-      [-2, 0]
-    ]],
+    move: [
+      ['preciseLeap', [
+        [2, 0],
+        [-2, 0]
+      ]]
+    ],
     rarity: 2,
   },
   firstwing: {
@@ -1667,7 +1688,9 @@ const pieceDefs = {
   },
   whitehorse: {
     components: ['falcon'],
-    move: ['N', MAX_MOVE],
+    move: [
+      ['N', MAX_MOVE]
+    ],
     rarity: 2
   },
   buffalo: {
@@ -1746,6 +1769,7 @@ const pieceDefs = {
     rarity: 3
   },
   earthdragon: {
+    components: ['dababba'],
     backComponents: ["bishop"],
     frontComponents: ['king', 'alfil'],
     move: [
@@ -1854,7 +1878,7 @@ const pieceDefs = {
     ],
     rarity: 3
   },
-  elder: {
+  elderwyrm: {
     moveNoCap: [
       ["N", MAX_MOVE],
       ["E", MAX_MOVE],
@@ -2073,7 +2097,8 @@ const pieceDefs = {
   },
   warlock: {
     components: ['knight', 'camel', 'zebra'],
-    move: ['leap', [1, 4],
+    move: [
+      ['leap', [1, 4]],
       ['leap', [2, 4]],
       ['leap', [1, 5]]
     ],
@@ -2096,7 +2121,7 @@ const pieceDefs = {
     rarity: 3
   },
   caliph: {
-    move: ['bishop', 'camel'],
+    components: ['bishop', 'camel'],
     rarity: 3
   },
   rose: {

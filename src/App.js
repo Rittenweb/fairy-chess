@@ -1,8 +1,17 @@
 import React, { useReducer } from 'react';
 import './App.css';
 import Board from './Board';
-import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
-import { initialPieceState, initialSquareState } from './Constants';
+import StartButton from './StartButton';
+import {
+  PieceDispatchContext,
+  SquareDispatchContext,
+  GameDispatchContext,
+} from './Contexts';
+import {
+  initialPieceState,
+  initialSquareState,
+  initialGameState,
+} from './Constants';
 import { getMoveableSquares } from './pieceData';
 
 function App() {
@@ -14,8 +23,11 @@ function App() {
     squareReducer,
     initialSquareState
   );
+  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
   function pieceReducer(state, action) {
+    let stateClone;
+    let newState;
     switch (action.type) {
       case 'move':
         const oldX = action.xOrg;
@@ -25,9 +37,9 @@ function App() {
         if (oldX === newX && oldY === newY) {
           return state;
         }
-        let stateClone = JSON.parse(JSON.stringify(state));
+        stateClone = JSON.parse(JSON.stringify(state));
 
-        let newState = {
+        newState = {
           ...stateClone,
           [oldX]: {
             ...stateClone[oldX],
@@ -42,8 +54,37 @@ function App() {
           },
         };
         return newState;
-      case 'else':
-        return {};
+      case 'setup':
+        stateClone = JSON.parse(JSON.stringify(state));
+        newState = {
+          ...stateClone,
+          [3]: {
+            ...stateClone[3],
+            [9]: action.piece1,
+          },
+          [4]: {
+            ...stateClone[4],
+            [9]: action.piece2,
+          },
+          [5]: {
+            ...stateClone[5],
+            [9]: action.piece3,
+          },
+          [6]: {
+            ...stateClone[6],
+            [9]: action.piece4,
+          },
+          [7]: {
+            ...stateClone[7],
+            [9]: action.piece5,
+          },
+          [8]: {
+            ...stateClone[8],
+            [9]: action.piece6,
+          },
+        };
+        console.log(newState);
+        return newState;
       default:
         throw new Error('No piece reducer for action type');
     }
@@ -75,15 +116,29 @@ function App() {
     }
   }
 
+  function gameReducer(state, action) {
+    switch (action.type) {
+      case 'gamestart':
+        let stateClone = JSON.parse(JSON.stringify(state));
+        return {
+          ...stateClone,
+          inProgress: true,
+        };
+    }
+  }
+
   return (
     <div className='App'>
       <header></header>
       <main>
-        <PieceDispatchContext.Provider value={pieceDispatch}>
-          <SquareDispatchContext.Provider value={squareDispatch}>
-            <Board pieceState={pieceState} squareState={squareState} />
-          </SquareDispatchContext.Provider>
-        </PieceDispatchContext.Provider>
+        <GameDispatchContext.Provider value={gameDispatch}>
+          <PieceDispatchContext.Provider value={pieceDispatch}>
+            <SquareDispatchContext.Provider value={squareDispatch}>
+              {!gameState.inProgress && <StartButton />}
+              <Board pieceState={pieceState} squareState={squareState} />
+            </SquareDispatchContext.Provider>
+          </PieceDispatchContext.Provider>
+        </GameDispatchContext.Provider>
       </main>
     </div>
   );

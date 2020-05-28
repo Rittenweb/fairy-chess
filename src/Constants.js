@@ -1,12 +1,13 @@
+export const initialGameState = {
+  inProgress: false
+}
+
 export const initialPieceState = {
   '0': {
     '0': null,
     '1': null,
     '2': null,
-    '3': {
-      name: 'kraken',
-      symbol: 'kraken'
-    },
+    '3': null,
     '4': null,
     '5': null,
     '6': null,
@@ -24,10 +25,7 @@ export const initialPieceState = {
     '4': null,
     '5': null,
     '6': null,
-    '7': {
-      name: "moon",
-      symbol: "moon"
-    },
+    '7': null,
     '8': null,
     '9': null,
     '10': null,
@@ -36,17 +34,11 @@ export const initialPieceState = {
   '2': {
     '0': null,
     '1': null,
-    '2': {
-      name: 'knight',
-      symbol: 'knight'
-    },
+    '2': null,
     '3': null,
     '4': null,
     '5': null,
-    '6': {
-      name: 'hunter',
-      symbol: 'hunter'
-    },
+    '6': null,
     '7': null,
     '8': null,
     '9': null,
@@ -58,10 +50,7 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': null,
-    '4': {
-      name: 'ship',
-      symbol: 'ship'
-    },
+    '4': null,
     '5': null,
     '6': null,
     '7': null,
@@ -75,10 +64,7 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': null,
-    '4': {
-      name: 'nightrider',
-      symbol: 'nightrider'
-    },
+    '4': null,
     '5': null,
     '6': null,
     '7': null,
@@ -92,14 +78,13 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': null,
-    '4': null,
+    '4': {
+      name: 'arrowpawn'
+    },
     '5': null,
     '6': null,
     '7': null,
-    '8': {
-      name: 'bugeyedmonster',
-      symbol: 'bugeyedmonster'
-    },
+    '8': null,
     '9': null,
     '10': null,
     '11': null,
@@ -107,19 +92,13 @@ export const initialPieceState = {
   '6': {
     '0': null,
     '1': null,
-    '2': {
-      name: 'reflector',
-      symbol: 'reflector'
-    },
+    '2': null,
     '3': null,
     '4': null,
     '5': null,
     '6': null,
     '7': null,
-    '8': {
-      name: 'skiprook',
-      symbol: 'skiprook'
-    },
+    '8': null,
     '9': null,
     '10': null,
     '11': null,
@@ -130,16 +109,10 @@ export const initialPieceState = {
     '2': null,
     '3': null,
     '4': null,
-    '5': {
-      name: 'plus',
-      symbol: 'plus'
-    },
+    '5': null,
     '6': null,
     '7': null,
-    '8': {
-      name: 'deer',
-      symbol: 'deer'
-    },
+    '8': null,
     '9': null,
     '10': null,
     '11': null,
@@ -148,10 +121,7 @@ export const initialPieceState = {
     '0': null,
     '1': null,
     '2': null,
-    '3': {
-      name: 'rose',
-      symbol: 'rose'
-    },
+    '3': null,
     '4': null,
     '5': null,
     '6': null,
@@ -164,10 +134,7 @@ export const initialPieceState = {
   '9': {
     '0': null,
     '1': null,
-    '2': {
-      name: 'elephant',
-      symbol: 'elephant'
-    },
+    '2': null,
     '3': null,
     '4': null,
     '5': null,
@@ -183,10 +150,7 @@ export const initialPieceState = {
     '1': null,
     '2': null,
     '3': null,
-    '4': {
-      name: 'queen',
-      symbol: 'queen'
-    },
+    '4': null,
     '5': null,
     '6': null,
     '7': null,

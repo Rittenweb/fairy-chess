@@ -1,12 +1,13 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import ModalBoard from './ModalBoard';
+import { getRarity } from './pieceData';
 
 export default function Modal({ piece, handleClick }) {
   return createPortal(
     <div className='modal-background' onClick={handleClick}>
       <div className='modal'>
-        {piece.name}
+        {piece.name}: lvl.{getRarity(piece.name)}
         <ModalBoard piece={piece}></ModalBoard>
         <div style={{ fontSize: '.75rem' }}>
           <div className='flex'>
