@@ -54,7 +54,8 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity) {
     pieceName = pieceNames[pieceNames.length * Math.random() << 0];
   }
   return {
-    name: pieceName
+    name: pieceName,
+    enemy: false
   };
 }
 
@@ -292,17 +293,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -318,17 +323,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -344,17 +353,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -370,17 +383,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -397,17 +414,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -424,17 +445,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -451,17 +476,21 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
@@ -478,42 +507,51 @@ const moveAlgorithms = {
       }
       //Scenario: blocked by a piece
       if (!leaping && pieceState[x][y] !== null) {
-        if (noCapture) {
+        if (noCapture || pieceState[x][y].enemy === false) {
           break;
         }
         moveableSquares.push([x, y]);
         break;
       }
-      //Skip square-push step if there's a piece and you can leap over, but not capture
-      if (!(leaping && noCapture && pieceState[x][y] !== null)) {
-        //Skips square push step if there is no piece and onlyCapture
-        if (!(onlyCapture && pieceState[x][y] === null)) {
-          moveableSquares.push([x, y])
+
+      //Skip past square-push step if leaping and piece is friendly
+      if (!(leaping && pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        //Skip square-push step if there's a piece and you can leap over, but not capture
+        if (!(leaping && noCapture && pieceState[x][y] !== null)) {
+          //Skips square push step if there is no piece and onlyCapture
+          if (!(onlyCapture && pieceState[x][y] === null)) {
+            moveableSquares.push([x, y])
+          }
         }
       }
       distance--;
     }
     return moveableSquares;
   },
-  leap: (x, y, target) => {
+  leap: (x, y, target, pieceState) => {
     const moveableSquares = [];
     for (let x2 = 0; x2 < MAX_MOVE; x2++) {
       for (let y2 = 0; y2 < MAX_MOVE; y2++) {
         let difX = Math.abs(x - x2);
         let difY = Math.abs(y - y2);
         if ((difX === target[0] && difY === target[1]) || (difX === target[1] && difY === target[0])) {
-          moveableSquares.push([x2, y2]);
+          if (!(pieceState[x2][y2] && pieceState[x2][y2].enemy === false)) {
+            moveableSquares.push([x2, y2]);
+          }
         }
       }
     }
     return moveableSquares;
   },
-  preciseLeap: (x, y, targets) => {
+  preciseLeap: (x, y, targets, pieceState) => {
     const moveableSquares = [];
     targets.forEach((target) => {
       const newSquare = [x + target[0], y + target[1]];
-      if (newSquare[0] >= 0 && newSquare[0] < MAX_MOVE && newSquare[1] >= 0 && newSquare[1] < MAX_MOVE)
-        moveableSquares.push(newSquare)
+      if (newSquare[0] >= 0 && newSquare[0] < MAX_MOVE && newSquare[1] >= 0 && newSquare[1] < MAX_MOVE) {
+        if (!(pieceState[newSquare[0]][newSquare[1]] && pieceState[newSquare[0]][newSquare[1]].enemy === false)) {
+          moveableSquares.push(newSquare);
+        }
+      }
     })
     return moveableSquares;
   },
@@ -530,7 +568,9 @@ const moveAlgorithms = {
       x += delta1;
       y += delta2;
       while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
-        squares.push([x, y]);
+        if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
+          squares.push([x, y]);
+        }
         if (pieceState[x][y] !== null) {
           break;
         }
@@ -559,8 +599,10 @@ const moveAlgorithms = {
 
     const anchorSquare = [x + targetAndMove[0][0], y + targetAndMove[0][1]];
     if (anchorSquare[0] >= 0 && anchorSquare[0] < MAX_MOVE && anchorSquare[1] >= 0 && anchorSquare[1] < MAX_MOVE) {
-      moveableSquares.push(anchorSquare);
-      if (pieceState[anchorSquare[0]][anchorSquare[1]] === null) { //cannot read property 5 of undefined
+      if (!(pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === false)) {
+        moveableSquares.push(anchorSquare);
+      }
+      if (pieceState[anchorSquare[0]][anchorSquare[1]] === null) {
         moveableSquares = moveableSquares.concat(moveAlgorithms[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState));
       }
     }
@@ -586,7 +628,9 @@ const moveAlgorithms = {
     x = x + xdelta;
     y = y + ydelta;
     while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
-      moveableSquares.push([x, y]);
+      if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        moveableSquares.push([x, y]);
+      }
       if (pieceState[x][y] !== null) {
         break;
       }
@@ -611,7 +655,9 @@ const moveAlgorithms = {
       x = x + (xdelta * -1)
     }
     while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
-      moveableSquares.push([x, y]);
+      if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
+        moveableSquares.push([x, y]);
+      }
       if (pieceState[x][y] !== null) {
         break;
       }
@@ -631,14 +677,16 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
-  bugeye: (x, y) => {
+  bugeye: (x, y, nullArg, pieceState) => {
     const moveableSquares = [];
     for (let i = 0; i < MAX_MOVE; i++) {
       for (let j = 0; j < MAX_MOVE; j++) {
         let difx = Math.abs(x - i);
         let dify = Math.abs(y - j)
         if (i !== x && j !== y && difx !== dify && !(dify / difx === 2) && !(difx / dify === 2)) {
-          moveableSquares.push([i, j]);
+          if (!(pieceState[i][j] && pieceState[i][j].enemy === false)) {
+            moveableSquares.push([i, j]);
+          }
         }
       }
     }
@@ -647,9 +695,9 @@ const moveAlgorithms = {
 }
 
 const pieceDefs = {
-  dummy: {
-    rarity: 1
-  },
+  // dummy: {
+  //   rarity: 1
+  // },
   pawn: {
     moveNoCap: [
       ["N", 1]
@@ -1391,20 +1439,36 @@ const pieceDefs = {
   anticorn: {
     move: [
       ['leapThenMove', [
-        [1, 2],
-        ["NE", MAX_MOVE]
+        [0, -6],
+        ["S", 4]
       ]],
       ['leapThenMove', [
-        [1, -2],
-        ["SE", MAX_MOVE]
+        [0, 6],
+        ["N", 4]
       ]],
       ['leapThenMove', [
-        [-1, -2],
-        ["SW", MAX_MOVE]
+        [-6, 0],
+        ["E", 4]
       ]],
       ['leapThenMove', [
-        [-1, 2],
-        ["NW", MAX_MOVE]
+        [6, 0],
+        ["W", 4]
+      ]],
+      ['leapThenMove', [
+        [6, -6],
+        ["SW", 4]
+      ]],
+      ['leapThenMove', [
+        [6, 6],
+        ["NW", 4]
+      ]],
+      ['leapThenMove', [
+        [-6, -6],
+        ["SE", 4]
+      ]],
+      ['leapThenMove', [
+        [-6, 6],
+        ["NE", 4]
       ]],
     ],
     rarity: 2

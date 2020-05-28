@@ -2,21 +2,9 @@ import React, { useContext, useState } from 'react';
 import { SquareDispatchContext } from './Contexts';
 import Modal from './Modal';
 
-export default function Piece({ piece, x, y }) {
+export default function EnemyPiece({ piece, x, y }) {
   const dispatch = useContext(SquareDispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
-
-  const handleDragStart = function handleDragStart(e) {
-    const obj = { piece, x, y };
-    const json = JSON.stringify(obj);
-    e.dataTransfer.setData('text/plain', json);
-    dispatch({
-      type: 'highlight',
-      pieceName: piece.name,
-      x,
-      y,
-    });
-  };
 
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({
@@ -40,9 +28,7 @@ export default function Piece({ piece, x, y }) {
 
   return (
     <div
-      className='piece piece-friendly'
-      draggable='true'
-      onDragStart={handleDragStart}
+      className='piece'
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleRightClick}>

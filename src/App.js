@@ -58,29 +58,29 @@ function App() {
         stateClone = JSON.parse(JSON.stringify(state));
         newState = {
           ...stateClone,
-          [3]: {
+          3: {
             ...stateClone[3],
-            [9]: action.piece1,
+            9: action.piece1,
           },
-          [4]: {
+          4: {
             ...stateClone[4],
-            [9]: action.piece2,
+            9: action.piece2,
           },
-          [5]: {
+          5: {
             ...stateClone[5],
-            [9]: action.piece3,
+            9: action.piece3,
           },
-          [6]: {
+          6: {
             ...stateClone[6],
-            [9]: action.piece4,
+            9: action.piece4,
           },
-          [7]: {
+          7: {
             ...stateClone[7],
-            [9]: action.piece5,
+            9: action.piece5,
           },
-          [8]: {
+          8: {
             ...stateClone[8],
-            [9]: action.piece6,
+            9: action.piece6,
           },
         };
         console.log(newState);
@@ -124,6 +124,8 @@ function App() {
           ...stateClone,
           inProgress: true,
         };
+      default:
+        throw new Error('No game reducer for action type');
     }
   }
 

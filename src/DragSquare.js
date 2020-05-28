@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
 import Piece from './Piece';
+import EnemyPiece from './EnemyPiece';
 
 //TODO: Fix persistent yellow squares when piece is dropped off board.
 //Probably define all outer space as a drop zone to dispatch clean board.
@@ -67,7 +68,10 @@ const DragSquare = ({ x, y, piece, canDrop }) => {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       style={{ backgroundColor: squareColor }}>
-      {piece && <Piece piece={piece} x={x} y={y} />}
+      {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
+      {piece && piece.enemy === true && (
+        <EnemyPiece piece={piece} x={x} y={y} />
+      )}
     </div>
   );
 };

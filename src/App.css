@@ -40,9 +40,12 @@
 }
 
 .piece {
-  cursor: grab;
   width: 75%;
   height: 75%;
+}
+
+.piece-friendly {
+  cursor: grab;
 }
 
 .piece-symbol {
@@ -77,8 +80,8 @@
   height: 60%;
   width: 60%;
   display: flex;
-  flex-wrap: wrap;
-  /* transform: rotate(-90deg); */
+  flex-wrap: wrap-reverse; /* Necessary or else move previews are reflected... sorry */
+  transform: rotate(90deg);
 }
 
 .modal-square {
