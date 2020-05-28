@@ -52,18 +52,23 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
   if (piece.components) {
     let components = piece.components;
     components.forEach((component) => {
-      moveTypes = moveTypes.concat(pieceDefs[component]["move"] || []);
-      moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[component]["moveNoCap"] || []);
-      capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[component]["capNoMove"] || []);
+      let componentObject = pieceDefs[component];
+      moveTypes = moveTypes.concat(componentObject["move"] || []);
+      moveNoCapTypes = moveNoCapTypes.concat(componentObject["moveNoCap"] || []);
+      capNoMoveTypes = capNoMoveTypes.concat(componentObject["capNoMove"] || []);
+      if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
+        moveableSquares = moveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
+      }
     })
   }
   if (piece.frontComponents) {
     let components = piece.frontComponents;
     let tempMoveableSquares = []
     components.forEach((component) => {
-      let tempMoveTypes = pieceDefs[component]["move"] || [];
-      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
-      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      let componentObject = pieceDefs[component];
+      let tempMoveTypes = componentObject["move"] || [];
+      let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
+      let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
       tempMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
       })
@@ -73,6 +78,9 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
       tempCapNoMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, true))
       })
+      if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
+        moveableSquares = moveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
+      }
     })
     moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
       return moveableSquare[1] < y;
@@ -82,9 +90,10 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
     let components = piece.backComponents;
     let tempMoveableSquares = []
     components.forEach((component) => {
-      let tempMoveTypes = pieceDefs[component]["move"] || [];
-      let tempMoveNoCapTypes = pieceDefs[component]["moveNoCap"] || [];
-      let tempCapNoMoveTypes = pieceDefs[component]["capNoMove"] || [];
+      let componentObject = pieceDefs[component];
+      let tempMoveTypes = componentObject["move"] || [];
+      let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
+      let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
       tempMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
       })
@@ -94,6 +103,9 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
       tempCapNoMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, true))
       })
+      if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
+        moveableSquares = moveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
+      }
     })
     moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
       return moveableSquare[1] > y;
@@ -581,7 +593,6 @@ const moveAlgorithms = {
     return moveableSquares;
   },
   bugeye: (x, y) => {
-    debugger;
     const moveableSquares = [];
     for (let i = 0; i < MAX_MOVE; i++) {
       for (let j = 0; j < MAX_MOVE; j++) {
