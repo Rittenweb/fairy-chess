@@ -60,8 +60,6 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity) {
 }
 
 export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) {
-  console.log(x + " " + y);
-  console.log(pieceState)
   const piece = enemyPieceDefs[pieceState[x][y].name];
   let moveableSquare = [x + piece['move'][0], y + piece['move'][1]];
   if (pieceState[moveableSquare[0]][moveableSquare[1]] === null) {
@@ -73,22 +71,28 @@ export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
 
   const piece = enemyPieceDefs[pieceState[x][y].name];
   let cappableSquares = piece.cap;
-  cappableSquares = cappableSquares.filter((square) => {
+  cappableSquares = cappableSquares.reduce((acc, square) => {
     let newX = x + square[0];
     let newY = y + square[1];
-    return newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE && pieceState[newX][newY] && pieceState[newX][newY].enemy === false;
-  })
+    if (newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE && pieceState[newX][newY] && pieceState[newX][newY].enemy === false) {
+      return acc.concat([
+        [newX, newY]
+      ])
+    } else {
+      return acc;
+    }
+  }, [])
   if (!cappableSquares.length) {
     return;
   }
   let rareSquares = cappableSquares.filter((square) => {
-    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 3;
+    return pieceState[square[0]][square[1]] && pieceDefs[pieceState[square[0]][square[1]].name].rarity === 3;
   })
   let uncommonSquares = cappableSquares.filter((square) => {
-    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 2;
+    return pieceState[square[0]][square[1]] && pieceDefs[pieceState[square[0]][square[1]].name].rarity === 2;
   })
   let commonSquares = cappableSquares.filter((square) => {
-    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 1;
+    return pieceState[square[0]][square[1]] && pieceDefs[pieceState[square[0]][square[1]].name].rarity === 1;
   })
   if (rareSquares.length) {
     return rareSquares[Math.floor(Math.random() * rareSquares.length)];

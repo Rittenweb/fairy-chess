@@ -101,7 +101,7 @@ function App() {
         for (let x = 0; x < 12; x++) {
           for (let y = 0; y < 12; y++) {
             if (state[x][y] && state[x][y].enemy === true) {
-              let capSquare = getEnemyCapSquare(x, y, state);
+              let capSquare = getEnemyCapSquare(x, y, newState);
               if (capSquare) {
                 newState = {
                   ...newState,
@@ -118,7 +118,7 @@ function App() {
                   },
                 };
               } else {
-                let newSquare = getEnemyMoveSquare(x, y, state);
+                let newSquare = getEnemyMoveSquare(x, y, newState);
                 if (newSquare) {
                   newState = {
                     ...newState,
