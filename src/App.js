@@ -12,7 +12,7 @@ import {
   initialSquareState,
   initialGameState,
 } from './Constants';
-import { getMoveableSquares } from './pieceData';
+import { getMoveableSquares, getEnemySquares } from './pieceData';
 
 function App() {
   const [pieceState, pieceDispatch] = useReducer(
@@ -60,26 +60,32 @@ function App() {
           ...stateClone,
           3: {
             ...stateClone[3],
+            1: { name: 'shroom', enemy: true },
             9: action.piece1,
           },
           4: {
             ...stateClone[4],
+            1: { name: 'shroom', enemy: true },
             9: action.piece2,
           },
           5: {
             ...stateClone[5],
+            1: { name: 'dandy', enemy: true },
             9: action.piece3,
           },
           6: {
             ...stateClone[6],
+            1: { name: 'dandy', enemy: true },
             9: action.piece4,
           },
           7: {
             ...stateClone[7],
+            1: { name: 'shroom', enemy: true },
             9: action.piece5,
           },
           8: {
             ...stateClone[8],
+            1: { name: 'shroom', enemy: true },
             9: action.piece6,
           },
         };
@@ -91,9 +97,10 @@ function App() {
   }
 
   function squareReducer(state, action) {
+    let newState;
     switch (action.type) {
       case 'highlight':
-        let newState = JSON.parse(JSON.stringify(state));
+        newState = JSON.parse(JSON.stringify(state));
         const moveableSquares = getMoveableSquares(
           action.x,
           action.y,
@@ -107,6 +114,23 @@ function App() {
         }
         for (const square of moveableSquares) {
           newState[square[0]][square[1]] = 'yes';
+        }
+        return newState;
+      case 'enemyhighlight':
+        newState = JSON.parse(JSON.stringify(state));
+        const moveableSquare = getEnemySquares(
+          action.x,
+          action.y,
+          action.pieceName,
+          pieceState
+        );
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            newState[x][y] = 'no';
+          }
+        }
+        if (moveableSquare) {
+          newState[moveableSquare[0]][moveableSquare[1]] = 'yes';
         }
         return newState;
       case 'dehighlight':

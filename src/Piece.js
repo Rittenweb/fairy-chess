@@ -5,6 +5,7 @@ import Modal from './Modal';
 export default function Piece({ piece, x, y }) {
   const dispatch = useContext(SquareDispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
+  const [exhausted, setExhausted] = useState(false);
 
   const handleDragStart = function handleDragStart(e) {
     const obj = { piece, x, y };

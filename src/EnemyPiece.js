@@ -8,7 +8,7 @@ export default function EnemyPiece({ piece, x, y }) {
 
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({
-      type: 'highlight',
+      type: 'enemyhighlight',
       pieceName: piece.name,
       x,
       y,
@@ -21,24 +21,15 @@ export default function EnemyPiece({ piece, x, y }) {
     });
   };
 
-  const handleRightClick = function handleRightClick(e) {
-    e.preventDefault();
-    setModalDisplay(!modalDisplay);
-  };
-
   return (
     <div
       className='piece'
       onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-      onContextMenu={handleRightClick}>
+      onMouseLeave={handleMouseLeave}>
       <img
         className='piece-symbol'
         src={require(`./img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>
-      {modalDisplay && (
-        <Modal piece={piece} handleClick={handleRightClick}></Modal>
-      )}
     </div>
   );
 }

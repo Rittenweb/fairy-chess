@@ -49,14 +49,22 @@ export const getRarity = function getRarity(pieceName) {
 
 export const getPieceWithRarity = function getPieceWithRarity(rarity) {
   let pieceNames = Object.keys(pieceDefs);
-  let pieceName = pieceNames[pieceNames.length * Math.random() << 0];
+  let pieceName = pieceNames[Math.floor(pieceNames.length * Math.random())];
   while (pieceDefs[pieceName].rarity !== rarity) {
-    pieceName = pieceNames[pieceNames.length * Math.random() << 0];
+    pieceName = pieceNames[Math.floor(pieceNames.length * Math.random())];
   }
   return {
     name: pieceName,
     enemy: false
   };
+}
+
+export const getEnemySquares = function getEnemySquares(x, y, pieceName, pieceState) {
+  const piece = enemyPieceDefs[pieceName];
+  let moveableSquare = [x + piece['move'][0], y + piece['move'][1]];
+  if (pieceState[moveableSquare[0]][moveableSquare[1]] === null) {
+    return moveableSquare;
+  }
 }
 
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
@@ -694,6 +702,25 @@ const moveAlgorithms = {
   }
 }
 
+const enemyPieceDefs = {
+  shroom: {
+    move: [0, 1],
+    cap: [
+      [1, 1],
+      [-1, 1]
+    ],
+    rarity: 1
+  },
+  dandy: {
+    move: [0, 1],
+    cap: [
+      [1, 2],
+      [-1, 2]
+    ],
+    rarity: 1
+  }
+}
+
 const pieceDefs = {
   // dummy: {
   //   rarity: 1
@@ -1158,7 +1185,8 @@ const pieceDefs = {
     move: [
       ['N', MAX_MOVE],
       ['SW', MAX_MOVE],
-      ['S', 1]
+      ['S', 1],
+      ['E', 1]
     ],
     rarity: 2
   },
@@ -1166,7 +1194,8 @@ const pieceDefs = {
     move: [
       ['N', MAX_MOVE],
       ['SE', MAX_MOVE],
-      ['S', 1]
+      ['S', 1],
+      ['W', 1]
     ],
     rarity: 2
   },
