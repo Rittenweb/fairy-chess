@@ -58,6 +58,7 @@
 .piece {
   width: 75%;
   height: 75%;
+  z-index: 2;
 }
 
 .piece-friendly {
@@ -75,6 +76,7 @@
   top: 0px;
   height: 100vw;
   width: 100vw;
+  z-index: 3;
 }
 
 .modal {
@@ -109,4 +111,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.x {
+  position: fixed;
+  color: red;
 }

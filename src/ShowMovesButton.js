@@ -1,18 +1,32 @@
 import React, { useContext } from 'react';
-import { SquareDispatchContext } from './Contexts';
+import { SquareDispatchContext, GameDispatchContext } from './Contexts';
 
-export default function EndTurnButton() {
+export default function ShowMovesButton({ shown }) {
   const dispatchSquare = useContext(SquareDispatchContext);
+  const dispatchGame = useContext(GameDispatchContext);
 
-  const showmoves = function showmoves(e) {
-    dispatchSquare({
-      type: 'showenemycapture',
-    });
+  const togglemovesshown = function togglemovesshown(e) {
+    if (shown) {
+      dispatchGame({
+        type: 'enemyCaptureOff',
+      });
+      dispatchSquare({
+        type: 'enemyCaptureOff',
+      });
+    } else {
+      dispatchGame({
+        type: 'enemyCaptureOn',
+      });
+      dispatchSquare({
+        type: 'enemyCaptureOn',
+      });
+    }
   };
 
   return (
-    <button className='showmovesbutton' onClick={showmoves}>
-      Show Enemy Capture Areas
+    <button className='showmovesbutton' onClick={togglemovesshown}>
+      {shown && 'Hide Enemy Capture Areas'}
+      {!shown && 'Show Enemy Capture Areas'}
     </button>
   );
 }

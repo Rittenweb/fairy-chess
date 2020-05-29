@@ -68,7 +68,6 @@ export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) 
 }
 
 export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
-
   const piece = enemyPieceDefs[pieceState[x][y].name];
   let cappableSquares = piece.cap;
   cappableSquares = cappableSquares.reduce((acc, square) => {
@@ -103,6 +102,23 @@ export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   } else {
     return
   }
+}
+
+export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceState) {
+  const piece = enemyPieceDefs[pieceState[x][y].name];
+  let cappableSquares = piece.cap;
+  let result = cappableSquares.reduce((acc, square) => {
+    let newX = x + square[0];
+    let newY = y + square[1];
+    if (newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE) {
+      return acc.concat([
+        [newX, newY]
+      ])
+    } else {
+      return acc;
+    }
+  }, [])
+  return result;
 }
 
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {

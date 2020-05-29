@@ -13,11 +13,13 @@ import {
   initialPieceState,
   initialSquareState,
   initialGameState,
-} from './Constants';
+  setEnemyMovesShown,
+} from './initialStates';
 import {
   getMoveableSquares,
   getEnemyMoveSquare,
   getEnemyCapSquare,
+  getAllEnemyCapSquares,
 } from './pieceData';
 
 function App() {
@@ -159,11 +161,14 @@ function App() {
         );
         for (let x = 0; x < 12; x++) {
           for (let y = 0; y < 12; y++) {
-            newState[x][y] = 'no';
+            newState[x][y] = { ...newState[x][y], canDrop: 'no' };
           }
         }
         for (const square of moveableSquares) {
-          newState[square[0]][square[1]] = 'yes';
+          newState[square[0]][square[1]] = {
+            ...newState[square[0]][square[1]],
+            canDrop: 'yes',
+          };
         }
         return newState;
       case 'enemyhighlight':
@@ -175,13 +180,28 @@ function App() {
         );
         for (let x = 0; x < 12; x++) {
           for (let y = 0; y < 12; y++) {
-            newState[x][y] = 'no';
+            newState[x][y] = { ...newState[x][y], canDrop: 'no' };
           }
         }
         if (moveableSquare) {
-          newState[moveableSquare[0]][moveableSquare[1]] = 'yes';
+          newState[moveableSquare[0]][moveableSquare[1]] = {
+            ...newState[moveableSquare[0]][moveableSquare[1]],
+            canDrop: 'yes',
+          };
         }
         return newState;
+      case 'enemyCaptureOn':
+        let squares = [];
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            if (pieceState[x][y] && pieceState[x][y].enemy === true) {
+              squares = squares.concat(getAllEnemyCapSquares(x, y, pieceState));
+            }
+          }
+        }
+        return setEnemyMovesShown(squares);
+      case 'enemyCaptureOff':
+        return setEnemyMovesShown([]);
       case 'dehighlight':
         return initialSquareState;
       default:
@@ -190,12 +210,22 @@ function App() {
   }
 
   function gameReducer(state, action) {
+    let stateClone = JSON.parse(JSON.stringify(state));
     switch (action.type) {
       case 'gamestart':
-        let stateClone = JSON.parse(JSON.stringify(state));
         return {
           ...stateClone,
           inProgress: true,
+        };
+      case 'enemyCaptureOff':
+        return {
+          ...stateClone,
+          enemyCaptureShown: false,
+        };
+      case 'enemyCaptureOn':
+        return {
+          ...stateClone,
+          enemyCaptureShown: true,
         };
       default:
         throw new Error('No game reducer for action type');
@@ -210,8 +240,12 @@ function App() {
           <PieceDispatchContext.Provider value={pieceDispatch}>
             <SquareDispatchContext.Provider value={squareDispatch}>
               {!gameState.inProgress && <StartButton />}
-              {gameState.inProgress && <EndTurnButton />}
-              {gameState.inProgress && <ShowMovesButton />}
+              {gameState.inProgress && (
+                <EndTurnButton enemyCapShown={gameState.enemyCaptureShown} />
+              )}
+              {gameState.inProgress && (
+                <ShowMovesButton shown={gameState.enemyCaptureShown} />
+              )}
               <Board pieceState={pieceState} squareState={squareState} />
             </SquareDispatchContext.Provider>
           </PieceDispatchContext.Provider>

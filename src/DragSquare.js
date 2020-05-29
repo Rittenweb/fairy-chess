@@ -3,10 +3,7 @@ import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
-//TODO: Fix persistent yellow squares when piece is dropped off board.
-//Probably define all outer space as a drop zone to dispatch clean board.
-
-const DragSquare = ({ x, y, piece, canDrop }) => {
+const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
   const dispatchPiece = useContext(PieceDispatchContext);
   const dispatchSquare = useContext(SquareDispatchContext);
 
@@ -68,6 +65,7 @@ const DragSquare = ({ x, y, piece, canDrop }) => {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       style={{ backgroundColor: squareColor }}>
+      {xMark && <div className='x'>╳</div>}
       {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
       {piece && piece.enemy === true && (
         <EnemyPiece piece={piece} x={x} y={y} />

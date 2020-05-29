@@ -1,10 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { SquareDispatchContext } from './Contexts';
-import Modal from './Modal';
 
 export default function EnemyPiece({ piece, x, y }) {
   const dispatch = useContext(SquareDispatchContext);
-  const [modalDisplay, setModalDisplay] = useState(false);
 
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({
