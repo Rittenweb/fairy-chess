@@ -19,6 +19,22 @@
   z-index: 100;
 }
 
+.endturnbutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 10vh;
+  left: 5vw;
+}
+
+.showmovesbutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 30vh;
+  left: 5vw;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;

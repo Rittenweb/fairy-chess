@@ -9,7 +9,6 @@ export default function EnemyPiece({ piece, x, y }) {
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({
       type: 'enemyhighlight',
-      pieceName: piece.name,
       x,
       y,
     });

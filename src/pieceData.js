@@ -59,11 +59,45 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity) {
   };
 }
 
-export const getEnemySquares = function getEnemySquares(x, y, pieceName, pieceState) {
-  const piece = enemyPieceDefs[pieceName];
+export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) {
+  console.log(x + " " + y);
+  console.log(pieceState)
+  const piece = enemyPieceDefs[pieceState[x][y].name];
   let moveableSquare = [x + piece['move'][0], y + piece['move'][1]];
   if (pieceState[moveableSquare[0]][moveableSquare[1]] === null) {
     return moveableSquare;
+  }
+}
+
+export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
+
+  const piece = enemyPieceDefs[pieceState[x][y].name];
+  let cappableSquares = piece.cap;
+  cappableSquares = cappableSquares.filter((square) => {
+    let newX = x + square[0];
+    let newY = y + square[1];
+    return newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE && pieceState[newX][newY] && pieceState[newX][newY].enemy === false;
+  })
+  if (!cappableSquares.length) {
+    return;
+  }
+  let rareSquares = cappableSquares.filter((square) => {
+    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 3;
+  })
+  let uncommonSquares = cappableSquares.filter((square) => {
+    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 2;
+  })
+  let commonSquares = cappableSquares.filter((square) => {
+    return pieceState[square[0]][square[1]] && pieceState[square[0]][square[1]].rarity === 1;
+  })
+  if (rareSquares.length) {
+    return rareSquares[Math.floor(Math.random() * rareSquares.length)];
+  } else if (uncommonSquares.length) {
+    return uncommonSquares[Math.floor(Math.random() * uncommonSquares.length)];
+  } else if (commonSquares.length) {
+    return commonSquares[Math.floor(Math.random() * commonSquares.length)];
+  } else {
+    return
   }
 }
 

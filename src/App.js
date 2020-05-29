@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import './App.css';
 import Board from './Board';
 import StartButton from './StartButton';
+import EndTurnButton from './EndTurnButton';
+import ShowMovesButton from './ShowMovesButton';
 import {
   PieceDispatchContext,
   SquareDispatchContext,
@@ -12,7 +14,11 @@ import {
   initialSquareState,
   initialGameState,
 } from './Constants';
-import { getMoveableSquares, getEnemySquares } from './pieceData';
+import {
+  getMoveableSquares,
+  getEnemyMoveSquare,
+  getEnemyCapSquare,
+} from './pieceData';
 
 function App() {
   const [pieceState, pieceDispatch] = useReducer(
@@ -89,7 +95,51 @@ function App() {
             9: action.piece6,
           },
         };
-        console.log(newState);
+        return newState;
+      case 'endturn':
+        newState = JSON.parse(JSON.stringify(state));
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            if (state[x][y] && state[x][y].enemy === true) {
+              let capSquare = getEnemyCapSquare(x, y, state);
+              if (capSquare) {
+                newState = {
+                  ...newState,
+                  [x]: {
+                    ...newState[x],
+                    [y]: null,
+                  },
+                };
+                newState = {
+                  ...newState,
+                  [capSquare[0]]: {
+                    ...newState[capSquare[0]],
+                    [capSquare[1]]: state[x][y],
+                  },
+                };
+              } else {
+                let newSquare = getEnemyMoveSquare(x, y, state);
+                if (newSquare) {
+                  newState = {
+                    ...newState,
+                    [x]: {
+                      ...newState[x],
+                      [y]: null,
+                    },
+                  };
+                  newState = {
+                    ...newState,
+                    [newSquare[0]]: {
+                      ...newState[newSquare[0]],
+                      [newSquare[1]]: state[x][y],
+                    },
+                  };
+                }
+              }
+            }
+          }
+        }
+
         return newState;
       default:
         throw new Error('No piece reducer for action type');
@@ -118,10 +168,9 @@ function App() {
         return newState;
       case 'enemyhighlight':
         newState = JSON.parse(JSON.stringify(state));
-        const moveableSquare = getEnemySquares(
+        const moveableSquare = getEnemyMoveSquare(
           action.x,
           action.y,
-          action.pieceName,
           pieceState
         );
         for (let x = 0; x < 12; x++) {
@@ -161,6 +210,8 @@ function App() {
           <PieceDispatchContext.Provider value={pieceDispatch}>
             <SquareDispatchContext.Provider value={squareDispatch}>
               {!gameState.inProgress && <StartButton />}
+              {gameState.inProgress && <EndTurnButton />}
+              {gameState.inProgress && <ShowMovesButton />}
               <Board pieceState={pieceState} squareState={squareState} />
             </SquareDispatchContext.Provider>
           </PieceDispatchContext.Provider>
