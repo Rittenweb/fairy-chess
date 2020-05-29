@@ -61,8 +61,12 @@
   z-index: 2;
 }
 
-.piece-friendly {
+.not-exhausted {
   cursor: grab;
+}
+
+.exhausted {
+  opacity: 0.5;
 }
 
 .piece-symbol {

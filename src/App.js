@@ -58,7 +58,7 @@ function App() {
           ...newState,
           [newX]: {
             ...newState[newX],
-            [newY]: action.piece,
+            [newY]: { ...action.piece, exhausted: true },
           },
         };
         return newState;
@@ -68,32 +68,32 @@ function App() {
           ...stateClone,
           3: {
             ...stateClone[3],
-            1: { name: 'shroom', enemy: true },
+            1: { name: 'shroom', enemy: true, exhausted: false },
             9: action.piece1,
           },
           4: {
             ...stateClone[4],
-            1: { name: 'shroom', enemy: true },
+            1: { name: 'shroom', enemy: true, exhausted: false },
             9: action.piece2,
           },
           5: {
             ...stateClone[5],
-            1: { name: 'dandy', enemy: true },
+            1: { name: 'dandy', enemy: true, exhausted: false },
             9: action.piece3,
           },
           6: {
             ...stateClone[6],
-            1: { name: 'dandy', enemy: true },
+            1: { name: 'dandy', enemy: true, exhausted: false },
             9: action.piece4,
           },
           7: {
             ...stateClone[7],
-            1: { name: 'shroom', enemy: true },
+            1: { name: 'shroom', enemy: true, exhausted: false },
             9: action.piece5,
           },
           8: {
             ...stateClone[8],
-            1: { name: 'shroom', enemy: true },
+            1: { name: 'shroom', enemy: true, exhausted: false },
             9: action.piece6,
           },
         };
@@ -138,10 +138,11 @@ function App() {
                   };
                 }
               }
+            } else if (newState[x][y] && newState[x][y].enemy === false) {
+              newState[x][y].exhausted = false;
             }
           }
         }
-
         return newState;
       default:
         throw new Error('No piece reducer for action type');
@@ -246,7 +247,11 @@ function App() {
               {gameState.inProgress && (
                 <ShowMovesButton shown={gameState.enemyCaptureShown} />
               )}
-              <Board pieceState={pieceState} squareState={squareState} />
+              <Board
+                pieceState={pieceState}
+                squareState={squareState}
+                gameState={gameState}
+              />
             </SquareDispatchContext.Provider>
           </PieceDispatchContext.Provider>
         </GameDispatchContext.Provider>

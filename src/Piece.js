@@ -5,7 +5,6 @@ import Modal from './Modal';
 export default function Piece({ piece, x, y }) {
   const dispatch = useContext(SquareDispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
-  const [exhausted, setExhausted] = useState(false);
 
   const handleDragStart = function handleDragStart(e) {
     const obj = { piece, x, y };
@@ -20,6 +19,9 @@ export default function Piece({ piece, x, y }) {
   };
 
   const handleMouseOver = function handleMouseOver(e) {
+    if (piece.exhausted) {
+      return;
+    }
     dispatch({
       type: 'highlight',
       pieceName: piece.name,
@@ -41,8 +43,8 @@ export default function Piece({ piece, x, y }) {
 
   return (
     <div
-      className='piece piece-friendly'
-      draggable='true'
+      className={piece.exhausted ? 'piece exhausted' : 'piece not-exhausted'}
+      draggable={piece.exhausted ? 'false' : 'true'}
       onDragStart={handleDragStart}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}

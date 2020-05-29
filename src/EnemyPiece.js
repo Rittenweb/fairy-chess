@@ -21,6 +21,7 @@ export default function EnemyPiece({ piece, x, y }) {
   return (
     <div
       className='piece'
+      draggable='false'
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}>
       <img

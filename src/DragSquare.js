@@ -3,7 +3,7 @@ import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
-const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
+const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
   const dispatchPiece = useContext(PieceDispatchContext);
   const dispatchSquare = useContext(SquareDispatchContext);
 
@@ -37,6 +37,9 @@ const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
       return;
     }
     const pieceData = JSON.parse(e.dataTransfer.getData('text'));
+    if (pieceData.piece.exhausted) {
+      return;
+    }
     dispatchPiece({
       type: 'move',
       xDest: x,
@@ -48,6 +51,11 @@ const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
     dispatchSquare({
       type: 'dehighlight',
     });
+    if (shown) {
+      dispatchSquare({
+        type: 'enemyCaptureOn',
+      });
+    }
   };
 
   let squareColor = (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
