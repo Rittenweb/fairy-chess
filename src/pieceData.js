@@ -547,15 +547,22 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
-  leap: (x, y, target, pieceState) => {
+  leap: (x, y, target, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     for (let x2 = 0; x2 < MAX_MOVE; x2++) {
       for (let y2 = 0; y2 < MAX_MOVE; y2++) {
         let difX = Math.abs(x - x2);
         let difY = Math.abs(y - y2);
         if ((difX === target[0] && difY === target[1]) || (difX === target[1] && difY === target[0])) {
+          //Skip if theres a friendly piece
           if (!(pieceState[x2][y2] && pieceState[x2][y2].enemy === false)) {
-            moveableSquares.push([x2, y2]);
+            //Skip if theres an enemy piece but no capture is allowed
+            if (!(noCapture && pieceState[x2][y2] && pieceState[x2][y2].enemy === true)) {
+              //Skip if there's no enemy piece and only capture is allowed
+              if (!(onlyCapture && !(pieceState[x2][y2] && pieceState[x2][y2].enemy === true))) {
+                moveableSquares.push([x2, y2]);
+              }
+            }
           }
         }
       }
@@ -613,16 +620,25 @@ const moveAlgorithms = {
 
     return moveableSquares;
   },
-  leapThenMove: (x, y, targetAndMove, pieceState) => {
+  leapThenMove: (x, y, targetAndMove, pieceState, leaping, noCapture, onlyCapture) => {
     let moveableSquares = [];
 
     const anchorSquare = [x + targetAndMove[0][0], y + targetAndMove[0][1]];
     if (anchorSquare[0] >= 0 && anchorSquare[0] < MAX_MOVE && anchorSquare[1] >= 0 && anchorSquare[1] < MAX_MOVE) {
       if (!(pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === false)) {
-        moveableSquares.push(anchorSquare);
+        //Skip if theres a friendly piece
+        if (!(pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === false)) {
+          //Skip if theres an enemy piece but no capture is allowed
+          if (!(noCapture && pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === true)) {
+            //Skip if there's no enemy piece and only capture is allowed
+            if (!(onlyCapture && !(pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === true))) {
+              moveableSquares.push([anchorSquare[0], anchorSquare[1]]);
+            }
+          }
+        }
       }
       if (pieceState[anchorSquare[0]][anchorSquare[1]] === null) {
-        moveableSquares = moveableSquares.concat(moveAlgorithms[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState));
+        moveableSquares = moveableSquares.concat(moveAlgorithms[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState, leaping, noCapture, onlyCapture));
       }
     }
     return moveableSquares;
@@ -1983,15 +1999,40 @@ const pieceDefs = {
     rarity: 3
   },
   elderwyrm: {
+    components: ['tripper', 'trebuchet'],
     moveNoCap: [
-      ["N", MAX_MOVE],
-      ["E", MAX_MOVE],
-      ["S", MAX_MOVE],
-      ["W", MAX_MOVE],
-      ["NE", MAX_MOVE],
-      ["SE", MAX_MOVE],
-      ["SW", MAX_MOVE],
-      ["NW", MAX_MOVE],
+      ['leapThenMove', [
+        [0, -4],
+        ["N", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [0, 4],
+        ["S", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, 0],
+        ["W", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [4, 0],
+        ["E", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [4, -4],
+        ["NE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [4, 4],
+        ["SE", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, -4],
+        ["NW", MAX_MOVE]
+      ]],
+      ['leapThenMove', [
+        [-4, 4],
+        ["SW", MAX_MOVE]
+      ]],
     ],
     capNoMove: [
       ["N", 3],
