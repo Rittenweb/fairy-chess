@@ -1,11 +1,17 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
 import ModalBoard from './ModalBoard';
 import { getRarity } from './pieceData';
 
 export default function Modal({ piece, handleClick }) {
-  return createPortal(
-    <div className='modal-background' onClick={handleClick}>
+  const handleMouseOver = function handleMouseOver(e) {
+    e.stopPropagation();
+  };
+
+  return (
+    <div
+      className='modal-background'
+      onClick={handleClick}
+      onMouseOver={handleMouseOver}>
       <div className='modal'>
         {piece.name}: lvl.{getRarity(piece.name)}
         <ModalBoard piece={piece}></ModalBoard>
@@ -44,7 +50,6 @@ export default function Modal({ piece, handleClick }) {
           </div>
         </div>
       </div>
-    </div>,
-    document.getElementById('modal')
+    </div>
   );
 }
