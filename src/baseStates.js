@@ -37,10 +37,7 @@ export const initialState = {
       '3': null,
       '4': null,
       '5': null,
-      '6': {
-        name: 'elderwyrm',
-        enemy: false
-      },
+      '6': null,
       '7': null,
       '8': null,
       '9': null,

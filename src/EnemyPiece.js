@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
+import EnemyModal from './EnemyModal';
 
 export default function EnemyPiece({ piece, x, y }) {
   const dispatch = useContext(DispatchContext);
+  const [modalDisplay, setModalDisplay] = useState(false);
 
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({
@@ -18,16 +20,28 @@ export default function EnemyPiece({ piece, x, y }) {
     });
   };
 
+  const handleRightClick = function handleRightClick(e) {
+    e.preventDefault();
+    setModalDisplay(!modalDisplay);
+    dispatch({
+      type: 'dehighlight',
+    });
+  };
+
   return (
     <div
       className='piece'
       draggable='false'
       onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}>
+      onMouseLeave={handleMouseLeave}
+      onContextMenu={handleRightClick}>
       <img
         className='piece-symbol'
         src={require(`./img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>
+      {modalDisplay && (
+        <EnemyModal piece={piece} handleClick={handleRightClick}></EnemyModal>
+      )}
     </div>
   );
 }

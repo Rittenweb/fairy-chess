@@ -39,18 +39,25 @@ export default function Piece({ piece, x, y }) {
   const handleRightClick = function handleRightClick(e) {
     e.preventDefault();
     setModalDisplay(!modalDisplay);
+    dispatch({
+      type: 'dehighlight',
+    });
   };
 
   return (
     <div
-      className={piece.exhausted ? 'piece exhausted' : 'piece not-exhausted'}
+      className='piece'
       draggable={piece.exhausted ? 'false' : 'true'}
       onDragStart={handleDragStart}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleRightClick}>
       <img
-        className='piece-symbol'
+        className={
+          piece.exhausted
+            ? 'piece-symbol exhausted'
+            : 'piece-symbol not-exhausted'
+        }
         src={require(`./img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>
       {modalDisplay && (

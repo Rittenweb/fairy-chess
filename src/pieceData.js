@@ -24,6 +24,16 @@ export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) 
   }
 }
 
+export const getEnemyMoveSquareRelative = function getEnemyMoveSquareRelative(pieceName) {
+  let enemyPiece = JSON.parse(JSON.stringify(enemyPieceDefs[pieceName]))
+  return enemyPiece.move
+}
+
+export const getAllEnemyCapSquaresRelative = function getAllEnemyCapSquaresRelative(pieceName) {
+  let enemyPiece = JSON.parse(JSON.stringify(enemyPieceDefs[pieceName]))
+  return enemyPiece.cap
+}
+
 export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   const piece = enemyPieceDefs[pieceState[x][y].name];
   let cappableSquares = piece.cap;
