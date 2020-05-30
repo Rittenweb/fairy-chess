@@ -216,6 +216,7 @@ export const reducer = function reducer(state, action) {
         ...stateClone,
         squares: newSquares,
           enemyCaptureShown: true,
+          baseSquares: newSquares
       };
     case 'enemyCaptureOff':
       for (let x = 0; x < 12; x++) {
