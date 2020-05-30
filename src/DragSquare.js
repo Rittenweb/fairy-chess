@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
 const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
-  const dispatchPiece = useContext(PieceDispatchContext);
-  const dispatchSquare = useContext(SquareDispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const [draggingOver, setDraggingOver] = useState(false);
 
@@ -31,7 +30,7 @@ const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
     e.stopPropagation();
     setDraggingOver(false);
     if (canDrop === 'no') {
-      dispatchSquare({
+      dispatch({
         type: 'dehighlight',
       });
       return;
@@ -40,7 +39,7 @@ const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
     if (pieceData.piece.exhausted) {
       return;
     }
-    dispatchPiece({
+    dispatch({
       type: 'move',
       xDest: x,
       yDest: y,
@@ -48,11 +47,11 @@ const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
       yOrg: pieceData.y,
       piece: pieceData.piece,
     });
-    dispatchSquare({
+    dispatch({
       type: 'dehighlight',
     });
     if (shown) {
-      dispatchSquare({
+      dispatch({
         type: 'enemyCaptureOn',
       });
     }

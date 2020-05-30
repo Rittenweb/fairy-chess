@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { SquareDispatchContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 
 export default function EnemyPiece({ piece, x, y }) {
-  const dispatch = useContext(SquareDispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const handleMouseOver = function handleMouseOver(e) {
     dispatch({

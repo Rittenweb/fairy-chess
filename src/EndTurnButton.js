@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import { PieceDispatchContext, SquareDispatchContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 
 export default function EndTurnButton({ enemyCapShown }) {
-  const dispatchPiece = useContext(PieceDispatchContext);
-  const dispatchSquare = useContext(SquareDispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const endturn = function endturn(e) {
-    dispatchPiece({
+    dispatch({
       type: 'endturn',
     });
     if (enemyCapShown) {
-      dispatchSquare({
+      dispatch({
         type: 'enemyCaptureOn',
       });
     }

@@ -1,23 +1,16 @@
 import React, { useContext } from 'react';
-import { SquareDispatchContext, GameDispatchContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 
 export default function ShowMovesButton({ shown }) {
-  const dispatchSquare = useContext(SquareDispatchContext);
-  const dispatchGame = useContext(GameDispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const togglemovesshown = function togglemovesshown(e) {
     if (shown) {
-      dispatchGame({
-        type: 'enemyCaptureOff',
-      });
-      dispatchSquare({
+      dispatch({
         type: 'enemyCaptureOff',
       });
     } else {
-      dispatchGame({
-        type: 'enemyCaptureOn',
-      });
-      dispatchSquare({
+      dispatch({
         type: 'enemyCaptureOn',
       });
     }

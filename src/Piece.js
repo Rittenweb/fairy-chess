@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { SquareDispatchContext } from './Contexts';
+import { DispatchContext } from './Contexts';
 import Modal from './Modal';
 
 export default function Piece({ piece, x, y }) {
-  const dispatch = useContext(SquareDispatchContext);
+  const dispatch = useContext(DispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
 
   const handleDragStart = function handleDragStart(e) {

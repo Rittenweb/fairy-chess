@@ -1,11 +1,11 @@
 import React from 'react';
 import DragSquare from './DragSquare';
 
-function renderSquare(squareNum, pieceState, squareState, gameState) {
+function renderSquare(squareNum, gameState) {
   const x = squareNum % 12;
   const y = Math.floor(squareNum / 12);
-  const piece = pieceState[x][y];
-  const square = squareState[x][y];
+  const piece = gameState.pieces[x][y];
+  const square = gameState.squares[x][y];
 
   return (
     <DragSquare
@@ -20,10 +20,10 @@ function renderSquare(squareNum, pieceState, squareState, gameState) {
   );
 }
 
-export default function Board({ pieceState, squareState, gameState }) {
+export default function Board({ gameState }) {
   const squareList = [];
   for (let i = 0; i < 144; i++) {
-    squareList.push(renderSquare(i, pieceState, squareState, gameState));
+    squareList.push(renderSquare(i, gameState));
   }
   console.count('board');
   return <div className='board'>{squareList}</div>;

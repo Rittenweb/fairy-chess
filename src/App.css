@@ -27,11 +27,19 @@
   left: 5vw;
 }
 
-.showmovesbutton {
+.resetturnbutton {
   position: fixed;
   height: 10vh;
   width: 20vw;
   top: 30vh;
+  left: 5vw;
+}
+
+.showmovesbutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 50vh;
   left: 5vw;
 }
 
