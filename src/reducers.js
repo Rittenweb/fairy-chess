@@ -228,6 +228,7 @@ export const reducer = function reducer(state, action) {
         ...stateClone,
         squares: newSquares,
           enemyCaptureShown: false,
+          baseSquares: newSquares
       };
     case 'dehighlight':
       return {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getSquareHighlights } from './pieceData';
 import {
   getAllEnemyCapSquaresRelative,
   getEnemyMoveSquareRelative,
