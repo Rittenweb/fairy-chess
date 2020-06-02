@@ -174,7 +174,6 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
 };
 
 export const getSquareHighlights = function getSquareHighlights(x, y, pieceName, piecesEmpty, piecesFull) {
-
   let moveSquares = [];
   let leapSquares = [];
   let moveNoCapSquares = [];

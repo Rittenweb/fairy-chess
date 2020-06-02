@@ -1,5 +1,7 @@
 import React from 'react';
-import { getSquareHighlights } from './pieceData';
+import {
+  getSquareHighlights
+} from './pieceData';
 
 let dummyPieceState = {};
 for (let i = 0; i < 12; i++) {
@@ -13,11 +15,16 @@ let dummyFullPieceState = {};
 for (let i = 0; i < 12; i++) {
   dummyFullPieceState[i] = {};
   for (let j = 0; j < 12; j++) {
-    dummyFullPieceState[i][j] = {};
+    dummyFullPieceState[i][j] = {
+      name: 'shroom',
+      enemy: true
+    };
   }
 }
 
-export default function ModalBoard({ piece }) {
+export default function ModalBoard({
+  piece
+}) {
   let squares = {};
   let moveSquares = [];
   let leapSquares = [];
@@ -136,17 +143,22 @@ export default function ModalBoard({ piece }) {
   let squareList = [];
   for (let i = 0; i < 23; i++) {
     for (let j = 0; j < 23; j++) {
-      squareList.push(
-        <div
-          key={i * 23 + j}
-          style={{
+      squareList.push( <
+        div key = {
+          i * 23 + j
+        }
+        style = {
+          {
             height: '4.33%',
             width: '4.33%',
             backgroundColor: `${squares[i][j]}`,
-          }}></div>
+          }
+        } > < /div>
       );
     }
   }
 
-  return <div className='modal-board'>{squareList}</div>;
+  return <div className = 'modal-board' > {
+    squareList
+  } < /div>;
 }
