@@ -1,16 +1,14 @@
 import React from 'react';
+import StartButton from './StartButton';
 
 export default function GameOverModal() {
-  console.log('din');
   return (
-    <div
-      style={{
-        position: 'fixed',
-        height: '100px',
-        width: '100px',
-        top: '0',
-        left: '0',
-        backgroundColor: 'red',
-      }}></div>
+    <div className='modal-background'>
+      <div className='modal'>
+        <div>Game Over... </div>
+        <StartButton gameOver={true} />
+        <div>Your score: __</div>
+      </div>
+    </div>
   );
 }

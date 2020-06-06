@@ -18,7 +18,9 @@ function App() {
       <header></header>
       <main>
         <DispatchContext.Provider value={dispatch}>
-          {!gameState.inProgress && <StartButton />}
+          {!gameState.inProgress && !gameState.gameOver && (
+            <StartButton gameOver={false} />
+          )}
           {gameState.inProgress && (
             <EndTurnButton enemyCapShown={gameState.enemyCaptureShown} />
           )}

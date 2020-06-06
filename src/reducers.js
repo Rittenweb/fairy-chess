@@ -41,6 +41,11 @@ export const reducer = function reducer(state, action) {
         ...stateClone, pieces: newPieces
       };
     case 'setup':
+      for (let x = 0; x < 12; x++) {
+        for (let y = 0; y < 12; y++) {
+          newPieces[x][y] = null;
+        }
+      }
       newPieces = randomizeEnemies(newPieces, 0);
       newPieces = {
         ...newPieces,
@@ -72,14 +77,15 @@ export const reducer = function reducer(state, action) {
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
       const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
       return {
-        ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, inProgress: true,
+        ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, inProgress: true, gameOver: false
       };
     case 'endturn':
       for (let i = 0; i < 12; i++) {
         if (newPieces[i][11] !== null && newPieces[i][11].enemy) {
           return {
             ...state,
-            gameOver: true
+            gameOver: true,
+            inProgress: false
           }
         }
       }

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import { getPieceWithRarity } from './pieceData';
 
-export default function StartButton() {
+export default function StartButton({ gameOver }) {
   const dispatch = useContext(DispatchContext);
 
   const setup = function setup(e) {
@@ -23,9 +23,11 @@ export default function StartButton() {
     });
   };
 
+  let text = gameOver ? 'Play Again?' : 'Start Game';
+
   return (
     <button className='startbutton' onClick={setup}>
-      Start Game
+      {text}
     </button>
   );
 }
