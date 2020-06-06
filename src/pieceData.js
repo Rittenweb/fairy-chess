@@ -88,6 +88,35 @@ export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceS
   return result;
 }
 
+export const randomizeEnemies = function randomizeEnemies(pieceState) {
+  for (let i = 0; i < MAX_MOVE; i++) {
+    let y = Math.floor(Math.random() * 3);
+    let rarityWeighted = Math.floor(Math.random() * 12);
+    let rarity;
+    if (rarityWeighted <= 7) {
+      rarity = 1;
+    } else if (rarityWeighted <= 10) {
+      rarity = 2;
+    } else {
+      rarity = 3;
+    }
+    let enemyNames = Object.keys(enemyPieceDefs);
+    let enemyName = enemyNames[Math.floor(enemyNames.length * Math.random())];
+    while (enemyPieceDefs[enemyName].rarity !== rarity) {
+      enemyName = enemyNames[Math.floor(enemyNames.length * Math.random())];
+    }
+    pieceState[i] = {
+      ...pieceState[i],
+      [y]: {
+        name: enemyName,
+        enemy: true,
+        exhausted: false
+      }
+    }
+  }
+  return pieceState;
+}
+
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
   let moveableSquares = [];
   let moveTypes = [];
@@ -754,6 +783,68 @@ const enemyPieceDefs = {
       [-1, 2]
     ],
     rarity: 1
+  },
+  thistle: {
+    move: [0, 1],
+    cap: [
+      [1, 1],
+      [1, -1],
+      [-1, -1],
+      [-1, 1],
+      [1, 0],
+      [0, 2],
+      [0, -1],
+      [-1, 0],
+    ],
+    rarity: 1
+  },
+  sunflower: {
+    move: [0, 2],
+    cap: [
+      [1, 1],
+      [1, -1],
+      [-1, -1],
+      [-1, 1],
+    ],
+    rarity: 2
+  },
+  fungi: {
+    move: [0, 2],
+    cap: [
+      [1, 1],
+      [-1, 1],
+      [0, 1],
+    ],
+    rarity: 2
+  },
+  willow: {
+    move: [0, 2],
+    cap: [
+      [1, 1],
+      [1, -1],
+      [-1, -1],
+      [-1, 1],
+      [2, 2],
+      [2, -2],
+      [-2, 2],
+      [-2, -2]
+    ],
+    rarity: 3
+
+  },
+  forestmother: {
+    move: [0, 3],
+    cap: [
+      [1, 1],
+      [1, -1],
+      [-1, -1],
+      [-1, 1],
+      [1, 0],
+      [0, 1],
+      [0, -1],
+      [-1, 0],
+    ],
+    rarity: 3
   }
 }
 

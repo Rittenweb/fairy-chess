@@ -3,6 +3,7 @@ import {
   getEnemyMoveSquare,
   getEnemyCapSquare,
   getAllEnemyCapSquares,
+  randomizeEnemies
 } from './pieceData';
 
 export const reducer = function reducer(state, action) {
@@ -40,60 +41,31 @@ export const reducer = function reducer(state, action) {
         ...stateClone, pieces: newPieces
       };
     case 'setup':
+      newPieces = randomizeEnemies(newPieces);
       newPieces = {
         ...newPieces,
         3: {
           ...newPieces[3],
-          1: {
-            name: 'shroom',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece1,
         },
         4: {
           ...newPieces[4],
-          1: {
-            name: 'shroom',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece2,
         },
         5: {
           ...newPieces[5],
-          1: {
-            name: 'dandy',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece3,
         },
         6: {
           ...newPieces[6],
-          1: {
-            name: 'dandy',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece4,
         },
         7: {
           ...newPieces[7],
-          1: {
-            name: 'shroom',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece5,
         },
         8: {
           ...newPieces[8],
-          1: {
-            name: 'shroom',
-            enemy: true,
-            exhausted: false
-          },
           9: action.piece6,
         },
       };

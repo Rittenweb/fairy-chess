@@ -36,10 +36,7 @@ export const initialState = {
       '2': null,
       '3': null,
       '4': null,
-      '5': {
-        name: 'carpenter',
-        enemy: false
-      },
+      '5': null,
       '6': null,
       '7': null,
       '8': null,
@@ -169,10 +166,7 @@ export const initialState = {
       '6': null,
       '7': null,
       '8': null,
-      '9': {
-        name: 'sylph',
-        enemy: false
-      },
+      '9': null,
       '10': null,
       '11': null,
     },
