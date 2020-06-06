@@ -58,7 +58,7 @@ const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
   };
 
   let squareColor = (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
-  if (canDrop === 'no' && draggingOver) {
+  if ((canDrop === 'no' && draggingOver) || canDrop === 'enemycap') {
     squareColor = 'red';
   } else if (canDrop === 'yes' && !draggingOver) {
     squareColor = 'yellow';

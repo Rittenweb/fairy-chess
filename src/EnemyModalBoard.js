@@ -25,7 +25,6 @@ export default function EnemyModalBoard({ piece }) {
     }
   }
 
-  console.log(moveSquare);
   squares[moveSquare[0]][moveSquare[1]] = 'blue';
   capSquares.forEach((square) => {
     squares[square[0]][square[1]] = 'orange';

@@ -161,6 +161,7 @@ export const reducer = function reducer(state, action) {
         action.y,
         newPieces
       );
+      let cappableSquares = getAllEnemyCapSquares(action.x, action.y, newPieces) || [];
       for (let x = 0; x < 12; x++) {
         for (let y = 0; y < 12; y++) {
           newSquares[x][y] = {
@@ -175,6 +176,12 @@ export const reducer = function reducer(state, action) {
           canDrop: 'yes',
         };
       }
+      cappableSquares.forEach((square) => {
+        newSquares[square[0]][square[1]] = {
+          ...newSquares[square[0]][square[1]],
+          canDrop: 'enemycap'
+        }
+      })
       return {
         ...stateClone, squares: newSquares
       };
