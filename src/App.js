@@ -5,6 +5,7 @@ import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
 import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
+import GameOverModal from './GameOverModal';
 import { DispatchContext } from './Contexts';
 import { initialState } from './baseStates';
 import { reducer } from './reducers';
@@ -27,6 +28,7 @@ function App() {
           {gameState.inProgress && (
             <ShowMovesButton shown={gameState.enemyCaptureShown} />
           )}
+          {gameState.gameOver && <GameOverModal />}
           <Board gameState={gameState} />
         </DispatchContext.Provider>
       </main>

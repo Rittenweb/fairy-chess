@@ -41,7 +41,7 @@ export const reducer = function reducer(state, action) {
         ...stateClone, pieces: newPieces
       };
     case 'setup':
-      newPieces = randomizeEnemies(newPieces);
+      newPieces = randomizeEnemies(newPieces, 0);
       newPieces = {
         ...newPieces,
         3: {
@@ -75,6 +75,14 @@ export const reducer = function reducer(state, action) {
         ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, inProgress: true,
       };
     case 'endturn':
+      for (let i = 0; i < 12; i++) {
+        if (newPieces[i][11] !== null && newPieces[i][11].enemy) {
+          return {
+            ...state,
+            gameOver: true
+          }
+        }
+      }
       for (let x = 0; x < 12; x++) {
         for (let y = 0; y < 12; y++) {
           if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {

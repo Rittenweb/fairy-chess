@@ -17,16 +17,17 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity) {
 }
 
 export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) {
-  const piece = enemyPieceDefs[pieceState[x][y].name];
-  let moveableSquare = [x + piece['move'][0], y + piece['move'][1]];
-  if (pieceState[moveableSquare[0]][moveableSquare[1]] === null) {
-    return moveableSquare;
-  }
+  let pieceMove = enemyPieceDefs[pieceState[x][y].name].move;
+  do {
+    if (pieceState[x][y + pieceMove] === null) {
+      return [x, y + pieceMove];
+    }
+    pieceMove--;
+  } while (pieceMove > 0)
 }
 
 export const getEnemyMoveSquareRelative = function getEnemyMoveSquareRelative(pieceName) {
-  let enemyPiece = JSON.parse(JSON.stringify(enemyPieceDefs[pieceName]))
-  return enemyPiece.move
+  return [0, enemyPieceDefs[pieceName].move]
 }
 
 export const getAllEnemyCapSquaresRelative = function getAllEnemyCapSquaresRelative(pieceName) {
@@ -88,14 +89,14 @@ export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceS
   return result;
 }
 
-export const randomizeEnemies = function randomizeEnemies(pieceState) {
+export const randomizeEnemies = function randomizeEnemies(pieceState, difficulty) {
   for (let i = 0; i < MAX_MOVE; i++) {
     let y = Math.floor(Math.random() * 3);
     let rarityWeighted = Math.floor(Math.random() * 12);
     let rarity;
-    if (rarityWeighted <= 7) {
+    if (rarityWeighted <= 7 - difficulty) {
       rarity = 1;
-    } else if (rarityWeighted <= 10) {
+    } else if (rarityWeighted <= 10 - difficulty) {
       rarity = 2;
     } else {
       rarity = 3;
@@ -769,7 +770,7 @@ const moveAlgorithms = {
 
 const enemyPieceDefs = {
   shroom: {
-    move: [0, 1],
+    move: 1,
     cap: [
       [1, 1],
       [-1, 1]
@@ -777,7 +778,7 @@ const enemyPieceDefs = {
     rarity: 1
   },
   dandy: {
-    move: [0, 1],
+    move: 1,
     cap: [
       [1, 2],
       [-1, 2]
@@ -785,7 +786,7 @@ const enemyPieceDefs = {
     rarity: 1
   },
   thistle: {
-    move: [0, 1],
+    move: 1,
     cap: [
       [1, 1],
       [1, -1],
@@ -799,7 +800,7 @@ const enemyPieceDefs = {
     rarity: 1
   },
   sunflower: {
-    move: [0, 2],
+    move: 2,
     cap: [
       [1, 1],
       [1, -1],
@@ -809,7 +810,7 @@ const enemyPieceDefs = {
     rarity: 2
   },
   fungi: {
-    move: [0, 2],
+    move: 2,
     cap: [
       [1, 1],
       [-1, 1],
@@ -818,7 +819,7 @@ const enemyPieceDefs = {
     rarity: 2
   },
   willow: {
-    move: [0, 2],
+    move: 2,
     cap: [
       [1, 1],
       [1, -1],
@@ -833,7 +834,7 @@ const enemyPieceDefs = {
 
   },
   forestmother: {
-    move: [0, 3],
+    move: 3,
     cap: [
       [1, 1],
       [1, -1],
