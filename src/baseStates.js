@@ -1,6 +1,5 @@
 export const initialState = {
-  inProgress: false,
-  gameOver: false,
+  gamePhase: 'start', //Can be: start, inprogress, gameover
   enemyCaptureShown: false,
   pieces: {
     '0': {

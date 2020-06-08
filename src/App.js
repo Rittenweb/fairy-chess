@@ -18,19 +18,17 @@ function App() {
       <header></header>
       <main>
         <DispatchContext.Provider value={dispatch}>
-          {!gameState.inProgress && !gameState.gameOver && (
-            <StartButton gameOver={false} />
-          )}
-          {gameState.inProgress && (
+          {gameState.gamePhase === 'start' && <StartButton gameOver={false} />}
+          {gameState.gamePhase === 'inprogress' && (
             <EndTurnButton enemyCapShown={gameState.enemyCaptureShown} />
           )}
-          {gameState.inProgress && (
+          {gameState.gamePhase === 'inprogress' && (
             <ResetTurnButton enemyCapShown={gameState.enemyCapShown} />
           )}
-          {gameState.inProgress && (
+          {gameState.gamePhase === 'inprogress' && (
             <ShowMovesButton shown={gameState.enemyCaptureShown} />
           )}
-          {gameState.gameOver && <GameOverModal />}
+          {gameState.gamePhase === 'gameover' && <GameOverModal />}
           <Board gameState={gameState} />
         </DispatchContext.Provider>
       </main>

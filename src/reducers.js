@@ -77,15 +77,14 @@ export const reducer = function reducer(state, action) {
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
       const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
       return {
-        ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, inProgress: true, gameOver: false
+        ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, gamePhase: 'inprogress'
       };
     case 'endturn':
       for (let i = 0; i < 12; i++) {
         if (newPieces[i][11] !== null && newPieces[i][11].enemy) {
           return {
             ...state,
-            gameOver: true,
-            inProgress: false
+            gamePhase: 'gameover'
           }
         }
       }
