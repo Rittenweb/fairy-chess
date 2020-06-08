@@ -3,7 +3,7 @@ import { DispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
-const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
+const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
   const dispatch = useContext(DispatchContext);
 
   const [draggingOver, setDraggingOver] = useState(false);
@@ -50,11 +50,9 @@ const DragSquare = ({ x, y, piece, canDrop, xMark, shown }) => {
     dispatch({
       type: 'dehighlight',
     });
-    if (shown) {
-      dispatch({
-        type: 'enemyCaptureOn',
-      });
-    }
+    dispatch({
+      type: 'showEnemyCapture',
+    });
   };
 
   let squareColor = (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';

@@ -797,7 +797,7 @@ const enemyPieceDefs = {
       [0, -1],
       [-1, 0],
     ],
-    rarity: 1
+    rarity: 2
   },
   sunflower: {
     move: 2,

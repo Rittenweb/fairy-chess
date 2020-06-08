@@ -14,6 +14,9 @@ export default function ShowMovesButton({ shown }) {
         type: 'enemyCaptureOn',
       });
     }
+    dispatch({
+      type: 'showEnemyCapture',
+    });
   };
 
   return (

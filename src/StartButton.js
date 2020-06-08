@@ -21,6 +21,9 @@ export default function StartButton({ gameOver }) {
       piece5,
       piece6,
     });
+    dispatch({
+      type: 'showEnemyCapture',
+    });
   };
 
   let text = gameOver ? 'Play Again?' : 'Start Game';

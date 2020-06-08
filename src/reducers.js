@@ -190,51 +190,57 @@ export const reducer = function reducer(state, action) {
       return {
         ...stateClone, squares: newSquares
       };
-    case 'enemyCaptureOn':
-      let squares = [];
-      for (let x = 0; x < 12; x++) {
-        for (let y = 0; y < 12; y++) {
-          if (newPieces[x][y] && newPieces[x][y].enemy === true) {
-            squares = squares.concat(getAllEnemyCapSquares(x, y, newPieces));
+      //Call this to show squares if shown, not if not. enemyCaptureOn or enemyCaptureoff just toggle state
+      //And should only be called in the showEnemyCapture button
+    case 'showEnemyCapture':
+      if (state.enemyCaptureShown) {
+        let squares = [];
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            if (newPieces[x][y] && newPieces[x][y].enemy === true) {
+              squares = squares.concat(getAllEnemyCapSquares(x, y, newPieces));
+            }
+            newSquares[x][y].xMark = false;
           }
-          newSquares[x][y].xMark = false;
+        }
+        squares.forEach((square) => {
+          newSquares[square[0]][square[1]].xMark = true;
+        })
+      } else {
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            newSquares[x][y].xMark = false;
+          }
         }
       }
-      squares.forEach((square) => {
-        newSquares[square[0]][square[1]].xMark = true;
-      })
-
       return {
         ...stateClone,
         squares: newSquares,
+          baseSquares: newSquares
+      }
+      case 'enemyCaptureOn':
+        return {
+          ...stateClone,
           enemyCaptureShown: true,
-          baseSquares: newSquares
-      };
-    case 'enemyCaptureOff':
-      for (let x = 0; x < 12; x++) {
-        for (let y = 0; y < 12; y++) {
-          newSquares[x][y].xMark = false;
-        }
-      }
-      return {
-        ...stateClone,
-        squares: newSquares,
+        };
+      case 'enemyCaptureOff':
+        return {
+          ...stateClone,
           enemyCaptureShown: false,
-          baseSquares: newSquares
-      };
-    case 'dehighlight':
-      return {
-        ...stateClone, squares: stateClone.baseSquares
-      };
-    case 'resetTurn':
-      if (!stateClone.lastTurnPieceState) {
-        return state;
-      }
-      newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
-      return {
-        ...stateClone, pieces: newPieces
-      };
-    default:
-      throw new Error('No reducer for action type');
+        };
+      case 'dehighlight':
+        return {
+          ...stateClone, squares: stateClone.baseSquares
+        };
+      case 'resetTurn':
+        if (!stateClone.lastTurnPieceState) {
+          return state;
+        }
+        newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
+        return {
+          ...stateClone, pieces: newPieces
+        };
+      default:
+        throw new Error('No reducer for action type');
   }
 }

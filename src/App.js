@@ -19,12 +19,8 @@ function App() {
       <main>
         <DispatchContext.Provider value={dispatch}>
           {gameState.gamePhase === 'start' && <StartButton gameOver={false} />}
-          {gameState.gamePhase === 'inprogress' && (
-            <EndTurnButton enemyCapShown={gameState.enemyCaptureShown} />
-          )}
-          {gameState.gamePhase === 'inprogress' && (
-            <ResetTurnButton enemyCapShown={gameState.enemyCapShown} />
-          )}
+          {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
+          {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
           {gameState.gamePhase === 'inprogress' && (
             <ShowMovesButton shown={gameState.enemyCaptureShown} />
           )}

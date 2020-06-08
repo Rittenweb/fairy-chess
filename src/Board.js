@@ -15,7 +15,6 @@ function renderSquare(squareNum, gameState) {
       piece={piece}
       canDrop={square.canDrop}
       xMark={square.xMark}
-      shown={gameState.enemyCaptureShown}
     />
   );
 }

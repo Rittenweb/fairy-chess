@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 
-export default function ResetTurnButton({ enemyCapShown }) {
+export default function ResetTurnButton() {
   const dispatch = useContext(DispatchContext);
 
   const resetturn = function resetturn(e) {
     dispatch({
       type: 'resetTurn',
+    });
+    dispatch({
+      type: 'showEnemyCapture',
     });
   };
 
