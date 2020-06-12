@@ -16,6 +16,12 @@ export default function BenchPiece({ piece, canDrag }) {
     });
   };
 
+  const handleDragEnd = function handleDragEnd(e) {
+    dispatch({
+      type: 'dehighlight',
+    });
+  };
+
   const handleRightClick = function handleRightClick(e) {
     e.preventDefault();
     setModalDisplay(!modalDisplay);
@@ -29,6 +35,7 @@ export default function BenchPiece({ piece, canDrag }) {
       className='piece'
       draggable={piece.canDrag ? 'true' : 'false'}
       onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       onContextMenu={handleRightClick}>
       <img
         className={

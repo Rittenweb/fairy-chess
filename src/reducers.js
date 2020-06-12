@@ -68,7 +68,6 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 3));
       newBenchPieces.push(getPieceWithRarity(1, 4));
       newBenchPieces.push(getPieceWithRarity(1, 5));
-      newBenchPieces.push(getPieceWithRarity(1, 6));
       let benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces))
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
       return {
