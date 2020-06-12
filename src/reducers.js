@@ -70,15 +70,22 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 5));
       newBenchPieces.push(getPieceWithRarity(1, 6));
       let benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces))
+      const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
       return {
-        ...stateClone, benchPieces: newBenchPieces, baseBenchPieces: benchPieceClone, gamePhase: 'setup'
+        ...stateClone, benchPieces: newBenchPieces, baseBenchPieces: benchPieceClone, baseSquares: baseSquaresClone, gamePhase: 'setup'
       }
-      case 'startgame':
+      case 'startGame':
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            if (newPieces[x][y]) {
+              newPieces[x][y].exhausted = false;
+            }
+          }
+        }
         newPieces = randomizeEnemies(newPieces, 0);
-        const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
         const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
         return {
-          ...stateClone, pieces: newPieces, baseSquares: baseSquaresClone, lastTurnPieceState: currentPiecesClone, gamePhase: 'inprogress'
+          ...stateClone, pieces: newPieces, lastTurnPieceState: currentPiecesClone, gamePhase: 'inprogress'
         };
       case 'endturn':
         for (let i = 0; i < 12; i++) {
@@ -207,6 +214,7 @@ export const reducer = function reducer(state, action) {
         //Call this to show squares if shown, not if not. enemyCaptureOn or enemyCaptureoff just toggle state
         //And should only be called in the showEnemyCapture button
       case 'showEnemyCapture':
+        let squaresClone = state.baseSquares
         if (state.enemyCaptureShown) {
           let squares = [];
           for (let x = 0; x < 12; x++) {
@@ -215,22 +223,25 @@ export const reducer = function reducer(state, action) {
                 squares = squares.concat(getAllEnemyCapSquares(x, y, newPieces));
               }
               newSquares[x][y].xMark = false;
+              squaresClone[x][y].xMark = false;
             }
           }
           squares.forEach((square) => {
             newSquares[square[0]][square[1]].xMark = true;
+            squaresClone[square[0]][square[1]].xMark = true;
           })
         } else {
           for (let x = 0; x < 12; x++) {
             for (let y = 0; y < 12; y++) {
               newSquares[x][y].xMark = false;
+              squaresClone[x][y].xMark = false
             }
           }
         }
         return {
           ...stateClone,
           squares: newSquares,
-            baseSquares: newSquares
+            baseSquares: squaresClone
         }
         case 'enemyCaptureOn':
           return {
@@ -243,8 +254,9 @@ export const reducer = function reducer(state, action) {
             enemyCaptureShown: false,
           };
         case 'dehighlight':
+          let otherSquaresClone = JSON.parse(JSON.stringify(stateClone.baseSquares))
           return {
-            ...stateClone, squares: stateClone.baseSquares
+            ...stateClone, squares: otherSquaresClone
           };
         case 'resetTurn':
           if (!stateClone.lastTurnPieceState) {

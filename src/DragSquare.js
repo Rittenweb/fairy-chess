@@ -55,12 +55,12 @@ const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
         yOrg: pieceData.y,
         piece: pieceData.piece,
       });
+      dispatch({
+        type: 'showEnemyCapture',
+      });
     }
     dispatch({
       type: 'dehighlight',
-    });
-    dispatch({
-      type: 'showEnemyCapture',
     });
   };
 

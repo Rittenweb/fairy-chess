@@ -19,6 +19,15 @@
   z-index: 100;
 }
 
+.readybutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 45vh;
+  left: 40vw;
+  z-index: 100;
+}
+
 .endturnbutton {
   position: fixed;
   height: 10vh;

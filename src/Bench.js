@@ -1,5 +1,6 @@
 import React from 'react';
 import BenchSquare from './BenchSquare';
+import ReadyButton from './ReadyButton';
 import { getRarity } from './pieceData';
 
 let rareMaxed;
@@ -19,6 +20,9 @@ function renderSquare(squareNum, gameState) {
       canDrag = false;
     }
   }
+  if (gameState.gamePhase !== 'setup') {
+    canDrag = false;
+  }
   return (
     <BenchSquare
       key={squareNum}
@@ -30,30 +34,32 @@ function renderSquare(squareNum, gameState) {
 }
 
 export default function Bench({ gameState }) {
-  let rareMax = 1;
-  let uncommonMax = 2;
-  let commonMax = 3;
-  rareMaxed = false;
-  uncommonMaxed = false;
-  commonMaxed = false;
-  for (let x = 0; x < 12; x++) {
-    for (let y = 0; y < 12; y++) {
-      let piece = gameState.pieces[x][y];
-      if (piece) {
-        if (getRarity(piece.name) === 3) {
-          rareMax--;
-          if (rareMax <= 0) {
-            rareMaxed = true;
-          }
-        } else if (getRarity(piece.name) === 2) {
-          uncommonMax--;
-          if (uncommonMax <= 0) {
-            uncommonMaxed = true;
-          }
-        } else if (getRarity(piece.name) === 1) {
-          commonMax--;
-          if (commonMax <= 0) {
-            commonMaxed = true;
+  if (gameState.gamePhase === 'setup') {
+    let rareMax = 1;
+    let uncommonMax = 2;
+    let commonMax = 3;
+    rareMaxed = false;
+    uncommonMaxed = false;
+    commonMaxed = false;
+    for (let x = 0; x < 12; x++) {
+      for (let y = 0; y < 12; y++) {
+        let piece = gameState.pieces[x][y];
+        if (piece) {
+          if (getRarity(piece.name) === 3) {
+            rareMax--;
+            if (rareMax <= 0) {
+              rareMaxed = true;
+            }
+          } else if (getRarity(piece.name) === 2) {
+            uncommonMax--;
+            if (uncommonMax <= 0) {
+              uncommonMaxed = true;
+            }
+          } else if (getRarity(piece.name) === 1) {
+            commonMax--;
+            if (commonMax <= 0) {
+              commonMaxed = true;
+            }
           }
         }
       }
@@ -64,5 +70,13 @@ export default function Bench({ gameState }) {
   for (let i = 0; i < 16; i++) {
     squareList.push(renderSquare(i, gameState));
   }
-  return <div className='bench'>{squareList}</div>;
+  return (
+    <>
+      <div className='bench'>{squareList}</div>
+      {gameState.gamePhase === 'setup' &&
+        rareMaxed &&
+        uncommonMaxed &&
+        commonMaxed && <ReadyButton />}
+    </>
+  );
 }
