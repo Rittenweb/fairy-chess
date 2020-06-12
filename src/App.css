@@ -52,6 +52,28 @@
   min-height: 500px;
 }
 
+.bench {
+  position: fixed;
+  top: 26vh;
+  right: 10vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 12vh;
+  height: 48vh;
+}
+
+.bench-square {
+  position: relative;
+  font-size: 2rem;
+  height: 12.5%;
+  width: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .square {
   position: relative;
   font-size: 2rem;
