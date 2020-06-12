@@ -43,6 +43,14 @@
   left: 5vw;
 }
 
+.resetsetupbutton {
+  position: fixed;
+  height: 10vh;
+  width: 20vw;
+  top: 30vh;
+  left: 5vw;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;

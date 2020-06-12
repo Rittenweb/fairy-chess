@@ -2,9 +2,9 @@ import React from 'react';
 import BenchSquare from './BenchSquare';
 import { getRarity } from './pieceData';
 
-let rareMaxed = false;
-let uncommonMaxed = false;
-let commonMaxed = false;
+let rareMaxed;
+let uncommonMaxed;
+let commonMaxed;
 
 function renderSquare(squareNum, gameState) {
   const piece = gameState.benchPieces[squareNum];
@@ -33,6 +33,9 @@ export default function Bench({ gameState }) {
   let rareMax = 1;
   let uncommonMax = 2;
   let commonMax = 3;
+  rareMaxed = false;
+  uncommonMaxed = false;
+  commonMaxed = false;
   for (let x = 0; x < 12; x++) {
     for (let y = 0; y < 12; y++) {
       let piece = gameState.pieces[x][y];

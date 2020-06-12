@@ -6,6 +6,7 @@ import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
 import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
+import ResetSetupButton from './ResetSetupButton';
 import GameOverModal from './GameOverModal';
 import { DispatchContext } from './Contexts';
 import { initialState } from './baseStates';
@@ -20,6 +21,7 @@ function App() {
       <main>
         <DispatchContext.Provider value={dispatch}>
           {gameState.gamePhase === 'start' && <StartButton gameOver={false} />}
+          {gameState.gamePhase === 'setup' && <ResetSetupButton />}
           {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
           {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
           {gameState.gamePhase === 'inprogress' && (
