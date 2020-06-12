@@ -12,6 +12,7 @@ export default function BenchPiece({ piece, canDrag }) {
     e.dataTransfer.setData('text/plain', json);
     dispatch({
       type: 'benchHighlight',
+      canDrag: canDrag,
     });
   };
 

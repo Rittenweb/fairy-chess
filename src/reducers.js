@@ -68,7 +68,7 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 3));
       newBenchPieces.push(getPieceWithRarity(1, 4));
       newBenchPieces.push(getPieceWithRarity(1, 5));
-      console.log(newBenchPieces)
+      newBenchPieces.push(getPieceWithRarity(1, 6));
       return {
         ...stateClone, benchPieces: newBenchPieces, gamePhase: 'setup'
       }
@@ -139,9 +139,10 @@ export const reducer = function reducer(state, action) {
       case 'benchHighlight':
         for (let x = 0; x < 12; x++) {
           for (let y = 0; y < 12; y++) {
-            newSquares[x][y] = {
-              ...newSquares[x][y],
-              canDrop: y > 8 ? 'yes' : 'no'
+            if (newPieces[x][y] === null && y > 8 && action.canDrag) {
+              newSquares[x][y].canDrop = 'yes'
+            } else {
+              newSquares[x][y].canDrop = 'no'
             }
           }
         }

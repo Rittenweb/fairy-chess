@@ -11,9 +11,6 @@ const BenchSquare = ({ num, piece, canDrag }) => {
   } else {
     squareColor = num % 2 === 0 ? '#A2AF9F' : '#6F7A6B';
   }
-  if (canDrag) {
-    squareColor = 'yellow';
-  }
 
   return (
     <div className='bench-square' style={{ backgroundColor: squareColor }}>
