@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
+import BenchPiece from './BenchPiece';
 
 const BenchSquare = ({ num, piece, canDrag }) => {
   const dispatch = useContext(DispatchContext);
@@ -16,7 +17,7 @@ const BenchSquare = ({ num, piece, canDrag }) => {
 
   return (
     <div className='bench-square' style={{ backgroundColor: squareColor }}>
-      {num}
+      {piece && <BenchPiece canDrag={canDrag} piece={piece} />}
     </div>
   );
 };

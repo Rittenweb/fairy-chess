@@ -4,7 +4,7 @@ export const getRarity = function getRarity(pieceName) {
   return pieceDefs[pieceName].rarity;
 }
 
-export const getPieceWithRarity = function getPieceWithRarity(rarity) {
+export const getPieceWithRarity = function getPieceWithRarity(rarity, id) {
   let pieceNames = Object.keys(pieceDefs);
   let pieceName = pieceNames[Math.floor(pieceNames.length * Math.random())];
   while (pieceDefs[pieceName].rarity !== rarity) {
@@ -12,7 +12,8 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity) {
   }
   return {
     name: pieceName,
-    enemy: false
+    enemy: false,
+    id: id
   };
 }
 

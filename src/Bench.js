@@ -2,11 +2,11 @@ import React from 'react';
 import BenchSquare from './BenchSquare';
 
 function renderSquare(squareNum, gameState) {
-  // const piece = gameState.team[squareNum];
+  const piece = gameState.benchPieces[squareNum];
   // const square = gameState.benchSquares[squareNum];
-
+  console.log(piece);
   return (
-    <BenchSquare key={squareNum} num={squareNum} piece={null} canDrag={null} />
+    <BenchSquare key={squareNum} num={squareNum} piece={piece} canDrag={null} />
   );
 }
 
