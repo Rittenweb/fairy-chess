@@ -12,6 +12,7 @@ export const reducer = function reducer(state, action) {
   let stateClone = JSON.parse(JSON.stringify(state));
   let newPieces = stateClone.pieces;
   let newSquares = stateClone.squares;
+  let newBenchPieces = stateClone.benchPieces
   switch (action.type) {
     case 'move':
       const oldX = action.xOrg;
@@ -42,17 +43,34 @@ export const reducer = function reducer(state, action) {
       return {
         ...stateClone, pieces: newPieces
       };
-    case 'setup':
-      let benchPieces = [];
-      benchPieces.push(getPieceWithRarity(3, 1));
-      benchPieces.push(getPieceWithRarity(2, 2));
-      benchPieces.push(getPieceWithRarity(2, 3));
-      benchPieces.push(getPieceWithRarity(1, 4));
-      benchPieces.push(getPieceWithRarity(1, 5));
-      benchPieces.push(getPieceWithRarity(1, 6));
-      console.log(benchPieces)
+    case 'benchMove':
+      const placeX = action.xDest;
+      const placeY = action.yDest;
+      newBenchPieces[action.piece.id] = null;
+      newPieces = {
+        ...newPieces,
+        [placeX]: {
+          ...newPieces[placeX],
+          [placeY]: {
+            ...action.piece,
+            exhausted: true
+          },
+        },
+      };
       return {
-        ...stateClone, benchPieces: benchPieces, gamePhase: 'setup'
+        ...stateClone, pieces: newPieces, benchPieces: newBenchPieces
+      };
+    case 'setup':
+      newBenchPieces = [];
+      newBenchPieces.push(getPieceWithRarity(3, 0));
+      newBenchPieces.push(getPieceWithRarity(2, 1));
+      newBenchPieces.push(getPieceWithRarity(2, 2));
+      newBenchPieces.push(getPieceWithRarity(1, 3));
+      newBenchPieces.push(getPieceWithRarity(1, 4));
+      newBenchPieces.push(getPieceWithRarity(1, 5));
+      console.log(newBenchPieces)
+      return {
+        ...stateClone, benchPieces: newBenchPieces, gamePhase: 'setup'
       }
       case 'startgame':
         newPieces = randomizeEnemies(newPieces, 0);
@@ -117,6 +135,18 @@ export const reducer = function reducer(state, action) {
 
         return {
           ...stateClone, pieces: newPieces, lastTurnPieceState: currentPiecesRecord
+        };
+      case 'benchHighlight':
+        for (let x = 0; x < 12; x++) {
+          for (let y = 0; y < 12; y++) {
+            newSquares[x][y] = {
+              ...newSquares[x][y],
+              canDrop: y > 8 ? 'yes' : 'no'
+            }
+          }
+        }
+        return {
+          ...stateClone, squares: newSquares
         };
       case 'highlight':
         const moveableSquares = getMoveableSquares(

@@ -2,39 +2,18 @@ import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import Modal from './Modal';
 
-export default function Piece({ piece, x, y, canDrag }) {
+export default function BenchPiece({ piece, canDrag }) {
   const dispatch = useContext(DispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
 
-  // const handleDragStart = function handleDragStart(e) {
-  //   const obj = { piece, x, y };
-  //   const json = JSON.stringify(obj);
-  //   e.dataTransfer.setData('text/plain', json);
-  //   dispatch({
-  //     type: 'highlight',
-  //     pieceName: piece.name,
-  //     x,
-  //     y,
-  //   });
-  // };
-
-  // const handleMouseOver = function handleMouseOver(e) {
-  //   if (piece.exhausted) {
-  //     return;
-  //   }
-  //   dispatch({
-  //     type: 'highlight',
-  //     pieceName: piece.name,
-  //     x,
-  //     y,
-  //   });
-  // };
-
-  // const handleMouseLeave = function handleMouseLeave(e) {
-  //   dispatch({
-  //     type: 'dehighlight',
-  //   });
-  // };
+  const handleDragStart = function handleDragStart(e) {
+    const obj = { piece, bench: true };
+    const json = JSON.stringify(obj);
+    e.dataTransfer.setData('text/plain', json);
+    dispatch({
+      type: 'benchHighlight',
+    });
+  };
 
   const handleRightClick = function handleRightClick(e) {
     e.preventDefault();
@@ -45,15 +24,14 @@ export default function Piece({ piece, x, y, canDrag }) {
   };
 
   return (
-    <div className='piece'>
-      {/* draggable={piece.exhausted ? 'false' : 'true'}
+    <div
+      className='piece'
+      draggable={piece.canDrag ? 'true' : 'false'}
       onDragStart={handleDragStart}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-      onContextMenu={handleRightClick}> */}
+      onContextMenu={handleRightClick}>
       <img
         className={
-          canDrag ? 'piece-symbol exhausted' : 'piece-symbol not-exhausted'
+          canDrag ? 'piece-symbol not-exhausted' : 'piece-symbol exhausted'
         }
         src={require(`./img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>

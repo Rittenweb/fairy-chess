@@ -39,14 +39,23 @@ const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
     if (pieceData.piece.exhausted) {
       return;
     }
-    dispatch({
-      type: 'move',
-      xDest: x,
-      yDest: y,
-      xOrg: pieceData.x,
-      yOrg: pieceData.y,
-      piece: pieceData.piece,
-    });
+    if (pieceData.bench) {
+      dispatch({
+        type: 'benchMove',
+        xDest: x,
+        yDest: y,
+        piece: pieceData.piece,
+      });
+    } else {
+      dispatch({
+        type: 'move',
+        xDest: x,
+        yDest: y,
+        xOrg: pieceData.x,
+        yOrg: pieceData.y,
+        piece: pieceData.piece,
+      });
+    }
     dispatch({
       type: 'dehighlight',
     });
