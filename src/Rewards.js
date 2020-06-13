@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { getPieceWithRarity } from './pieceData';
+import { DispatchContext } from './Contexts';
 import Pack from './Pack';
 
 export default function Rewards({ gameState }) {
+  const dispatch = useContext(DispatchContext);
   let [selected, setSelected] = useState('all');
 
   const onClick = function onClick(whichPack) {
     setSelected(whichPack);
   };
 
-  let currentChoices = gameState.choicesList;
+  let choices = gameState.choicesList;
+
+  if (!choices.length && selected !== 'all') {
+    if (selected === 'rare') {
+      choices.push([getPieceWithRarity(3).name]);
+    } else if (selected === 'uncommon') {
+      choices.push([getPieceWithRarity(2).name]);
+      choices.push([getPieceWithRarity(2).name]);
+    } else if (selected === 'common') {
+      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+    }
+    dispatch({
+      type: 'updateChoices',
+      choices: choices,
+    });
+  }
 
   return (
     <div className='rewards'>
@@ -35,7 +54,7 @@ export default function Rewards({ gameState }) {
           onClick={onClick}
           rarity={'common'}
           selected={selected}
-          choices={currentChoices}
+          choices={choices}
         />
       )}
       {(selected === 'all' || selected === 'uncommon') && (
@@ -43,7 +62,7 @@ export default function Rewards({ gameState }) {
           onClick={onClick}
           rarity={'uncommon'}
           selected={selected}
-          choices={currentChoices}
+          choices={choices}
         />
       )}
       {(selected === 'all' || selected === 'rare') && (
@@ -51,7 +70,7 @@ export default function Rewards({ gameState }) {
           onClick={onClick}
           rarity={'rare'}
           selected={selected}
-          choices={currentChoices}
+          choices={choices}
         />
       )}
     </div>

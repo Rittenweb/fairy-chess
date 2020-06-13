@@ -6,14 +6,13 @@ export default function Choice({ pieces }) {
   const dispatch = useContext(DispatchContext);
 
   const handleClick = function handleClick(e) {
-    console.log('choice');
     dispatch({
       type: 'addBenchPieces',
       pieces: pieces,
     });
     // dispatch({
-    //   type: 'reSetup'
-    // })
+    //   type: 'reSetup',
+    // });
     // dispatch({
     //   type: 'clearChoices'
     // })
@@ -21,8 +20,8 @@ export default function Choice({ pieces }) {
 
   return (
     <div onClick={handleClick} className='choice'>
-      {pieces.map((piece) => (
-        <ChoicePiece name={piece} />
+      {pieces.map((piece, i) => (
+        <ChoicePiece name={piece} key={i} />
       ))}
     </div>
   );

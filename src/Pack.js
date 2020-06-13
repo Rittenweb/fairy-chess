@@ -1,30 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { getPieceWithRarity } from './pieceData';
+import React, { useState } from 'react';
 import Choice from './Choice';
-import { DispatchContext } from './Contexts';
 
 export default function Pack({ onClick, rarity, selected, choices }) {
-  const dispatch = useContext(DispatchContext);
   let [color, setColor] = useState('rgb(17, 78, 17)');
 
-  if (!choices.length) {
-    if (rarity === 'rare') {
-      choices.push([getPieceWithRarity(3).name]);
-    } else if (rarity === 'uncommon') {
-      choices.push([getPieceWithRarity(2).name]);
-      choices.push([getPieceWithRarity(2).name]);
-    } else if (rarity === 'common') {
-      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
-      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
-    }
-    dispatch({
-      type: 'updateChoices',
-      choices: choices,
-    });
-  }
-
   const myClick = function myClick() {
-    console.log('pack');
     onClick(rarity);
   };
 
@@ -56,7 +36,7 @@ export default function Pack({ onClick, rarity, selected, choices }) {
       )}
       {selected === rarity && 'Choose One!'}
       {selected === rarity &&
-        choices.map((choice) => <Choice pieces={choice} />)}
+        choices.map((choice, i) => <Choice pieces={choice} key={i} />)}
     </div>
   );
 }

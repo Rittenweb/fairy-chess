@@ -8,7 +8,6 @@ export default function ChoicePiece({ name }) {
     e.preventDefault();
     e.stopPropagation();
     setModalDisplay(!modalDisplay);
-    console.log(modalDisplay);
   };
 
   return (
