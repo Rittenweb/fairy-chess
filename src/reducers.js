@@ -71,6 +71,11 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 3));
       newBenchPieces.push(getPieceWithRarity(1, 4));
       newBenchPieces.push(getPieceWithRarity(1, 5));
+      newBenchPieces.push({
+        name: 'bugeyedmonster',
+        enemy: false,
+        id: 6
+      })
       let benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces))
       const basePiecesClone = JSON.parse(JSON.stringify(initialState.pieces));
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
@@ -98,7 +103,7 @@ export const reducer = function reducer(state, action) {
             lastTurnPieceState: currentPiecesClone,
             gamePhase: 'inprogress'
         };
-      case 'endturn':
+      case 'endTurn':
         for (let i = 0; i < 12; i++) {
           if (newPieces[i][11] !== null && newPieces[i][11].enemy) {
             return {
@@ -107,9 +112,12 @@ export const reducer = function reducer(state, action) {
             }
           }
         }
+        let gamePhase = 'inprogress'
+        let enemyCount = 0;
         for (let x = 0; x < 12; x++) {
           for (let y = 0; y < 12; y++) {
             if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
+              enemyCount++;
               let capSquare = getEnemyCapSquare(x, y, newPieces);
               if (capSquare) {
                 newPieces = {
@@ -150,12 +158,33 @@ export const reducer = function reducer(state, action) {
             }
           }
         }
-        const currentPiecesRecord = JSON.parse(JSON.stringify(newPieces));
+        let currentPiecesRecord;
+        if (enemyCount === 0) {
+          gamePhase = 'rewards';
+          newBenchPieces = [];
+          state.benchPieces.forEach((piece) => {
+            if (piece) {
+              newBenchPieces.push(piece)
+            }
+          })
+          for (let x = 0; x < 12; x++) {
+            for (let y = 0; y < 12; y++) {
+              if (newPieces[x][y] && newPieces[x][y].enemy === false) {
+                newBenchPieces.push(newPieces[x][y])
+              }
+            }
+          }
+          currentPiecesRecord = JSON.parse(JSON.stringify(initialState.pieces))
+        } else {
+          currentPiecesRecord = JSON.parse(JSON.stringify(newPieces))
+        }
 
         return {
           ...stateClone,
           pieces: newPieces,
-            lastTurnPieceState: currentPiecesRecord
+            lastTurnPieceState: currentPiecesRecord,
+            gamePhase: gamePhase,
+            benchPieces: newBenchPieces
         };
       case 'benchHighlight':
         for (let x = 0; x < 12; x++) {

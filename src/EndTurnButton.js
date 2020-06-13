@@ -4,9 +4,9 @@ import { DispatchContext } from './Contexts';
 export default function EndTurnButton() {
   const dispatch = useContext(DispatchContext);
 
-  const endturn = function endturn(e) {
+  const endTurn = function endTurn(e) {
     dispatch({
-      type: 'endturn',
+      type: 'endTurn',
     });
     dispatch({
       type: 'showEnemyCapture',
@@ -14,7 +14,7 @@ export default function EndTurnButton() {
   };
 
   return (
-    <button className='endturnbutton' onClick={endturn}>
+    <button className='endturnbutton' onClick={endTurn}>
       End Turn
     </button>
   );

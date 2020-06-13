@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import './App.css';
 import Board from './Board';
 import Bench from './Bench';
+import Rewards from './Rewards';
 import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
 import ResetTurnButton from './ResetTurnButton';
@@ -28,7 +29,8 @@ function App() {
             <ShowMovesButton shown={gameState.enemyCaptureShown} />
           )}
           {gameState.gamePhase === 'gameover' && <GameOverModal />}
-          <Board gameState={gameState} />
+          {gameState.gamePhase !== 'rewards' && <Board gameState={gameState} />}
+          {gameState.gamePhase === 'rewards' && <Rewards />}
           <Bench gameState={gameState} />
         </DispatchContext.Provider>
       </main>

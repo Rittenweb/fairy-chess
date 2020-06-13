@@ -1,0 +1,61 @@
+import React, { useState } from 'react';
+import { getPieceWithRarity } from './pieceData';
+import Choice from './Choice';
+
+export default function Pack({ onClick, rarity, selected }) {
+  let choicesList = [];
+  let [color, setColor] = useState('    rgb(17, 78, 17)  ');
+
+  if (rarity === 'rare') {
+    choicesList.push(<Choice pieces={[getPieceWithRarity(3).name]} />);
+  } else if (rarity === 'uncommon') {
+    choicesList.push(<Choice pieces={[getPieceWithRarity(2).name]} />);
+    choicesList.push(<Choice pieces={[getPieceWithRarity(2).name]} />);
+  } else if (rarity === 'common') {
+    choicesList.push(
+      <Choice
+        pieces={[getPieceWithRarity(1).name, getPieceWithRarity(1).name]}
+      />
+    );
+    choicesList.push(
+      <Choice
+        pieces={[getPieceWithRarity(1).name, getPieceWithRarity(1).name]}
+      />
+    );
+  }
+
+  const myClick = function myClick() {
+    onClick(rarity);
+  };
+
+  const handleMouseLeave = function handleMouseLeave(e) {
+    if (selected === 'all') {
+      setColor('rgb(17, 78, 17)');
+    }
+  };
+
+  const handleMouseEnter = function handleMouseEnter(e) {
+    if (selected === 'all') {
+      setColor('rgb(28, 148, 28)');
+    }
+  };
+
+  return (
+    <div
+      className='pack'
+      style={{ backgroundColor: color }}
+      onClick={myClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
+      {selected === 'all' && rarity}
+      {selected === 'all' && (
+        <img
+          className={'piece-symbol'}
+          src={require(`./img/${rarity}.png`)}
+          alt={`${rarity}`}></img>
+      )}
+      {selected === rarity && 'Choose One!'}
+      {selected === rarity && choicesList}
+    </div>
+  );
+}
