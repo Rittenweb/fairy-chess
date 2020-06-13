@@ -10,12 +10,12 @@ export default function Choice({ pieces }) {
       type: 'addBenchPieces',
       pieces: pieces,
     });
-    // dispatch({
-    //   type: 'reSetup',
-    // });
-    // dispatch({
-    //   type: 'clearChoices'
-    // })
+    dispatch({
+      type: 'reSetup',
+    });
+    dispatch({
+      type: 'clearChoices',
+    });
   };
 
   return (
