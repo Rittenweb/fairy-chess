@@ -125,7 +125,7 @@
 
 .rewards {
   width: 50vw;
-  height: 50vh;
+  height: 66vh;
   background-color: darkslategrey;
   display: flex;
   justify-content: space-evenly;
@@ -140,10 +140,6 @@
   width: 27%;
   border-radius: 4px;
   background-color: rgb(17, 78, 17);
-}
-
-.pack:active {
-  transform: scale(0.9);
 }
 
 .choice {

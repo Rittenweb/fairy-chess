@@ -71,11 +71,6 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 3));
       newBenchPieces.push(getPieceWithRarity(1, 4));
       newBenchPieces.push(getPieceWithRarity(1, 5));
-      newBenchPieces.push({
-        name: 'bugeyedmonster',
-        enemy: false,
-        id: 6
-      })
       let benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces))
       const basePiecesClone = JSON.parse(JSON.stringify(initialState.pieces));
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
@@ -95,7 +90,7 @@ export const reducer = function reducer(state, action) {
             }
           }
         }
-        newPieces = randomizeEnemies(newPieces, 0);
+        // newPieces = randomizeEnemies(newPieces, 0);
         const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
         return {
           ...stateClone,
@@ -325,7 +320,12 @@ export const reducer = function reducer(state, action) {
             pieces: newPieces,
               benchPieces: newBenchPieces
           }
-          default:
-            throw new Error('No reducer for action type');
+          case 'updateChoices':
+            return {
+              ...stateClone,
+              choicesList: action.choices
+            }
+            default:
+              throw new Error('No reducer for action type');
   }
 }

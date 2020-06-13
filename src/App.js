@@ -30,7 +30,9 @@ function App() {
           )}
           {gameState.gamePhase === 'gameover' && <GameOverModal />}
           {gameState.gamePhase !== 'rewards' && <Board gameState={gameState} />}
-          {gameState.gamePhase === 'rewards' && <Rewards />}
+          {gameState.gamePhase === 'rewards' && (
+            <Rewards gameState={gameState} />
+          )}
           <Bench gameState={gameState} />
         </DispatchContext.Provider>
       </main>

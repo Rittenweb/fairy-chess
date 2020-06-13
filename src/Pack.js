@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { getPieceWithRarity } from './pieceData';
 import Choice from './Choice';
+import { DispatchContext } from './Contexts';
 
-export default function Pack({ onClick, rarity, selected }) {
-  let choicesList = [];
-  let [color, setColor] = useState('    rgb(17, 78, 17)  ');
+export default function Pack({ onClick, rarity, selected, choices }) {
+  const dispatch = useContext(DispatchContext);
+  let [color, setColor] = useState('rgb(17, 78, 17)');
 
-  if (rarity === 'rare') {
-    choicesList.push(<Choice pieces={[getPieceWithRarity(3).name]} />);
-  } else if (rarity === 'uncommon') {
-    choicesList.push(<Choice pieces={[getPieceWithRarity(2).name]} />);
-    choicesList.push(<Choice pieces={[getPieceWithRarity(2).name]} />);
-  } else if (rarity === 'common') {
-    choicesList.push(
-      <Choice
-        pieces={[getPieceWithRarity(1).name, getPieceWithRarity(1).name]}
-      />
-    );
-    choicesList.push(
-      <Choice
-        pieces={[getPieceWithRarity(1).name, getPieceWithRarity(1).name]}
-      />
-    );
+  if (!choices.length) {
+    if (rarity === 'rare') {
+      choices.push([getPieceWithRarity(3).name]);
+    } else if (rarity === 'uncommon') {
+      choices.push([getPieceWithRarity(2).name]);
+      choices.push([getPieceWithRarity(2).name]);
+    } else if (rarity === 'common') {
+      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+      choices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+    }
+    dispatch({
+      type: 'updateChoices',
+      choices: choices,
+    });
   }
 
   const myClick = function myClick() {
+    console.log('pack');
     onClick(rarity);
   };
 
@@ -55,7 +55,8 @@ export default function Pack({ onClick, rarity, selected }) {
           alt={`${rarity}`}></img>
       )}
       {selected === rarity && 'Choose One!'}
-      {selected === rarity && choicesList}
+      {selected === rarity &&
+        choices.map((choice) => <Choice pieces={choice} />)}
     </div>
   );
 }
