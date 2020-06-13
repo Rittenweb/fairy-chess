@@ -7,6 +7,9 @@ import {
   getPieceWithRarity
 
 } from './pieceData';
+import {
+  initialState
+} from './baseStates'
 
 export const reducer = function reducer(state, action) {
   let stateClone = JSON.parse(JSON.stringify(state));
@@ -69,9 +72,15 @@ export const reducer = function reducer(state, action) {
       newBenchPieces.push(getPieceWithRarity(1, 4));
       newBenchPieces.push(getPieceWithRarity(1, 5));
       let benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces))
+      const basePiecesClone = JSON.parse(JSON.stringify(initialState.pieces));
       const baseSquaresClone = JSON.parse(JSON.stringify(newSquares));
       return {
-        ...stateClone, benchPieces: newBenchPieces, baseBenchPieces: benchPieceClone, baseSquares: baseSquaresClone, gamePhase: 'setup'
+        ...stateClone,
+        benchPieces: newBenchPieces,
+          baseBenchPieces: benchPieceClone,
+          baseSquares: baseSquaresClone,
+          pieces: basePiecesClone,
+          gamePhase: 'setup'
       }
       case 'startGame':
         for (let x = 0; x < 12; x++) {
@@ -84,7 +93,10 @@ export const reducer = function reducer(state, action) {
         newPieces = randomizeEnemies(newPieces, 0);
         const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
         return {
-          ...stateClone, pieces: newPieces, lastTurnPieceState: currentPiecesClone, gamePhase: 'inprogress'
+          ...stateClone,
+          pieces: newPieces,
+            lastTurnPieceState: currentPiecesClone,
+            gamePhase: 'inprogress'
         };
       case 'endturn':
         for (let i = 0; i < 12; i++) {
@@ -141,7 +153,9 @@ export const reducer = function reducer(state, action) {
         const currentPiecesRecord = JSON.parse(JSON.stringify(newPieces));
 
         return {
-          ...stateClone, pieces: newPieces, lastTurnPieceState: currentPiecesRecord
+          ...stateClone,
+          pieces: newPieces,
+            lastTurnPieceState: currentPiecesRecord
         };
       case 'benchHighlight':
         for (let x = 0; x < 12; x++) {
@@ -154,7 +168,8 @@ export const reducer = function reducer(state, action) {
           }
         }
         return {
-          ...stateClone, squares: newSquares
+          ...stateClone,
+          squares: newSquares
         };
       case 'highlight':
         const moveableSquares = getMoveableSquares(
@@ -178,7 +193,8 @@ export const reducer = function reducer(state, action) {
           };
         }
         return {
-          ...stateClone, squares: newSquares
+          ...stateClone,
+          squares: newSquares
         };
       case 'enemyhighlight':
         const moveableSquare = getEnemyMoveSquare(
@@ -208,7 +224,8 @@ export const reducer = function reducer(state, action) {
           }
         })
         return {
-          ...stateClone, squares: newSquares
+          ...stateClone,
+          squares: newSquares
         };
         //Call this to show squares if shown, not if not. enemyCaptureOn or enemyCaptureoff just toggle state
         //And should only be called in the showEnemyCapture button
@@ -255,7 +272,8 @@ export const reducer = function reducer(state, action) {
         case 'dehighlight':
           let otherSquaresClone = JSON.parse(JSON.stringify(stateClone.baseSquares))
           return {
-            ...stateClone, squares: otherSquaresClone
+            ...stateClone,
+            squares: otherSquaresClone
           };
         case 'resetTurn':
           if (!stateClone.lastTurnPieceState) {
@@ -263,7 +281,8 @@ export const reducer = function reducer(state, action) {
           }
           newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
           return {
-            ...stateClone, pieces: newPieces
+            ...stateClone,
+            pieces: newPieces
           };
         case 'resetSetup':
           for (let x = 0; x < 12; x++) {
@@ -273,7 +292,9 @@ export const reducer = function reducer(state, action) {
           }
           newBenchPieces = JSON.parse(JSON.stringify(stateClone.baseBenchPieces));
           return {
-            ...stateClone, pieces: newPieces, benchPieces: newBenchPieces
+            ...stateClone,
+            pieces: newPieces,
+              benchPieces: newBenchPieces
           }
           default:
             throw new Error('No reducer for action type');
