@@ -64,7 +64,6 @@ export const reducer = function reducer(state, action) {
         ...stateClone, pieces: newPieces, benchPieces: newBenchPieces
       };
     case 'addBenchPieces':
-      console.log(newBenchPieces);
       let length = newBenchPieces.length;
       action.pieces.forEach((pieceName, i) => {
         newBenchPieces.push({
@@ -120,7 +119,9 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, 0);
+            console.log(state.wave);
+            console.log(stateClone.wave);
+            newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
               ...stateClone,
@@ -183,9 +184,12 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
+            let newWave = state.wave
             let currentPiecesRecord;
             if (enemyCount === 0) {
               gamePhase = 'rewards';
+              newWave = state.wave + 1;
+              console.log(newWave)
               newBenchPieces = [];
               state.benchPieces.forEach((piece) => {
                 if (piece) {
@@ -204,13 +208,15 @@ export const reducer = function reducer(state, action) {
             } else {
               currentPiecesRecord = JSON.parse(JSON.stringify(newPieces))
             }
+            console.log(newWave)
 
             return {
               ...stateClone,
               pieces: newPieces,
                 lastTurnPieceState: currentPiecesRecord,
                 gamePhase: gamePhase,
-                benchPieces: newBenchPieces
+                benchPieces: newBenchPieces,
+                wave: newWave
             };
           case 'benchHighlight':
             for (let x = 0; x < 12; x++) {

@@ -3,6 +3,7 @@ export const initialState = {
   enemyCaptureShown: false,
   benchPieces: [],
   choicesList: [],
+  wave: 0,
   pieces: {
     '0': {
       '0': null,

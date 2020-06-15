@@ -61,6 +61,15 @@
   left: 5vw;
 }
 
+.scoreboard {
+  position: fixed;
+  top: 2.5vh;
+  right: 7.5vw;
+  height: 5vh;
+  width: 30vh;
+  background-color: darkslategrey;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;
@@ -79,7 +88,7 @@
   flex-wrap: wrap;
   width: 12vh;
   height: 48vh;
-  z-index: 3;
+  z-index: 101;
 }
 
 .bench-square {

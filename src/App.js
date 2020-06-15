@@ -3,6 +3,7 @@ import './App.css';
 import Board from './Board';
 import Bench from './Bench';
 import Rewards from './Rewards';
+import ScoreBoard from './ScoreBoard';
 import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
 import ResetTurnButton from './ResetTurnButton';
@@ -22,6 +23,9 @@ function App() {
       <main>
         <DispatchContext.Provider value={dispatch}>
           {gameState.gamePhase === 'start' && <StartButton gameOver={false} />}
+          {gameState.gamePhase !== 'start' && (
+            <ScoreBoard score={gameState.wave} />
+          )}
           {gameState.gamePhase === 'setup' && <ResetSetupButton />}
           {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
           {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
