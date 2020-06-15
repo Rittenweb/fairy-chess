@@ -79,6 +79,7 @@
   flex-wrap: wrap;
   width: 12vh;
   height: 48vh;
+  z-index: 3;
 }
 
 .bench-square {
