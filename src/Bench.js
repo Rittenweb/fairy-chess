@@ -6,10 +6,11 @@ import { getRarity } from './pieceData';
 let rareMaxed;
 let uncommonMaxed;
 let commonMaxed;
+let ready;
 
 function renderSquare(squareNum, gameState) {
   const piece = gameState.benchPieces[squareNum];
-  let canDrag = true;
+  let canDrag;
   if (piece) {
     let rarity = getRarity(piece.name);
     if (rarity === 3 && rareMaxed) {
@@ -18,10 +19,15 @@ function renderSquare(squareNum, gameState) {
       canDrag = false;
     } else if (rarity === 1 && commonMaxed) {
       canDrag = false;
+    } else {
+      canDrag = true;
     }
   }
   if (gameState.gamePhase !== 'setup') {
     canDrag = false;
+  }
+  if (canDrag) {
+    ready = false;
   }
   return (
     <BenchSquare
@@ -64,6 +70,7 @@ export default function Bench({ gameState }) {
         }
       }
     }
+    ready = true;
   }
 
   const squareList = [];
@@ -73,10 +80,7 @@ export default function Bench({ gameState }) {
   return (
     <>
       <div className='bench'>{squareList}</div>
-      {gameState.gamePhase === 'setup' &&
-        rareMaxed &&
-        uncommonMaxed &&
-        commonMaxed && <ReadyButton />}
+      {gameState.gamePhase === 'setup' && ready && <ReadyButton />}
     </>
   );
 }
