@@ -74,6 +74,7 @@ export const reducer = function reducer(state, action) {
         })
       })
       newBenchPieces = newBenchPieces.sort((a, b) => a.id - b.id);
+      newBenchPieces.forEach((piece, i) => piece.id = i)
       const benchPieceClone2 = JSON.parse(JSON.stringify(newBenchPieces))
 
 
@@ -119,8 +120,6 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            console.log(state.wave);
-            console.log(stateClone.wave);
             newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
@@ -189,7 +188,6 @@ export const reducer = function reducer(state, action) {
             if (enemyCount === 0) {
               gamePhase = 'rewards';
               newWave = state.wave + 1;
-              console.log(newWave)
               newBenchPieces = [];
               state.benchPieces.forEach((piece) => {
                 if (piece) {
@@ -204,11 +202,11 @@ export const reducer = function reducer(state, action) {
                 }
               }
               newBenchPieces = newBenchPieces.sort((a, b) => a.id - b.id)
+              newBenchPieces.forEach((piece, i) => piece.id = i)
               currentPiecesRecord = JSON.parse(JSON.stringify(initialState.pieces))
             } else {
               currentPiecesRecord = JSON.parse(JSON.stringify(newPieces))
             }
-            console.log(newWave)
 
             return {
               ...stateClone,
