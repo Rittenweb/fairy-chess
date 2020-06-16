@@ -3,7 +3,7 @@ import { DispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
-const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
+const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
   const dispatch = useContext(DispatchContext);
 
   const [draggingOver, setDraggingOver] = useState(false);
@@ -78,8 +78,11 @@ const DragSquare = ({ x, y, piece, canDrop, xMark }) => {
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
-      style={{ backgroundColor: squareColor }}>
-      {xMark && <div className='x'>╳</div>}
+      style={{
+        background: captureMark
+          ? `radial-gradient(${squareColor} 0%, ${squareColor} 50%, red 100%)`
+          : squareColor,
+      }}>
       {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
       {piece && piece.enemy === true && (
         <EnemyPiece piece={piece} x={x} y={y} />

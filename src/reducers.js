@@ -297,19 +297,19 @@ export const reducer = function reducer(state, action) {
                   if (newPieces[x][y] && newPieces[x][y].enemy === true) {
                     squares = squares.concat(getAllEnemyCapSquares(x, y, newPieces));
                   }
-                  newSquares[x][y].xMark = false;
-                  squaresClone[x][y].xMark = false;
+                  newSquares[x][y].captureMark = false;
+                  squaresClone[x][y].captureMark = false;
                 }
               }
               squares.forEach((square) => {
-                newSquares[square[0]][square[1]].xMark = true;
-                squaresClone[square[0]][square[1]].xMark = true;
+                newSquares[square[0]][square[1]].captureMark = true;
+                squaresClone[square[0]][square[1]].captureMark = true;
               })
             } else {
               for (let x = 0; x < 12; x++) {
                 for (let y = 0; y < 12; y++) {
-                  newSquares[x][y].xMark = false;
-                  squaresClone[x][y].xMark = false
+                  newSquares[x][y].captureMark = false;
+                  squaresClone[x][y].captureMark = false
                 }
               }
             }

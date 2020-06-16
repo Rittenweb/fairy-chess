@@ -177,458 +177,458 @@ export const initialState = {
   squares: {
     '0': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '1': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '2': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '3': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '4': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '5': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '6': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '7': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '8': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '9': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '10': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
     '11': {
       '0': {
-        xMark: false
+        captureMark: false
       },
       '1': {
-        xMark: false
+        captureMark: false
       },
       '2': {
-        xMark: false
+        captureMark: false
       },
       '3': {
-        xMark: false
+        captureMark: false
       },
       '4': {
-        xMark: false
+        captureMark: false
       },
       '5': {
-        xMark: false
+        captureMark: false
       },
       '6': {
-        xMark: false
+        captureMark: false
       },
       '7': {
-        xMark: false
+        captureMark: false
       },
       '8': {
-        xMark: false
+        captureMark: false
       },
       '9': {
-        xMark: false
+        captureMark: false
       },
       '10': {
-        xMark: false
+        captureMark: false
       },
       '11': {
-        xMark: false
+        captureMark: false
       },
     },
   },
