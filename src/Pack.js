@@ -36,7 +36,9 @@ export default function Pack({ onClick, rarity, selected, choices }) {
       )}
       {selected === rarity && 'Choose One!'}
       {selected === rarity &&
-        choices.map((choice, i) => <Choice pieces={choice} key={i} />)}
+        choices.map((choice, i) => (
+          <Choice pieces={choice} wide={rarity === 'common'} key={i} />
+        ))}
     </div>
   );
 }

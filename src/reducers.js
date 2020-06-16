@@ -120,7 +120,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, state.wave);
+            // newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
               ...stateClone,

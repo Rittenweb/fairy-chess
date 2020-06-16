@@ -20,24 +20,42 @@ function App() {
   return (
     <div className='App'>
       <header></header>
-      <main>
+      <main style={{ display: 'flex', justifyContent: 'stretch' }}>
         <DispatchContext.Provider value={dispatch}>
-          {gameState.gamePhase === 'start' && <StartButton gameOver={false} />}
-          {gameState.gamePhase !== 'start' && (
+          <div className='left-container'>
+            {gameState.gamePhase === 'start' && (
+              <div style={{ width: '80%', height: 'auto', fontSize: '5rem' }}>
+                Fairy Chess
+              </div>
+            )}
+            {gameState.gamePhase === 'rewards' && (
+              <div style={{ width: '80%', height: 'auto', fontSize: '5rem' }}>
+                Rewards Phase
+              </div>
+            )}
+            {gameState.gamePhase === 'setup' && <ResetSetupButton />}
+            {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
+            {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
+            {gameState.gamePhase === 'inprogress' && (
+              <ShowMovesButton shown={gameState.enemyCaptureShown} />
+            )}
+          </div>
+          <div className='main-container'>
+            {gameState.gamePhase === 'start' && (
+              <StartButton gameOver={false} />
+            )}
+            {gameState.gamePhase !== 'rewards' && (
+              <Board gameState={gameState} />
+            )}
+            {gameState.gamePhase === 'rewards' && (
+              <Rewards gameState={gameState} />
+            )}
+          </div>
+          <div className='right-container'>
             <ScoreBoard score={gameState.wave} />
-          )}
-          {gameState.gamePhase === 'setup' && <ResetSetupButton />}
-          {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
-          {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
-          {gameState.gamePhase === 'inprogress' && (
-            <ShowMovesButton shown={gameState.enemyCaptureShown} />
-          )}
+            <Bench gameState={gameState} />
+          </div>
           {gameState.gamePhase === 'gameover' && <GameOverModal />}
-          {gameState.gamePhase !== 'rewards' && <Board gameState={gameState} />}
-          {gameState.gamePhase === 'rewards' && (
-            <Rewards gameState={gameState} />
-          )}
-          <Bench gameState={gameState} />
         </DispatchContext.Provider>
       </main>
     </div>

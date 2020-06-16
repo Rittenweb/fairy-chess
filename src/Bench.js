@@ -80,7 +80,7 @@ export default function Bench({ gameState }) {
   return (
     <>
       <div className='bench'>{squareList}</div>
-      {gameState.gamePhase === 'setup' && ready && <ReadyButton />}
+      {gameState.gamePhase === 'setup' && <ReadyButton ready={ready} />}
     </>
   );
 }

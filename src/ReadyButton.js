@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 
-export default function ReadyButton() {
+export default function ReadyButton({ ready }) {
   const dispatch = useContext(DispatchContext);
 
   const setup = function setup(e) {
@@ -14,8 +14,13 @@ export default function ReadyButton() {
   };
 
   return (
-    <button className='readybutton' onClick={setup}>
-      I'm Ready
-    </button>
+    <>
+      {ready && (
+        <button className='readybutton' onClick={setup}>
+          I'm Ready
+        </button>
+      )}
+      {!ready && <div className='readybutton'>0/3 Common</div>}
+    </>
   );
 }
