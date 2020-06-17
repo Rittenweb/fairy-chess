@@ -56,6 +56,9 @@ function App() {
           )}
         </DispatchContext.Provider>
       </main>
+      <div className='modal-background mobile-modal'>
+        Touch events not yet supported! Please play on desktop.
+      </div>
     </div>
   );
 }
