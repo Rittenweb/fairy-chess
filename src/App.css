@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +13,7 @@
 
 main {
   display: flex;
+  height: 100vh;
   width: 100vw;
 }
 
@@ -52,12 +52,6 @@ main {
   font-size: 6vw;
 }
 
-@media (max-width: 900px) {
-  .big-text {
-    display: none;
-  }
-}
-
 button {
   height: 10vh;
   width: 80%;
@@ -66,7 +60,7 @@ button {
 
 .startbutton {
   position: absolute;
-  width: 20vw;
+  width: 40%;
   z-index: 100;
 }
 
@@ -234,4 +228,79 @@ button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.mobile-modal {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .big-text {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .disappear {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  main {
+    flex-direction: column;
+  }
+  .left-container {
+    flex-direction: row;
+    height: 30vh;
+    width: 100vw;
+  }
+  .right-container {
+    flex-direction: row;
+    height: 30vh;
+    width: 100vw;
+  }
+  .main-container {
+    height: 40vh;
+    width: 100vw;
+  }
+
+  .bench {
+    flex-direction: row;
+    width: 48vw;
+    height: 12vw;
+  }
+
+  .bench-square {
+    width: 12.5%;
+    height: 50%;
+  }
+
+  .scoreboard {
+    width: 15%;
+    margin: 0 5vw;
+  }
+
+  .readybutton {
+    width: 15%;
+    margin: 0 5vw;
+  }
+
+  .board-wrapper {
+    width: 75%;
+  }
+
+  .rewards {
+    width: 75%;
+  }
+
+  button {
+    width: 25%;
+  }
+}
+
+@media only screen and (min-device-width: 800px) {
+  .mobile-modal {
+    display: inline;
+  }
 }

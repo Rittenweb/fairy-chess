@@ -33,7 +33,7 @@ export default function Rewards({ gameState }) {
     <div className='rewards'>
       {selected === 'common' && (
         <img
-          className='pack'
+          className='pack disappear'
           src={require(`./img/${selected}.png`)}
           alt={`${selected}`}></img>
       )}

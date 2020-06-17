@@ -30,7 +30,7 @@ export default function Pack({ onClick, rarity, selected, choices }) {
       {selected === 'all' && rarity}
       {selected === 'all' && (
         <img
-          className={'piece-symbol'}
+          className='piece-symbol'
           src={require(`./img/${rarity}.png`)}
           alt={`${rarity}`}></img>
       )}

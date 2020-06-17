@@ -17,7 +17,7 @@ export default function ChoicePiece({ name }) {
         src={require(`./img/${name}.png`)}
         alt={`${name}`}
         onContextMenu={handleRightClick}
-        style={{ padding: '1rem' }}></img>
+        style={{ padding: '10%' }}></img>
       {modalDisplay && (
         <Modal piece={{ name: name }} handleClick={handleRightClick}></Modal>
       )}
