@@ -20,18 +20,14 @@ function App() {
   return (
     <div className='App'>
       <header></header>
-      <main style={{ display: 'flex', justifyContent: 'stretch' }}>
+      <main>
         <DispatchContext.Provider value={dispatch}>
           <div className='left-container'>
             {gameState.gamePhase === 'start' && (
-              <div style={{ width: '80%', height: 'auto', fontSize: '5rem' }}>
-                Fairy Chess
-              </div>
+              <div className='big-text'>Fairy Chess</div>
             )}
             {gameState.gamePhase === 'rewards' && (
-              <div style={{ width: '80%', height: 'auto', fontSize: '5rem' }}>
-                Rewards Phase
-              </div>
+              <div className='big-text'>Reward Phase</div>
             )}
             {gameState.gamePhase === 'setup' && <ResetSetupButton />}
             {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
@@ -55,7 +51,9 @@ function App() {
             <ScoreBoard score={gameState.wave} />
             <Bench gameState={gameState} />
           </div>
-          {gameState.gamePhase === 'gameover' && <GameOverModal />}
+          {gameState.gamePhase === 'gameover' && (
+            <GameOverModal score={gameState.wave} />
+          )}
         </DispatchContext.Provider>
       </main>
     </div>

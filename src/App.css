@@ -9,11 +9,18 @@
   font-size: calc(10px + 2vmin);
   color: white;
   box-sizing: border-box;
+  font-size: 2vw;
+}
+
+main {
+  display: flex;
+  width: 100vw;
 }
 
 .left-container {
   height: 100vh;
-  width: 28vw;
+  flex-basis: 400px;
+  flex-shrink: 3;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -22,7 +29,8 @@
 
 .right-container {
   height: 100vh;
-  width: 28vw;
+  flex-basis: 400px;
+  flex-shrink: 3;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -31,62 +39,66 @@
 
 .main-container {
   height: 100vh;
-  width: 44vw;
+  flex-basis: 700px;
+  flex-shrink: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.startbutton {
-  position: fixed;
+.big-text {
+  width: 80%;
+  height: auto;
+  font-size: 6vw;
+}
+
+@media (max-width: 900px) {
+  .big-text {
+    display: none;
+  }
+}
+
+button {
   height: 10vh;
+  width: 80%;
+  font-size: 1.6vw;
+}
+
+.startbutton {
+  position: absolute;
   width: 20vw;
-  top: 45vh;
-  left: 40vw;
   z-index: 100;
 }
 
 .readybutton {
-  height: 10vh;
-  width: 20vw;
   z-index: 100;
   margin: 8vh 0;
-}
-
-.endturnbutton {
-  height: 10vh;
-  width: 20vw;
-}
-
-.resetturnbutton {
-  height: 10vh;
-  width: 20vw;
-}
-
-.showmovesbutton {
-  height: 10vh;
-  width: 20vw;
-}
-
-.resetsetupbutton {
-  height: 10vh;
-  width: 20vw;
+  width: 80%;
 }
 
 .scoreboard {
   height: auto;
   width: 80%;
-  margin: 10vh 0;
+  margin: 8vh 0;
   background-color: darkslategrey;
-  font-size: 1.5rem;
+}
+
+.board-wrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
 }
 
 .board {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   /* min-width: 500px; */
-  height: 44vw;
   /* min-height: 500px; */
 }
 
@@ -101,7 +113,6 @@
 
 .bench-square {
   position: relative;
-  font-size: 2rem;
   height: 12.5%;
   width: 50%;
   color: white;
@@ -113,7 +124,6 @@
 
 .square {
   position: relative;
-  font-size: 2rem;
   height: 8.33%;
   width: 8.33%;
   color: white;
@@ -168,6 +178,8 @@
 
 .choice {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: auto;
   height: auto;
   border: 1px solid black;
@@ -184,7 +196,7 @@
   background-color: rgb(0, 0, 0, 0.5);
   top: 0px;
   left: 0px;
-  height: 100vw;
+  height: 100vh;
   width: 100vw;
   z-index: 3;
   cursor: auto;

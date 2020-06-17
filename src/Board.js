@@ -7,38 +7,28 @@ function renderSquare(squareNum, gameState) {
   const piece = gameState.pieces[x][y];
   const square = gameState.squares[x][y];
 
-  return ( <
-    DragSquare key = {
-      squareNum
-    }
-    x = {
-      x
-    }
-    y = {
-      y
-    }
-    piece = {
-      piece
-    }
-    canDrop = {
-      square.canDrop
-    }
-    captureMark = {
-      square.captureMark
-    }
+  return (
+    <DragSquare
+      key={squareNum}
+      x={x}
+      y={y}
+      piece={piece}
+      canDrop={square.canDrop}
+      captureMark={square.captureMark}
     />
   );
 }
 
-export default function Board({
-  gameState
-}) {
+export default function Board({ gameState }) {
   const squareList = [];
   for (let i = 0; i < 144; i++) {
     squareList.push(renderSquare(i, gameState));
   }
   console.count('board');
-  return <div className = 'board' > {
-    squareList
-  } < /div>;
+  return (
+    <div className='board-wrapper'>
+      <div style={{ marginTop: '100%' }}></div>
+      <div className='board'> {squareList} </div>
+    </div>
+  );
 }
