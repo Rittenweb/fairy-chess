@@ -1,7 +1,12 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 
-export default function ReadyButton({ ready }) {
+export default function ReadyButton({
+  ready,
+  rareNum,
+  uncommonNum,
+  commonNum,
+}) {
   const dispatch = useContext(DispatchContext);
 
   const setup = function setup(e) {
@@ -20,7 +25,9 @@ export default function ReadyButton({ ready }) {
           I'm Ready
         </button>
       )}
-      {!ready && <div className='readybutton'>0/3 Common</div>}
+      {!ready && (
+        <div className='readybutton'>{`${commonNum}/3 Common, ${uncommonNum}/2 Uncommon, ${rareNum}/1 Rare`}</div>
+      )}
     </>
   );
 }

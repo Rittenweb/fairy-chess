@@ -22,7 +22,7 @@ export default function Choice({ pieces, wide }) {
     <div
       onClick={handleClick}
       className='choice'
-      style={{ width: wide ? '16vw' : '8vw' }}>
+      style={{ width: wide ? '12vw' : '6vw' }}>
       {pieces.map((piece, i) => (
         <ChoicePiece name={piece} key={i} />
       ))}

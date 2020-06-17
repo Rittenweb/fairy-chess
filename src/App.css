@@ -50,7 +50,7 @@
   height: 10vh;
   width: 20vw;
   z-index: 100;
-  margin: 10vh 0;
+  margin: 8vh 0;
 }
 
 .endturnbutton {
@@ -172,7 +172,7 @@
   height: auto;
   border: 1px solid black;
   border-radius: 3px;
-  margin: 1rem;
+  margin: 2rem;
 }
 
 .choice:hover {
