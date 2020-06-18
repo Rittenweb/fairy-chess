@@ -56,7 +56,6 @@ button {
   height: 10vh;
   width: 80%;
   font-size: 1.6vw;
-  animation: fadeIn 500ms;
 }
 
 .startbutton {
@@ -251,6 +250,15 @@ button {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 

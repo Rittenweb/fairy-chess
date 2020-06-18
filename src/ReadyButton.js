@@ -11,11 +11,16 @@ export default function ReadyButton({
 
   const setup = function setup(e) {
     dispatch({
-      type: 'startGame',
+      type: 'transition',
     });
-    dispatch({
-      type: 'showEnemyCapture',
-    });
+    setTimeout(() => {
+      dispatch({
+        type: 'startGame',
+      });
+      dispatch({
+        type: 'showEnemyCapture',
+      });
+    }, 500);
   };
 
   return (

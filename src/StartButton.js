@@ -8,7 +8,7 @@ export default function StartButton({ gameOver }) {
     dispatch({
       type: 'setup',
     });
-    //This dispatch initializes squareState. Not cleanest, but currently necessary.
+    //This dispatch initializes squareState. Not the cleanest, but currently necessary.
     dispatch({
       type: 'showEnemyCapture',
     });

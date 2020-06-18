@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
+import TransitionComponent from './TransitionComponent';
 
-export default function ResetSetupButton() {
+export default function ResetSetupButton({ show }) {
   const dispatch = useContext(DispatchContext);
 
   const resetSetup = function resetSetup(e) {
@@ -11,8 +12,10 @@ export default function ResetSetupButton() {
   };
 
   return (
-    <button className='resetsetupbutton' onClick={resetSetup}>
-      Reset Setup
-    </button>
+    <TransitionComponent show={show}>
+      <button className='resetsetupbutton' onClick={resetSetup}>
+        Reset Setup
+      </button>
+    </TransitionComponent>
   );
 }

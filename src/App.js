@@ -29,7 +29,7 @@ function App() {
             {gameState.gamePhase === 'rewards' && (
               <div className='big-text'>Reward Phase</div>
             )}
-            {gameState.gamePhase === 'setup' && <ResetSetupButton />}
+            <ResetSetupButton show={gameState.gamePhase === 'setup'} />
             {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
             {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
             {gameState.gamePhase === 'inprogress' && (

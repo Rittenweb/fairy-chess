@@ -365,8 +365,12 @@ export const reducer = function reducer(state, action) {
                     ...stateClone,
                     choicesList: []
                   }
-
-                  default:
-                    throw new Error('No reducer for action type');
+                  case 'transition':
+                    return {
+                      ...stateClone,
+                      gamePhase: 'transition'
+                    }
+                    default:
+                      throw new Error('No reducer for action type');
   }
 }
