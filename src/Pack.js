@@ -22,7 +22,7 @@ export default function Pack({ onClick, rarity, selected, choices }) {
 
   return (
     <div
-      className='pack'
+      className={selected === rarity ? 'pack glow' : 'pack'}
       style={{ backgroundColor: color }}
       onClick={myClick}
       onMouseEnter={handleMouseEnter}

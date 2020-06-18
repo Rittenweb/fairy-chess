@@ -56,11 +56,12 @@ button {
   height: 10vh;
   width: 80%;
   font-size: 1.6vw;
+  animation: fadeIn 500ms;
 }
 
 .startbutton {
   position: absolute;
-  width: 40%;
+  width: 30%;
   z-index: 100;
 }
 
@@ -125,6 +126,7 @@ button {
   justify-content: center;
   align-items: center;
   outline: 2px solid black;
+  transition: background 0.2s ease-out;
 }
 
 .piece {
@@ -133,6 +135,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeAndShrinkIn 400ms ease-out;
 }
 
 .not-exhausted {
@@ -158,6 +161,7 @@ button {
   justify-content: space-evenly;
   align-items: center;
   border-radius: 5px;
+  animation: slideDown 400ms ease-out;
 }
 
 .pack {
@@ -168,6 +172,10 @@ button {
   width: auto;
   border-radius: 4px;
   background-color: rgb(17, 78, 17);
+}
+
+.glow {
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
 .choice {
@@ -194,6 +202,7 @@ button {
   width: 100vw;
   z-index: 3;
   cursor: auto;
+  animation: grow 200ms ease-out;
 }
 
 .modal {
@@ -233,6 +242,59 @@ button {
 .mobile-modal {
   display: none;
 }
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeAndShrinkIn {
+  0% {
+    opacity: 0;
+    transform: scale(2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translate(0, -1000px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #d5e770, 0 0 20px #d5e770,
+      0 0 25px #d5e770, 0 0 30px #d5e770, 0 0 35px #d5e770;
+  }
+  100% {
+    box-shadow: 0 0 10px #fff, 0 0 15px #eef3ae, 0 0 20px #eef3ae,
+      0 0 25px #eef3ae, 0 0 30px #eef3ae, 0 0 35px #eef3ae, 0 0 40px #eef3ae;
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* MEDIA QUERIES */
 
 @media (max-width: 900px) {
   .big-text {

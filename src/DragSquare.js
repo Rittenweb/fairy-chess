@@ -68,7 +68,10 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
   if ((canDrop === 'no' && draggingOver) || canDrop === 'enemycap') {
     squareColor = 'red';
   } else if (canDrop === 'yes' && !draggingOver) {
-    squareColor = 'yellow';
+    squareColor = `yellow`;
+  }
+  if (captureMark) {
+    squareColor = `radial-gradient(${squareColor} 0%, ${squareColor} 50%, red 100%)`;
   }
 
   return (
@@ -79,9 +82,7 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       style={{
-        background: captureMark
-          ? `radial-gradient(${squareColor} 0%, ${squareColor} 50%, red 100%)`
-          : squareColor,
+        background: squareColor,
       }}>
       {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
       {piece && piece.enemy === true && (

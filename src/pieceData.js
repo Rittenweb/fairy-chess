@@ -91,7 +91,6 @@ export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceS
 }
 
 export const randomizeEnemies = function randomizeEnemies(pieceState, difficulty) {
-  console.log(difficulty);
   for (let i = 0; i < MAX_MOVE; i++) {
     let y = Math.floor(Math.random() * 3);
     let rarityWeighted = Math.floor(Math.random() * 12);
