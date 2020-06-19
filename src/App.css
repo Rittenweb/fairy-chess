@@ -9,6 +9,7 @@
   color: white;
   box-sizing: border-box;
   font-size: 2vw;
+  overflow: hidden;
 }
 
 main {
@@ -60,7 +61,7 @@ button {
 
 .startbutton {
   position: absolute;
-  width: 30%;
+  width: 20%;
   z-index: 100;
 }
 
@@ -160,7 +161,6 @@ button {
   justify-content: space-evenly;
   align-items: center;
   border-radius: 5px;
-  animation: slideDown 400ms ease-out;
 }
 
 .pack {
@@ -201,7 +201,6 @@ button {
   width: 100vw;
   z-index: 3;
   cursor: auto;
-  animation: grow 200ms ease-out;
 }
 
 .modal {
@@ -273,12 +272,50 @@ button {
   }
 }
 
-@keyframes slideDown {
+@keyframes fadeAndGrowOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+@keyframes slideDownIn {
   0% {
     transform: translate(0, -1000px);
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+@keyframes slideUpIn {
+  0% {
+    transform: translate(0, 1000px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDownOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 1000px);
+  }
+}
+
+@keyframes slideUpOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, -1000px);
   }
 }
 
@@ -299,6 +336,15 @@ button {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
   }
 }
 

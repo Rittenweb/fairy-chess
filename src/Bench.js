@@ -67,14 +67,13 @@ export default function Bench({ gameState }) {
   return (
     <>
       <div className='bench'>{squareList}</div>
-      {gameState.gamePhase === 'setup' && (
-        <ReadyButton
-          ready={ready}
-          rareNum={rareNum}
-          uncommonNum={uncommonNum}
-          commonNum={commonNum}
-        />
-      )}
+      <ReadyButton
+        ready={ready}
+        rareNum={rareNum}
+        uncommonNum={uncommonNum}
+        commonNum={commonNum}
+        show={gameState.gamePhase === 'setup'}
+      />
     </>
   );
 }

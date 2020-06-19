@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ModalBoard from './ModalBoard';
 import { getRarity } from './pieceData';
 
 export default function Modal({ piece, handleClick }) {
+  const [animation, setAnimation] = useState('grow 200ms ease-out');
+
+  const animateClick = function animateClick(e) {
+    setAnimation('shrink 200ms ease-out');
+    setTimeout(() => {
+      handleClick(e);
+    }, 200);
+  };
+
   const handleMouseOver = function handleMouseOver(e) {
     e.stopPropagation();
   };
@@ -10,7 +19,8 @@ export default function Modal({ piece, handleClick }) {
   return (
     <div
       className='modal-background'
-      onClick={handleClick}
+      style={{ animation: animation }}
+      onClick={animateClick}
       onMouseOver={handleMouseOver}>
       <div className='modal'>
         {piece.name}: lvl.{getRarity(piece.name)}

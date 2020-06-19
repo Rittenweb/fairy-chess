@@ -12,7 +12,7 @@ export default function ResetSetupButton({ show }) {
   };
 
   return (
-    <TransitionComponent show={show}>
+    <TransitionComponent show={show} transition={'fade'} time={500}>
       <button className='resetsetupbutton' onClick={resetSetup}>
         Reset Setup
       </button>

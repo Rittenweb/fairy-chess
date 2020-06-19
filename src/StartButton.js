@@ -6,12 +6,17 @@ export default function StartButton({ gameOver }) {
 
   const start = function start(e) {
     dispatch({
-      type: 'setup',
+      type: 'transitionstart',
     });
-    //This dispatch initializes squareState. Not the cleanest, but currently necessary.
-    dispatch({
-      type: 'showEnemyCapture',
-    });
+    setTimeout(() => {
+      dispatch({
+        type: 'setup',
+      });
+      //This dispatch initializes squareState. Not the cleanest, but currently necessary.
+      dispatch({
+        type: 'showEnemyCapture',
+      });
+    }, 500);
   };
 
   let text = gameOver ? 'Play Again?' : 'Start Game';

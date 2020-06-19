@@ -1,5 +1,5 @@
 export const initialState = {
-  gamePhase: 'start', //Can be: start, setup, inprogress, rewards, gameover
+  gamePhase: 'start', //Can be: start, setup, inprogress, rewards, gameover, transition, transitioninprogress, transitionnoboard
   enemyCaptureShown: false,
   benchPieces: [],
   choicesList: [],

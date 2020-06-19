@@ -10,6 +10,7 @@ import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
 import ResetSetupButton from './ResetSetupButton';
 import GameOverModal from './GameOverModal';
+import TransitionComponent from './TransitionComponent';
 import { DispatchContext } from './Contexts';
 import { initialState } from './baseStates';
 import { reducer } from './reducers';
@@ -23,29 +24,59 @@ function App() {
       <main>
         <DispatchContext.Provider value={dispatch}>
           <div className='left-container'>
-            {gameState.gamePhase === 'start' && (
+            <TransitionComponent
+              show={gameState.gamePhase === 'start'}
+              transition={'fade'}
+              time={500}>
               <div className='big-text'>Fairy Chess</div>
-            )}
-            {gameState.gamePhase === 'rewards' && (
+            </TransitionComponent>
+            <TransitionComponent
+              show={gameState.gamePhase === 'rewards'}
+              transition={'slideUp'}
+              time={300}>
               <div className='big-text'>Reward Phase</div>
-            )}
+            </TransitionComponent>
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
-            {gameState.gamePhase === 'inprogress' && <EndTurnButton />}
-            {gameState.gamePhase === 'inprogress' && <ResetTurnButton />}
-            {gameState.gamePhase === 'inprogress' && (
-              <ShowMovesButton shown={gameState.enemyCaptureShown} />
-            )}
+            <EndTurnButton
+              show={
+                gameState.gamePhase === 'inprogress' ||
+                gameState.gamePhase === 'transitioninprogress'
+              }
+            />
+            <ResetTurnButton
+              show={
+                gameState.gamePhase === 'inprogress' ||
+                gameState.gamePhase === 'transitioninprogress'
+              }
+            />
+            <ShowMovesButton
+              captureShown={gameState.enemyCaptureShown}
+              show={
+                gameState.gamePhase === 'inprogress' ||
+                gameState.gamePhase === 'transitioninprogress'
+              }
+            />
           </div>
           <div className='main-container'>
             {gameState.gamePhase === 'start' && (
               <StartButton gameOver={false} />
             )}
-            {gameState.gamePhase !== 'rewards' && (
+
+            <TransitionComponent
+              show={
+                gameState.gamePhase !== 'rewards' &&
+                gameState.gamePhase !== 'transitionrewards'
+              }
+              transition={'fade'}
+              time={300}>
               <Board gameState={gameState} />
-            )}
-            {gameState.gamePhase === 'rewards' && (
+            </TransitionComponent>
+            <TransitionComponent
+              show={gameState.gamePhase === 'rewards'}
+              transition={'slideDown'}
+              time={300}>
               <Rewards gameState={gameState} />
-            )}
+            </TransitionComponent>
           </div>
           <div className='right-container'>
             <ScoreBoard score={gameState.wave} />

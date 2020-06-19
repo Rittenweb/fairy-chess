@@ -7,15 +7,20 @@ export default function Choice({ pieces, wide }) {
 
   const handleClick = function handleClick(e) {
     dispatch({
-      type: 'addBenchPieces',
-      pieces: pieces,
+      type: 'transitionrewards',
     });
-    dispatch({
-      type: 'reSetup',
-    });
-    dispatch({
-      type: 'clearChoices',
-    });
+    setTimeout(() => {
+      dispatch({
+        type: 'addBenchPieces',
+        pieces: pieces,
+      });
+      dispatch({
+        type: 'reSetup',
+      });
+      dispatch({
+        type: 'clearChoices',
+      });
+    }, 300);
   };
 
   return (
