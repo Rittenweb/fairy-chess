@@ -69,6 +69,7 @@ button {
   z-index: 100;
   margin: 8vh 0;
   width: 80%;
+  animation: fadeIn 500ms;
 }
 
 .scoreboard {

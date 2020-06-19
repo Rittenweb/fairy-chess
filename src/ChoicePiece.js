@@ -6,7 +6,6 @@ export default function ChoicePiece({ name }) {
 
   const handleRightClick = function handleRightClick(e) {
     e.preventDefault();
-    e.stopPropagation();
     setModalDisplay(!modalDisplay);
   };
 

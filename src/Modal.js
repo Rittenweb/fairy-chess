@@ -6,6 +6,8 @@ export default function Modal({ piece, handleClick }) {
   const [animation, setAnimation] = useState('grow 200ms ease-out');
 
   const animateClick = function animateClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
     setAnimation('shrink 200ms ease-out');
     setTimeout(() => {
       handleClick(e);
@@ -21,6 +23,7 @@ export default function Modal({ piece, handleClick }) {
       className='modal-background'
       style={{ animation: animation }}
       onClick={animateClick}
+      onContextMenu={animateClick}
       onMouseOver={handleMouseOver}>
       <div className='modal'>
         {piece.name}: lvl.{getRarity(piece.name)}

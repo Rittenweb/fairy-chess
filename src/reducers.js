@@ -355,40 +355,30 @@ export const reducer = function reducer(state, action) {
                 pieces: newPieces,
                   benchPieces: newBenchPieces
               }
-              case 'updateChoices':
+              case 'transitionstart':
                 return {
                   ...stateClone,
-                  choicesList: action.choices
+                  gamePhase: 'transitionstart'
                 }
-                case 'clearChoices':
+                case 'transitioninprogress':
+                  let otherEnemyCount = 0;
+                  for (let x = 0; x < 12; x++) {
+                    for (let y = 0; y < 12; y++) {
+                      if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
+                        otherEnemyCount++;
+                      }
+                    }
+                  }
                   return {
                     ...stateClone,
-                    choicesList: []
+                    gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
                   }
-                  case 'transitionstart':
+                  case 'transitionrewards':
                     return {
                       ...stateClone,
-                      gamePhase: 'transitionstart'
+                      gamePhase: 'transitionrewards'
                     }
-                    case 'transitioninprogress':
-                      let otherEnemyCount = 0;
-                      for (let x = 0; x < 12; x++) {
-                        for (let y = 0; y < 12; y++) {
-                          if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
-                            otherEnemyCount++;
-                          }
-                        }
-                      }
-                      return {
-                        ...stateClone,
-                        gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
-                      }
-                      case 'transitionrewards':
-                        return {
-                          ...stateClone,
-                          gamePhase: 'transitionrewards'
-                        }
-                        default:
-                          throw new Error('No reducer for action type');
+                    default:
+                      throw new Error('No reducer for action type');
   }
 }

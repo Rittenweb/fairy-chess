@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Choice from './Choice';
 
-export default function Pack({ onClick, rarity, selected, choices }) {
+export default function Pack({ onClick, rarity, selected, choices, clear }) {
   let [color, setColor] = useState('rgb(17, 78, 17)');
 
   const myClick = function myClick() {
@@ -37,7 +37,12 @@ export default function Pack({ onClick, rarity, selected, choices }) {
       {selected === rarity && 'Choose One!'}
       {selected === rarity &&
         choices.map((choice, i) => (
-          <Choice pieces={choice} wide={rarity === 'common'} key={i} />
+          <Choice
+            pieces={choice}
+            wide={rarity === 'common'}
+            key={i}
+            clear={clear}
+          />
         ))}
     </div>
   );

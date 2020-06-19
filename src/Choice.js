@@ -2,24 +2,24 @@ import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import ChoicePiece from './ChoicePiece';
 
-export default function Choice({ pieces, wide }) {
+export default function Choice({ pieces, wide, clear }) {
   const dispatch = useContext(DispatchContext);
 
   const handleClick = function handleClick(e) {
     dispatch({
       type: 'transitionrewards',
     });
+    dispatch({
+      type: 'addBenchPieces',
+      pieces: pieces,
+    });
+
     setTimeout(() => {
-      dispatch({
-        type: 'addBenchPieces',
-        pieces: pieces,
-      });
       dispatch({
         type: 'reSetup',
       });
-      dispatch({
-        type: 'clearChoices',
-      });
+      console.log('clear');
+      clear();
     }, 300);
   };
 
