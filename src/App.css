@@ -127,7 +127,7 @@ button {
   justify-content: center;
   align-items: center;
   outline: 2px solid black;
-  transition: background 0.2s ease-out;
+  transition: background 100ms ease-out;
 }
 
 .piece {
@@ -136,7 +136,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeAndShrinkIn 400ms ease-out;
 }
 
 .not-exhausted {

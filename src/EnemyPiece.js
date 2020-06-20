@@ -34,7 +34,13 @@ export default function EnemyPiece({ piece, x, y }) {
       draggable='false'
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
-      onContextMenu={handleRightClick}>
+      onContextMenu={handleRightClick}
+      style={{
+        animation:
+          piece.fade === 'out'
+            ? 'fadeAndGrowOut 300ms ease-out'
+            : 'fadeAndShrinkIn 300ms ease-out',
+      }}>
       <img
         className='piece-symbol'
         src={require(`./img/${piece.name}.png`)}

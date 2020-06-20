@@ -8,12 +8,8 @@ export default function EndTurnButton({ show }) {
   const endTurn = function endTurn(e) {
     dispatch({ type: 'transitioninprogress' });
     setTimeout(() => {
-      dispatch({
-        type: 'endTurn',
-      });
-      dispatch({
-        type: 'showEnemyCapture',
-      });
+      dispatch({ type: 'endTurn' });
+      dispatch({ type: 'showEnemyCapture' });
     }, 300);
   };
 

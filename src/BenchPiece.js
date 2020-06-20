@@ -5,6 +5,7 @@ import Modal from './Modal';
 export default function BenchPiece({ piece, canDrag }) {
   const dispatch = useContext(DispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
+  const [opacity, setOpacity] = useState(1);
 
   const handleDragStart = function handleDragStart(e) {
     const obj = { piece, bench: true };
@@ -14,12 +15,14 @@ export default function BenchPiece({ piece, canDrag }) {
       type: 'benchHighlight',
       canDrag: canDrag,
     });
+    setOpacity(0.1);
   };
 
   const handleDragEnd = function handleDragEnd(e) {
     dispatch({
       type: 'dehighlight',
     });
+    setOpacity(1);
   };
 
   const handleRightClick = function handleRightClick(e) {
@@ -36,7 +39,8 @@ export default function BenchPiece({ piece, canDrag }) {
       draggable={piece.canDrag ? 'true' : 'false'}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onContextMenu={handleRightClick}>
+      onContextMenu={handleRightClick}
+      style={{ animation: 'fadeAndShrinkIn 300ms ease-out', opacity: opacity }}>
       <img
         className={
           canDrag ? 'piece-symbol not-exhausted' : 'piece-symbol exhausted'

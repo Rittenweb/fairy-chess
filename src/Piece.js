@@ -5,6 +5,7 @@ import Modal from './Modal';
 export default function Piece({ piece, x, y }) {
   const dispatch = useContext(DispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
+  const [opacity, setOpacity] = useState(1);
 
   const handleDragStart = function handleDragStart(e) {
     const obj = { piece, x, y };
@@ -16,6 +17,11 @@ export default function Piece({ piece, x, y }) {
       x,
       y,
     });
+    setOpacity(0.1);
+  };
+
+  const handleDragEnd = function handleDragEnd(e) {
+    setOpacity(1);
   };
 
   const handleMouseOver = function handleMouseOver(e) {
@@ -49,9 +55,11 @@ export default function Piece({ piece, x, y }) {
       className='piece'
       draggable={piece.exhausted ? 'false' : 'true'}
       onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
-      onContextMenu={handleRightClick}>
+      onContextMenu={handleRightClick}
+      style={{ opacity: opacity }}>
       <img
         className={
           piece.exhausted

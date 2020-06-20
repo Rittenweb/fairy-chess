@@ -120,7 +120,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            // newPieces = randomizeEnemies(newPieces, state.wave);
+            newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
               ...stateClone,
@@ -142,6 +142,7 @@ export const reducer = function reducer(state, action) {
             for (let x = 0; x < 12; x++) {
               for (let y = 0; y < 12; y++) {
                 if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
+                  state.pieces[x][y].fade = 'in';
                   enemyCount++;
                   let capSquare = getEnemyCapSquare(x, y, newPieces);
                   if (capSquare) {
@@ -365,13 +366,15 @@ export const reducer = function reducer(state, action) {
                   for (let x = 0; x < 12; x++) {
                     for (let y = 0; y < 12; y++) {
                       if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
+                        newPieces[x][y].fade = 'out';
                         otherEnemyCount++;
                       }
                     }
                   }
                   return {
                     ...stateClone,
-                    gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
+                    pieces: newPieces,
+                      gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
                   }
                   case 'transitionrewards':
                     return {
