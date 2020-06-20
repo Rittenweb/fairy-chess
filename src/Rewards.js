@@ -1,16 +1,22 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { getPieceWithRarity } from './pieceData';
 import Pack from './Pack';
 
-export default function Rewards({ gameState }) {
+export default function Rewards() {
   let [selected, setSelected] = useState('all');
+  let [animation, setAnimation] = useState('fadeIn 700ms');
   let choicesList = useRef([]);
 
   const onClick = function onClick(whichPack) {
-    setSelected(whichPack);
+    if (whichPack !== selected) {
+      setAnimation('fadeOut 700ms');
+      setTimeout(() => {
+        setSelected(whichPack);
+      }, 700);
+    }
   };
 
-  const clearChoices = function updateChoices(choices) {
+  const clearChoices = function updateChoices() {
     choicesList.current = [];
   };
 
@@ -34,24 +40,6 @@ export default function Rewards({ gameState }) {
 
   return (
     <div className='rewards'>
-      {selected === 'common' && (
-        <img
-          className='pack disappear'
-          src={require(`./img/${selected}.png`)}
-          alt={`${selected}`}></img>
-      )}
-      {selected === 'uncommon' && (
-        <img
-          className='pack'
-          src={require(`./img/${selected}.png`)}
-          alt={`${selected}`}></img>
-      )}
-      {selected === 'rare' && (
-        <img
-          className='pack'
-          src={require(`./img/${selected}.png`)}
-          alt={`${selected}`}></img>
-      )}
       {(selected === 'all' || selected === 'common') && (
         <Pack
           onClick={onClick}
@@ -59,6 +47,7 @@ export default function Rewards({ gameState }) {
           selected={selected}
           choices={choicesList.current}
           clear={clearChoices}
+          animation={animation}
         />
       )}
       {(selected === 'all' || selected === 'uncommon') && (
@@ -68,6 +57,7 @@ export default function Rewards({ gameState }) {
           selected={selected}
           choices={choicesList.current}
           clear={clearChoices}
+          animation={animation}
         />
       )}
       {(selected === 'all' || selected === 'rare') && (
@@ -76,7 +66,8 @@ export default function Rewards({ gameState }) {
           rarity={'rare'}
           selected={selected}
           choices={choicesList.current}
-          update={clearChoices}
+          clear={clearChoices}
+          animation={animation}
         />
       )}
     </div>

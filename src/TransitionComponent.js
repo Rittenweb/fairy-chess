@@ -34,11 +34,15 @@ export default function TransitionComponent({
   }
 
   useEffect(() => {
-    if (show) setShouldRender(true);
+    if (show) {
+      setShouldRender(true);
+    }
   }, [show]);
 
   const onAnimationEnd = () => {
-    if (!show) setShouldRender(false);
+    if (!show) {
+      setShouldRender(false);
+    }
   };
 
   return (

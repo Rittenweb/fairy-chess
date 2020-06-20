@@ -174,10 +174,6 @@ button {
   background-color: rgb(17, 78, 17);
 }
 
-.glow {
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
 .choice {
   display: flex;
   justify-content: center;

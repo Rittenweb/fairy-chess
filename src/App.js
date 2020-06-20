@@ -75,7 +75,7 @@ function App() {
               show={gameState.gamePhase === 'rewards'}
               transition={'slideDown'}
               time={300}>
-              <Rewards gameState={gameState} />
+              <Rewards />
             </TransitionComponent>
           </div>
           <div className='right-container'>

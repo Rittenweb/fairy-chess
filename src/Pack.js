@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import Choice from './Choice';
 
-export default function Pack({ onClick, rarity, selected, choices, clear }) {
+export default function Pack({
+  onClick,
+  rarity,
+  selected,
+  choices,
+  clear,
+  animation,
+}) {
   let [color, setColor] = useState('rgb(17, 78, 17)');
 
   const myClick = function myClick() {
@@ -22,8 +29,14 @@ export default function Pack({ onClick, rarity, selected, choices, clear }) {
 
   return (
     <div
-      className={selected === rarity ? 'pack glow' : 'pack'}
-      style={{ backgroundColor: color }}
+      className='pack'
+      style={{
+        backgroundColor: color,
+        animation:
+          selected === rarity
+            ? animation + ', glow 700ms ease-in-out infinite alternate'
+            : animation,
+      }}
       onClick={myClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
