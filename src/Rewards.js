@@ -4,15 +4,26 @@ import Pack from './Pack';
 
 export default function Rewards() {
   let [selected, setSelected] = useState('all');
-  let [animation, setAnimation] = useState('fadeIn 700ms');
+  let [animations, setAnimations] = useState({
+    common: 'fadeIn 700ms',
+    uncommon: 'fadeIn 700ms',
+    rare: 'fadeIn 700ms',
+  });
   let choicesList = useRef([]);
 
   const onClick = function onClick(whichPack) {
     if (whichPack !== selected) {
-      setAnimation('fadeOut 700ms');
+      let newAnimations = {
+        common: 'fadeOutAndWait 1200ms',
+        uncommon: 'fadeOutAndWait 1200ms',
+        rare: 'fadeOutAndWait 1200ms',
+      };
+      newAnimations[whichPack] = 'flipShrinkAndGlow 1200ms linear';
+      setAnimations(newAnimations);
+
       setTimeout(() => {
         setSelected(whichPack);
-      }, 700);
+      }, 1150);
     }
   };
 
@@ -47,7 +58,11 @@ export default function Rewards() {
           selected={selected}
           choices={choicesList.current}
           clear={clearChoices}
-          animation={animation}
+          animation={
+            selected === 'common'
+              ? 'flipAndGrow 400ms ease-out'
+              : animations.common
+          }
         />
       )}
       {(selected === 'all' || selected === 'uncommon') && (
@@ -57,7 +72,11 @@ export default function Rewards() {
           selected={selected}
           choices={choicesList.current}
           clear={clearChoices}
-          animation={animation}
+          animation={
+            selected === 'uncommon'
+              ? 'flipAndGrow 400ms ease-out'
+              : animations.uncommon
+          }
         />
       )}
       {(selected === 'all' || selected === 'rare') && (
@@ -67,7 +86,9 @@ export default function Rewards() {
           selected={selected}
           choices={choicesList.current}
           clear={clearChoices}
-          animation={animation}
+          animation={
+            selected === 'rare' ? 'flipAndGrow 400ms ease-out' : animations.rare
+          }
         />
       )}
     </div>

@@ -257,6 +257,18 @@ button {
   }
 }
 
+@keyframes fadeOutAndWait {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes fadeAndShrinkIn {
   0% {
     opacity: 0;
@@ -341,6 +353,32 @@ button {
   }
   100% {
     transform: scale(0.1);
+  }
+}
+
+@keyframes flipShrinkAndGlow {
+  0% {
+    transform: scale(1) rotateY(0);
+  }
+  35% {
+    box-shadow: 0 0 10px #fff, 0 0 15px #eef3ae, 0 0 20px #eef3ae,
+      0 0 25px #eef3ae, 0 0 30px #eef3ae, 0 0 35px #eef3ae, 0 0 40px #eef3ae;
+  }
+  50% {
+    transform: scale(1) rotateY(0);
+    box-shadow: none;
+  }
+  100% {
+    transform: scale(0.4) rotateY(-90deg);
+  }
+}
+
+@keyframes flipAndGrow {
+  0% {
+    transform: scale(0.4) rotateY(-90deg);
+  }
+  100% {
+    transform: scale(1) rotateY(0);
   }
 }
 

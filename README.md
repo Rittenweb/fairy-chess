@@ -27,3 +27,6 @@ It is recommended to play with Enemy Capture Squares shown. Click the like-named
 Mobile play is not yet supported, as the HTML5 Drag and Drop API does not work with touch events.
 
 The next game mechanic added will be an "auto-capture" area around some powerful pieces.
+
+I'd like to add a couple extra animations that would be nice but would also be quite a bit of work relative to the feature payoff,
+because they require additional specific game-phases and to asynchronously delay the following phase until the animation ends.
