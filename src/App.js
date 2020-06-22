@@ -10,6 +10,7 @@ import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
 import ResetSetupButton from './ResetSetupButton';
 import GameOverModal from './GameOverModal';
+import Particles from './Particles';
 import TransitionComponent from './TransitionComponent';
 import { DispatchContext } from './Contexts';
 import { initialState } from './baseStates';
@@ -90,6 +91,8 @@ function App() {
       <div className='modal-background mobile-modal'>
         Touch events not yet supported! Please play on desktop.
       </div>
+      <div className='app-background'></div>
+      <Particles />
     </div>
   );
 }
