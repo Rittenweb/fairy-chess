@@ -12,11 +12,19 @@
 }
 
 .app-background {
-  background-color: #282c34;
+  background-image: url(./img/4690548.png);
   position: fixed;
   width: 100vw;
   height: 100vh;
   z-index: -2;
+}
+
+button {
+  background-image: url(./img/4707134.png);
+  background-attachment: fixed;
+  will-change: transform;
+  border: none;
+  color: white;
 }
 
 main {
