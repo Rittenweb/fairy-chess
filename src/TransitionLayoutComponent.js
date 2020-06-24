@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 
-export default function TransitionComponent({
+export default function TransitionLayoutComponent({
   show,
-  children,
   transition,
   timeIn,
   timeOut,
+  renderChild,
 }) {
   const [shouldRender, setShouldRender] = useState(false);
+  const [xy, setXY] = useState([0, 0]);
+  const ref = useRef(null);
 
   let transIn;
   let transOut;
@@ -38,17 +40,33 @@ export default function TransitionComponent({
       break;
   }
 
+  const onAnimationEnd = () => {
+    if (!show) {
+      setShouldRender(false);
+    }
+  };
+
+  const update = function update() {
+    if (ref.current) {
+      let rect = ref.current.getBoundingClientRect();
+      setXY([rect.x, rect.y]);
+    }
+  };
+
   useEffect(() => {
     if (show) {
       setShouldRender(true);
     }
   }, [show]);
 
-  const onAnimationEnd = () => {
-    if (!show) {
-      setShouldRender(false);
-    }
-  };
+  useEffect(() => {
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  });
+
+  useLayoutEffect(() => {
+    setTimeout(update, 100);
+  }, [show]);
 
   return (
     shouldRender && (
@@ -62,7 +80,7 @@ export default function TransitionComponent({
           justifyContent: 'center',
         }}
         onAnimationEnd={onAnimationEnd}>
-        {children}
+        {renderChild(`left -${xy[0]}px top -${xy[1]}px`, ref)}
       </div>
     )
   );

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
-import TransitionComponent from './TransitionComponent';
+import TransitionLayoutComponent from './TransitionLayoutComponent';
 
 export default function ResetTurnButton({ show }) {
   const dispatch = useContext(DispatchContext);
@@ -14,11 +14,25 @@ export default function ResetTurnButton({ show }) {
     });
   };
 
-  return (
-    <TransitionComponent show={show} transition={'fade'} time={300}>
-      <button className='resetturnbutton' onClick={resetturn}>
+  const renderFn = function renderFn(backgroundPosition, ref) {
+    return (
+      <button
+        className='resetturnbutton'
+        onClick={resetturn}
+        style={{ backgroundPosition }}
+        ref={ref}>
         Reset Turn
       </button>
-    </TransitionComponent>
+    );
+  };
+
+  return (
+    <TransitionLayoutComponent
+      show={show}
+      transition={'fade'}
+      timeIn={2000}
+      timeOut={300}
+      renderChild={renderFn}
+    />
   );
 }

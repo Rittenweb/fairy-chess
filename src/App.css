@@ -22,18 +22,14 @@
 button {
   border: none;
   color: white;
+  background-image: url(./img/flowersbeige.png);
+  padding: 0;
 }
 
 .endturnbutton {
-  position: static;
-  background-image: url(./img/flowersbeige.png);
-  animation: fadeIn 3000ms ease;
-  padding: 0;
-  margin: 0;
 }
 
 .resetturnbutton {
-  background-image: url(./img/flowersblue.png);
 }
 
 main {
@@ -99,8 +95,10 @@ button {
 .scoreboard {
   height: auto;
   width: 80%;
-  margin: 8vh 0;
-  background-color: darkslategrey;
+  margin: 4vh 0;
+  padding: 4vh 0;
+  background-image: url(./img/flowersgold.png);
+  background-attachment: fixed;
 }
 
 .board-wrapper {
@@ -182,7 +180,6 @@ button {
   height: 66vh;
   background-image: url(./img/flowersblue.png);
   background-attachment: fixed;
-  background-position: center center;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -193,11 +190,9 @@ button {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: auto;
+  width: 25%;
   /* background-color: rgb(17, 78, 17); */
   background-image: url(./img/flowersgold.png);
-  background-attachment: fixed;
-  background-position: center center;
 }
 
 .choice {
@@ -396,13 +391,13 @@ button {
     box-shadow: none;
   }
   100% {
-    transform: scale(0.4) rotateY(-90deg);
+    transform: scale(0.1) rotateY(-90deg);
   }
 }
 
 @keyframes flipAndGrow {
   0% {
-    transform: scale(0.4) rotateY(-90deg);
+    transform: scale(0.1) rotateY(-90deg);
   }
   100% {
     transform: scale(1) rotateY(0);

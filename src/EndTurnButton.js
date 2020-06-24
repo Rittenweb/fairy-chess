@@ -1,40 +1,42 @@
-import React, { useContext, useLayoutEffect, useState, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
+import TransitionLayoutComponent from './TransitionLayoutComponent';
 
-export default function EndTurnButton() {
+export default function EndTurnButton({ show }) {
   const dispatch = useContext(DispatchContext);
-  const [xy, setXY] = useState([0, 0]);
-  const ref = useRef(null);
+  const [myTimeOut, setMyTimeout] = useState(false);
 
   const endTurn = function endTurn(e) {
     dispatch({ type: 'transitioninprogress' });
-    setTimeout(() => {
-      dispatch({ type: 'endTurn' });
-      dispatch({ type: 'showEnemyCapture' });
-    }, 300);
-  };
-
-  const update = function update() {
-    if (ref.current) {
-      console.log('ran');
-      let rect = ref.current.getBoundingClientRect();
-      setXY([rect.x, rect.y]);
+    if (!myTimeOut) {
+      setMyTimeout(true);
+      setTimeout(() => {
+        dispatch({ type: 'endTurn' });
+        dispatch({ type: 'showEnemyCapture' });
+        setMyTimeout(false);
+      }, 300);
     }
   };
 
-  useLayoutEffect(() => {
-    setTimeout(update, 100);
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
+  const renderFn = function renderFn(backgroundPosition, ref) {
+    return (
+      <button
+        className='endturnbutton'
+        onClick={endTurn}
+        style={{ backgroundPosition }}
+        ref={ref}>
+        End Turn
+      </button>
+    );
+  };
 
   return (
-    <button
-      ref={ref}
-      className='endturnbutton'
-      onClick={endTurn}
-      style={{
-        backgroundPosition: `left -${xy[0]}px top -${xy[1]}px`,
-      }}></button>
+    <TransitionLayoutComponent
+      show={show}
+      transition='fade'
+      timeIn={2000}
+      timeOut={300}
+      renderChild={renderFn}
+    />
   );
 }

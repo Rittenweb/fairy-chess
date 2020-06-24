@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
-import TransitionComponent from './TransitionComponent';
+import TransitionLayoutComponent from './TransitionLayoutComponent';
 
 export default function ReadyButton({
   ready,
@@ -25,16 +25,32 @@ export default function ReadyButton({
     }, 500);
   };
 
+  const renderFn = function renderFn(backgroundPosition, ref) {
+    return ready ? (
+      <button
+        className='readybutton'
+        onClick={setup}
+        style={{ backgroundPosition }}
+        ref={ref}>
+        I'm Ready
+      </button>
+    ) : (
+      <div
+        className='readybutton'
+        style={{ backgroundPosition }}
+        ref={
+          ref
+        }>{`${commonNum}/3 Common, ${uncommonNum}/2 Uncommon, ${rareNum}/1 Rare`}</div>
+    );
+  };
+
   return (
-    <TransitionComponent show={show} transition={'fade'} time={500}>
-      {ready && (
-        <button className='readybutton' onClick={setup}>
-          I'm Ready
-        </button>
-      )}
-      {!ready && (
-        <div className='readybutton'>{`${commonNum}/3 Common, ${uncommonNum}/2 Uncommon, ${rareNum}/1 Rare`}</div>
-      )}
-    </TransitionComponent>
+    <TransitionLayoutComponent
+      show={show}
+      transition={'fade'}
+      timeIn={500}
+      timeOut={500}
+      renderChild={renderFn}
+    />
   );
 }

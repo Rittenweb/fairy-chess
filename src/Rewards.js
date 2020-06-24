@@ -5,9 +5,9 @@ import Pack from './Pack';
 export default function Rewards() {
   let [selected, setSelected] = useState('all');
   let [animations, setAnimations] = useState({
-    common: 'fadeIn 700ms',
-    uncommon: 'fadeIn 700ms',
-    rare: 'fadeIn 700ms',
+    common: 'fadeIn 1500ms',
+    uncommon: 'fadeIn 1500ms',
+    rare: 'fadeIn 1500ms',
   });
   let choicesList = useRef([]);
 

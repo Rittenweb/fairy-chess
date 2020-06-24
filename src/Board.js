@@ -27,7 +27,8 @@ export default function Board({ gameState }) {
   console.count('board');
   return (
     <div className='board-wrapper'>
-      <div style={{ marginTop: '100%' }}></div>
+      <div style={{ marginTop: '95%' }}></div>
+      {/* this hack allows board height to also be determined relative to vw */}
       <div className='board'> {squareList} </div>
     </div>
   );

@@ -28,20 +28,24 @@ function App() {
             <TransitionComponent
               show={gameState.gamePhase === 'start'}
               transition={'fade'}
-              time={500}>
+              timeIn={500}
+              timeOut={500}>
               <div className='big-text'>Fairy Chess</div>
             </TransitionComponent>
             <TransitionComponent
               show={gameState.gamePhase === 'rewards'}
-              transition={'slideUp'}
-              time={300}>
+              transition={'fade'}
+              timeIn={1000}
+              timeOut={300}>
               <div className='big-text'>Reward Phase</div>
             </TransitionComponent>
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
-            {(gameState.gamePhase === 'inprogress' ||
-              gameState.gamePhase === 'transitioninprogress') && (
-              <EndTurnButton />
-            )}
+            <EndTurnButton
+              show={
+                gameState.gamePhase === 'inprogress' ||
+                gameState.gamePhase === 'transitioninprogress'
+              }
+            />
             <ResetTurnButton
               show={
                 gameState.gamePhase === 'inprogress' ||
@@ -67,13 +71,15 @@ function App() {
                 gameState.gamePhase !== 'transitionrewards'
               }
               transition={'fade'}
-              time={300}>
+              timeIn={300}
+              timeOut={300}>
               <Board gameState={gameState} />
             </TransitionComponent>
             <TransitionComponent
               show={gameState.gamePhase === 'rewards'}
-              transition={'slideDown'}
-              time={300}>
+              transition={'fade'}
+              timeIn={1000}
+              timeOut={300}>
               <Rewards />
             </TransitionComponent>
           </div>
