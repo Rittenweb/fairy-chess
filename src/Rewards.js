@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { getPieceWithRarity } from './pieceData';
-import Pack from './Pack';
+import UnopenedPack from './UnopenedPack';
+import OpenedPack from './OpenedPack';
 
 export default function Rewards() {
   let [selected, setSelected] = useState('all');
@@ -12,22 +13,20 @@ export default function Rewards() {
   let choicesList = useRef([]);
 
   const onClick = function onClick(whichPack) {
-    if (whichPack !== selected) {
-      let newAnimations = {
-        common: 'fadeOutAndWait 1200ms',
-        uncommon: 'fadeOutAndWait 1200ms',
-        rare: 'fadeOutAndWait 1200ms',
-      };
-      newAnimations[whichPack] = 'flipShrinkAndGlow 1200ms linear';
-      setAnimations(newAnimations);
+    let newAnimations = {
+      common: 'fadeOutAndWait 1200ms',
+      uncommon: 'fadeOutAndWait 1200ms',
+      rare: 'fadeOutAndWait 1200ms',
+    };
+    newAnimations[whichPack] = 'fadeOutAndGlow 1200ms linear';
+    setAnimations(newAnimations);
 
-      setTimeout(() => {
-        setSelected(whichPack);
-      }, 1150);
-    }
+    setTimeout(() => {
+      setSelected(whichPack);
+    }, 1150);
   };
 
-  const clearChoices = function updateChoices() {
+  const clearChoices = function clearChoices() {
     choicesList.current = [];
   };
 
@@ -51,44 +50,46 @@ export default function Rewards() {
 
   return (
     <div className='rewards'>
-      {(selected === 'all' || selected === 'common') && (
-        <Pack
-          onClick={onClick}
+      {selected === 'all' && (
+        <UnopenedPack
           rarity={'common'}
-          selected={selected}
-          choices={choicesList.current}
-          clear={clearChoices}
-          animation={
-            selected === 'common'
-              ? 'flipAndGrow 400ms ease-out'
-              : animations.common
-          }
+          onClick={onClick}
+          animation={animations.common}
         />
       )}
-      {(selected === 'all' || selected === 'uncommon') && (
-        <Pack
-          onClick={onClick}
+      {selected === 'all' && (
+        <UnopenedPack
           rarity={'uncommon'}
-          selected={selected}
-          choices={choicesList.current}
-          clear={clearChoices}
-          animation={
-            selected === 'uncommon'
-              ? 'flipAndGrow 400ms ease-out'
-              : animations.uncommon
-          }
+          onClick={onClick}
+          animation={animations.uncommon}
         />
       )}
-      {(selected === 'all' || selected === 'rare') && (
-        <Pack
-          onClick={onClick}
+      {selected === 'all' && (
+        <UnopenedPack
           rarity={'rare'}
-          selected={selected}
+          onClick={onClick}
+          animation={animations.rare}
+        />
+      )}
+      {selected === 'common' && (
+        <OpenedPack
+          rarity={'common'}
           choices={choicesList.current}
           clear={clearChoices}
-          animation={
-            selected === 'rare' ? 'flipAndGrow 400ms ease-out' : animations.rare
-          }
+        />
+      )}
+      {selected === 'uncommon' && (
+        <OpenedPack
+          rarity={'uncommon'}
+          choices={choicesList.current}
+          clear={clearChoices}
+        />
+      )}
+      {selected === 'rare' && (
+        <OpenedPack
+          rarity={'rare'}
+          choices={choicesList.current}
+          clear={clearChoices}
         />
       )}
     </div>

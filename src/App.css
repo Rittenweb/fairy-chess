@@ -24,6 +24,17 @@ button {
   color: white;
   background-image: url(./img/flowersbeige.png);
   padding: 0;
+  cursor: pointer;
+  transition: background-image 350ms;
+}
+
+button:hover {
+  background-image: url(./img/flowersblack.png);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: background-image 350ms;
 }
 
 .endturnbutton {
@@ -190,9 +201,19 @@ button {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 25%;
-  /* background-color: rgb(17, 78, 17); */
   background-image: url(./img/flowersgold.png);
+}
+
+.unopened {
+  width: 25%;
+}
+
+.unopened:hover {
+  background-image: url(./img/flowersbeige.png);
+}
+
+.opened {
+  animation: fadeIn 500ms, glow 900ms ease-in-out infinite alternate;
 }
 
 .choice {
@@ -202,12 +223,12 @@ button {
   width: auto;
   height: auto;
   border: 1px solid black;
-  border-radius: 3px;
   margin: 2rem;
+  background-image: url(./img/flowersgold.png);
 }
 
 .choice:hover {
-  background-color: yellow;
+  background-image: url(./img/flowersbeige.png);
 }
 
 .modal-background {
@@ -351,12 +372,12 @@ button {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #d5e770, 0 0 20px #d5e770,
-      0 0 25px #d5e770, 0 0 30px #d5e770, 0 0 35px #d5e770;
+    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292,
+      0 0 35px #d6e292;
   }
   100% {
-    box-shadow: 0 0 10px #fff, 0 0 15px #eef3ae, 0 0 20px #eef3ae,
-      0 0 25px #eef3ae, 0 0 30px #eef3ae, 0 0 35px #eef3ae, 0 0 40px #eef3ae;
+    box-shadow: 0 0 10px #fff, 0 0 20px #eef1bf, 0 0 30px #eef1bf,
+      0 0 40px #eef1bf;
   }
 }
 
@@ -378,20 +399,20 @@ button {
   }
 }
 
-@keyframes flipShrinkAndGlow {
+@keyframes fadeOutAndGlow {
   0% {
-    transform: scale(1) rotateY(0);
+    opacity: 1;
   }
   35% {
     box-shadow: 0 0 10px #fff, 0 0 15px #eef3ae, 0 0 20px #eef3ae,
       0 0 25px #eef3ae, 0 0 30px #eef3ae, 0 0 35px #eef3ae, 0 0 40px #eef3ae;
   }
   50% {
-    transform: scale(1) rotateY(0);
+    opacity: 1;
     box-shadow: none;
   }
   100% {
-    transform: scale(0.1) rotateY(-90deg);
+    opacity: 0;
   }
 }
 
