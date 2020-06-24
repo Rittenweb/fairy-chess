@@ -54,7 +54,7 @@ const Particles = function Particles() {
     function killParticles() {
       for (let i in particles) {
         let part = particles[i];
-        if (part.y > canvas.height || part.x > canvas.width) {
+        if (part.y > canvas.height || part.x > canvas.width || part.x < 0) {
           part.y = 0;
         }
       }

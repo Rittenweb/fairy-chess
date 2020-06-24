@@ -27,6 +27,10 @@ export default function TransitionComponent({
       transIn = 'slideUpIn';
       transOut = 'slideUpOut';
       break;
+    case 'collapse':
+      transIn = 'collapseIn';
+      transOut = 'collapseOut';
+      break;
     default:
       transIn = 'fadeIn';
       transOut = 'fadeOut';

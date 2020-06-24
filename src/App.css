@@ -12,7 +12,7 @@
 }
 
 .app-background {
-  background-image: url(./img/4690548.png);
+  background-image: url(./img/flowersblack.png);
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -20,11 +20,20 @@
 }
 
 button {
-  background-image: url(./img/4707134.png);
-  background-attachment: fixed;
-  will-change: transform;
   border: none;
   color: white;
+}
+
+.endturnbutton {
+  position: static;
+  background-image: url(./img/flowersbeige.png);
+  animation: fadeIn 3000ms ease;
+  padding: 0;
+  margin: 0;
+}
+
+.resetturnbutton {
+  background-image: url(./img/flowersblue.png);
 }
 
 main {
@@ -171,11 +180,12 @@ button {
 .rewards {
   width: 100%;
   height: 66vh;
-  background-color: darkslategrey;
+  background-image: url(./img/flowersblue.png);
+  background-attachment: fixed;
+  background-position: center center;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 5px;
 }
 
 .pack {
@@ -184,8 +194,10 @@ button {
   justify-content: space-evenly;
   align-items: center;
   width: auto;
-  border-radius: 4px;
-  background-color: rgb(17, 78, 17);
+  /* background-color: rgb(17, 78, 17); */
+  background-image: url(./img/flowersgold.png);
+  background-attachment: fixed;
+  background-position: center center;
 }
 
 .choice {
@@ -394,6 +406,24 @@ button {
   }
   100% {
     transform: scale(1) rotateY(0);
+  }
+}
+
+@keyframes collapseOut {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(-90deg);
+  }
+}
+
+@keyframes collapseIn {
+  0% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(0);
   }
 }
 

@@ -38,12 +38,10 @@ function App() {
               <div className='big-text'>Reward Phase</div>
             </TransitionComponent>
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
-            <EndTurnButton
-              show={
-                gameState.gamePhase === 'inprogress' ||
-                gameState.gamePhase === 'transitioninprogress'
-              }
-            />
+            {(gameState.gamePhase === 'inprogress' ||
+              gameState.gamePhase === 'transitioninprogress') && (
+              <EndTurnButton />
+            )}
             <ResetTurnButton
               show={
                 gameState.gamePhase === 'inprogress' ||
