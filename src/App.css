@@ -329,8 +329,9 @@ button {
 }
 
 .enemy-modal {
+  font-size: 2.5rem;
   background-image: url('./img/flowersgreyandred.png');
-  color: white;
+  color: whitesmoke;
 }
 
 .gameover-modal {
@@ -339,12 +340,51 @@ button {
   color: antiquewhite;
 }
 
+.modal-banner {
+  width: 60%;
+  height: 2rem;
+  display: flex;
+}
+
+.modal-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  background-color: rgb(17, 78, 17);
+}
+
+.modal-lvl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  background-color: rgb(28, 148, 28);
+}
+
 .modal-board {
   height: 60%;
   width: 60%;
   display: flex;
   flex-wrap: wrap-reverse; /* Necessary or else move previews are reflected... sorry */
   transform: rotate(90deg);
+}
+
+.modal-movetypes {
+  font-size: 0.75rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-movetype {
+  width: 60%;
+  text-align: center;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-square {

@@ -24,7 +24,7 @@ export default function EnemyModal({ piece, handleClick }) {
       <div className='modal enemy-modal'>
         {piece.name}
         <EnemyModalBoard piece={piece}></EnemyModalBoard>
-        <div style={{ fontSize: '.75rem' }}>
+        <div style={{ fontSize: '1rem' }}>
           <div className='flex'>
             <div
               className='modal-square'

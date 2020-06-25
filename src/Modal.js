@@ -26,39 +26,42 @@ export default function Modal({ piece, handleClick }) {
       onContextMenu={animateClick}
       onMouseOver={handleMouseOver}>
       <div className='modal'>
-        {piece.name}: lvl.{getRarity(piece.name)}
+        <div className='modal-banner'>
+          <span className='modal-name'>{piece.name}</span>
+          <span className='modal-lvl'>Lvl. {getRarity(piece.name)}</span>
+        </div>
         <ModalBoard piece={piece}></ModalBoard>
-        <div style={{ fontSize: '.75rem' }}>
-          <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'blue',
-              }}></div>
+        <div className='modal-movetypes'>
+          <div
+            className='modal-movetype'
+            style={{
+              backgroundColor: 'blue',
+              color: 'white',
+            }}>
             Move or Capture (Slide)
           </div>
-          <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'purple',
-              }}></div>
+          <div
+            className='modal-movetype'
+            style={{
+              backgroundColor: 'purple',
+              color: 'white',
+            }}>
             Move or Capture (Leap)
           </div>
-          <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'yellow',
-              }}></div>
+          <div
+            className='modal-movetype'
+            style={{
+              backgroundColor: 'yellow',
+              color: 'black',
+            }}>
             Only Move
           </div>
-          <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'orange',
-              }}></div>
+          <div
+            className='modal-movetype'
+            style={{
+              backgroundColor: 'orange',
+              color: 'black',
+            }}>
             Only Capture
           </div>
         </div>
