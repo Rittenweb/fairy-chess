@@ -36,11 +36,22 @@ export default function ReadyButton({
       </button>
     ) : (
       <div
-        className='readybutton'
+        className='readybutton pre-ready'
         style={{ backgroundPosition }}
-        ref={
-          ref
-        }>{`${commonNum}/3 Common, ${uncommonNum}/2 Uncommon, ${rareNum}/1 Rare`}</div>
+        ref={ref}>
+        <div className='ready-type'>
+          <div className='ready-rarity'>Common</div>
+          <div className='ready-num'>{`${commonNum}/3`}</div>
+        </div>
+        <div className='ready-type'>
+          <div className='ready-rarity'>Uncommon</div>
+          <div className='ready-num'>{`${uncommonNum}/2`}</div>{' '}
+        </div>
+        <div className='ready-type'>
+          <div className='ready-rarity'>Rare</div>
+          <div className='ready-num'>{`${rareNum}/1`}</div>{' '}
+        </div>
+      </div>
     );
   };
 

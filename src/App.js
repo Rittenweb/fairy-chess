@@ -37,8 +37,12 @@ function App() {
               transition={'fade'}
               timeIn={1000}
               timeOut={300}>
-              <div className='big-text'>Reward Phase</div>
+              <div className='big-text'>Take One</div>
             </TransitionComponent>
+            <StartButton
+              gameOver={false}
+              show={gameState.gamePhase === 'start'}
+            />
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
             <EndTurnButton
               show={
@@ -61,10 +65,6 @@ function App() {
             />
           </div>
           <div className='main-container'>
-            {gameState.gamePhase === 'start' && (
-              <StartButton gameOver={false} />
-            )}
-
             <TransitionComponent
               show={
                 gameState.gamePhase !== 'rewards' &&
@@ -97,6 +97,22 @@ function App() {
       </div>
       <div className='app-background'></div>
       <Particles />
+      {gameState.gamePhase === 'start' && (
+        <a
+          href='https://icons8.com/'
+          className='attribution'
+          style={{ left: 0 }}>
+          Icons by Icons8
+        </a>
+      )}
+      {gameState.gamePhase === 'start' && (
+        <a
+          href='https://www.colourlovers.com/pattern/template/16/Pattern_16'
+          className='attribution'
+          style={{ right: 0 }}>
+          Pattern template by COLOURlover
+        </a>
+      )}
     </div>
   );
 }

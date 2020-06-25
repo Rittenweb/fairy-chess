@@ -38,8 +38,8 @@ export default function EnemyModalBoard({ piece }) {
         <div
           key={i * 23 + j}
           style={{
-            height: '4.33%',
-            width: '4.33%',
+            height: '4.34%',
+            width: '4.34%',
             backgroundColor: `${squares[i][j]}`,
           }}></div>
       );

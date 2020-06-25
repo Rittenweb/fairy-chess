@@ -27,8 +27,16 @@ export default function ShowMovesButton({ captureShown, show }) {
         onClick={togglemovesshown}
         style={{ backgroundPosition }}
         ref={ref}>
-        {captureShown && 'Hide Enemy Capture Areas'}
-        {!captureShown && 'Show Enemy Capture Areas'}
+        {captureShown && (
+          <span>
+            Hide Enemy<br></br>Capture Areas
+          </span>
+        )}
+        {!captureShown && (
+          <span>
+            Show Enemy<br></br>Capture Areas
+          </span>
+        )}
       </button>
     );
   };

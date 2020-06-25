@@ -25,12 +25,16 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
     updatePosition();
   };
 
+  let rarityText = '';
   let packNumText = '';
   if (rarity === 'common') {
+    rarityText = 'Common';
     packNumText = '2 + 2';
   } else if (rarity === 'uncommon') {
+    rarityText = 'Uncommon';
     packNumText = '1 + 1';
   } else if (rarity === 'rare') {
+    rarityText = 'Rare';
     packNumText = '1';
   }
 
@@ -43,8 +47,8 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
         animation: animation,
       }}
       onClick={myClick}>
-      <div style={{ padding: '10%' }}>{rarity}</div>
-      <div style={{ padding: '10%' }}>{packNumText}</div>
+      <div style={{ padding: '10%' }}>{rarityText}</div>
+      <div style={{ padding: '10%', fontSize: '3vw' }}>{packNumText}</div>
     </div>
   );
 }

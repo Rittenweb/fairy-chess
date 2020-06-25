@@ -18,7 +18,7 @@ export default function Rewards() {
       uncommon: 'fadeOutAndWait 1200ms',
       rare: 'fadeOutAndWait 1200ms',
     };
-    newAnimations[whichPack] = 'fadeOutAndGlow 1200ms linear';
+    newAnimations[whichPack] = 'fadeOutAndGlow 1600ms linear';
     setAnimations(newAnimations);
 
     setTimeout(() => {

@@ -21,7 +21,7 @@ export default function EnemyModal({ piece, handleClick }) {
       onClick={animateClick}
       onMouseOver={handleMouseOver}
       style={{ animation: animation }}>
-      <div className='modal'>
+      <div className='modal enemy-modal'>
         {piece.name}
         <EnemyModalBoard piece={piece}></EnemyModalBoard>
         <div style={{ fontSize: '.75rem' }}>
