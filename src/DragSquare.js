@@ -70,6 +70,8 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
     squareColor = 'var(--color-red)';
   } else if (canDrop === 'yes' && !draggingOver) {
     squareColor = `var(--color-light)`;
+  } else if (canDrop === 'cap') {
+    squareColor = '#63474D';
   }
   let squareColorRef = squareColor; //Save it for the beneath gradient so its not overwritten by next line
   if (captureMark) {

@@ -247,9 +247,11 @@ export const reducer = function reducer(state, action) {
               }
             }
             for (const square of moveableSquares) {
-              newSquares[square[0]][square[1]] = {
-                ...newSquares[square[0]][square[1]],
-                canDrop: 'yes',
+              let [x, y] = [square[0], square[1]]
+              let dropType = (newPieces[x][y] && newPieces[x][y].enemy === true) ? 'cap' : 'yes'
+              newSquares[x][y] = {
+                ...newSquares[x][y],
+                canDrop: dropType
               };
             }
             return {
