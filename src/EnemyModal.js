@@ -29,7 +29,7 @@ export default function EnemyModal({ piece, handleClick }) {
             <div
               className='modal-square'
               style={{
-                backgroundColor: 'blue',
+                backgroundColor: 'var(--color-light)',
               }}></div>
             Move Square
           </div>
@@ -37,7 +37,7 @@ export default function EnemyModal({ piece, handleClick }) {
             <div
               className='modal-square'
               style={{
-                backgroundColor: 'orange',
+                backgroundColor: 'var(--color-red)',
               }}></div>
             Capture Squares
           </div>

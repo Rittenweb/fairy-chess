@@ -21,13 +21,13 @@ export default function EnemyModalBoard({ piece }) {
     squares[i] = {};
     for (let j = 0; j < 23; j++) {
       squares[i][j] =
-        (i + j) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
+        (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
     }
   }
 
-  squares[moveSquare[0]][moveSquare[1]] = 'blue';
+  squares[moveSquare[0]][moveSquare[1]] = 'var(--color-light)';
   capSquares.forEach((square) => {
-    squares[square[0]][square[1]] = 'orange';
+    squares[square[0]][square[1]] = 'var(--color-red)';
   });
   squares[11][11] = 'black';
 

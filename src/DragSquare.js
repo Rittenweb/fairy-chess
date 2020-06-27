@@ -64,14 +64,15 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
     });
   };
 
-  let squareColor = (x + y) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
+  let squareColor =
+    (x + y) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
   if ((canDrop === 'no' && draggingOver) || canDrop === 'enemycap') {
-    squareColor = 'red';
+    squareColor = 'var(--color-red)';
   } else if (canDrop === 'yes' && !draggingOver) {
-    squareColor = `yellow`;
+    squareColor = `var(--color-light)`;
   }
   if (captureMark) {
-    squareColor = `radial-gradient(${squareColor} 0%, ${squareColor} 50%, red 100%)`;
+    squareColor = `radial-gradient(${squareColor} 0%, ${squareColor} 30%, var(--color-red) 100%)`;
   }
 
   return (

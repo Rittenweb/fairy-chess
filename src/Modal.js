@@ -35,32 +35,32 @@ export default function Modal({ piece, handleClick }) {
           <div
             className='modal-movetype'
             style={{
-              backgroundColor: 'blue',
-              color: 'white',
+              backgroundColor: 'var(--color-light)',
+              color: 'black',
             }}>
             Move or Capture (Slide)
           </div>
           <div
             className='modal-movetype'
             style={{
-              backgroundColor: 'purple',
-              color: 'white',
+              backgroundColor: '#DCB8CB',
+              color: 'black',
             }}>
             Move or Capture (Leap)
           </div>
           <div
             className='modal-movetype'
             style={{
-              backgroundColor: 'yellow',
-              color: 'black',
+              backgroundColor: '#63474D',
+              color: 'var(--color-light)',
             }}>
             Only Move
           </div>
           <div
             className='modal-movetype'
             style={{
-              backgroundColor: 'orange',
-              color: 'black',
+              backgroundColor: 'var(--color-red)',
+              color: 'var(--color-light)',
             }}>
             Only Capture
           </div>

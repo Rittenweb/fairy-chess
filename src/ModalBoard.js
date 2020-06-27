@@ -118,21 +118,21 @@ export default function ModalBoard({ piece }) {
     squares[i] = {};
     for (let j = 0; j < 23; j++) {
       squares[i][j] =
-        (i + j) % 2 === 0 ? 'rgb(17, 78, 17)' : 'rgb(28, 148, 28)';
+        (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
     }
   }
 
   capNoMoveSquares.forEach((square) => {
-    squares[square[0]][square[1]] = 'orange';
+    squares[square[0]][square[1]] = 'var(--color-red)';
   });
   moveNoCapSquares.forEach((square) => {
-    squares[square[0]][square[1]] = 'yellow';
+    squares[square[0]][square[1]] = '#63474D';
   });
   moveSquares.forEach((square) => {
-    squares[square[0]][square[1]] = 'blue';
+    squares[square[0]][square[1]] = 'var(--color-light)';
   });
   leapSquares.forEach((square) => {
-    squares[square[0]][square[1]] = 'purple';
+    squares[square[0]][square[1]] = '#DCB8CB';
   });
   squares[11][11] = 'black';
 

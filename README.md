@@ -10,7 +10,7 @@ To start the game, you'll be randomly given a selection of three "Common/Level 1
 
 Choose the starting placement of your seven pieces and when you can place no more pieces a "Ready" button will appear. The first three rows of the board are your starting zone.
 
-Pawns of different types will appear at the opposite end of the board. Each turn, you are allowed to move all your pieces once. Click the "End Turn" button when , and on the pawns' turn, all of the pawns will move once. If you are in their capture range, they will capture you. If you lose a piece, you will never get it back.
+When the game starts, pawns of different types will appear at the opposite end of the board. Each turn, you are allowed to move all your pieces once. Click the "End Turn" button when you're satisfied with your moves. Then it's the pawns' turn, and all of the pawns will move once. If you are in their capture range, they will capture you. If you lose a piece, you will never get it back.
 
 Once you clear all pawns from the board and end your turn, you will be taken to a reward screen where you can choose to add two common pieces, an uncommon piece, or a rare piece to your bench. Think about which rank of your army is weakest. There are large ranges of strength within each rarity rank. You may still only deploy 3 commons, 2 uncommons, and 1 rare--the rest are left on your bench.
 
@@ -30,3 +30,21 @@ The next game mechanic added will be an "auto-capture" area around some powerful
 
 I'd like to add a couple extra animations that would be nice but would also be quite a bit of work relative to the feature payoff,
 because they require additional specific game-phases and to asynchronously delay the following phase until the animation ends.
+
+### Attributions
+
+Icons by [Icons8](https://icons8.com/)
+
+Gothic font by [Nomi](https://www.1001fonts.com/bitmgothic-font.html)
+
+[Flower pattern template](https://www.colourlovers.com/pattern/template/16/Pattern_16) by COLOURLover
+Variations on the flower pattern by these COLOURLovers users:
+[candycrack](https://www.colourlovers.com/pattern/template/16/Pattern_16)
+[Skyblue2u](http://www.colourlovers.com/pattern/93812/goldleaf_floral)
+[Carolhue](http://www.colourlovers.com/pattern/173873/Kyoto_Duvet)
+[Lady Beth](http://www.colourlovers.com/pattern/427120/Signs_of_Spring)
+[kirei](http://www.colourlovers.com/pattern/1154/Fiore)
+[birdfolk](http://www.colourlovers.com/pattern/133/Floral_Ribbons)
+[nighthawk327](http://www.colourlovers.com/pattern/133/Floral_Ribbons)
+[Mykee](http://www.colourlovers.com/pattern/735793/goodbye_flowers)
+[Skyblue2u](http://www.colourlovers.com/pattern/361746/Simple_Honesty)
