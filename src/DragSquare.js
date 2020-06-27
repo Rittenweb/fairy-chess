@@ -71,8 +71,9 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
   } else if (canDrop === 'yes' && !draggingOver) {
     squareColor = `var(--color-light)`;
   }
+  let squareColorRef = squareColor; //Save it for the beneath gradient so its not overwritten by next line
   if (captureMark) {
-    squareColor = `radial-gradient(${squareColor} 0%, ${squareColor} 30%, var(--color-red) 100%)`;
+    squareColor = 'rgba(0, 0, 0, 0)'; //Allows red capture gradient underneath to not obstruct drag area, but still be shown.
   }
 
   return (
@@ -85,6 +86,11 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
       style={{
         background: squareColor,
       }}>
+      <div
+        className='enemy-capture'
+        style={{
+          background: `radial-gradient(${squareColorRef} 0%, ${squareColorRef} 30%, var(--color-red) 100%)`,
+        }}></div>
       {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
       {piece && piece.enemy === true && (
         <EnemyPiece piece={piece} x={x} y={y} />

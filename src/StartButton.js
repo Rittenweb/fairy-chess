@@ -42,7 +42,7 @@ export default function StartButton({ gameOver, show }) {
     <TransitionLayoutComponent
       show={show}
       transition='fade'
-      timeIn={1000}
+      timeIn={2000}
       timeOut={400}
       renderChild={renderFn}
     />

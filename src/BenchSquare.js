@@ -4,9 +4,9 @@ import BenchPiece from './BenchPiece';
 const BenchSquare = ({ num, piece, canDrag }) => {
   let squareColor;
   if (num < 8) {
-    squareColor = num % 2 === 0 ? '#6F7A6B' : '#A2AF9F';
+    squareColor = num % 2 === 0 ? 'var(--color-dark)' : '#9B8B6B';
   } else {
-    squareColor = num % 2 === 0 ? '#A2AF9F' : '#6F7A6B';
+    squareColor = num % 2 === 0 ? '#9B8B6B' : 'var(--color-dark)';
   }
 
   return (

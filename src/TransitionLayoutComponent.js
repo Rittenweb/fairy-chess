@@ -67,7 +67,7 @@ export default function TransitionLayoutComponent({
   });
 
   useLayoutEffect(() => {
-    setTimeout(update, 100);
+    setTimeout(update, 150);
   }, [show]);
 
   return (
