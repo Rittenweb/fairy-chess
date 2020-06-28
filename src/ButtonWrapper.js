@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 
-export default function TransitionLayoutComponent({ renderChild }) {
+export default function ButtonWrapper({ isInner, image, children }) {
   const [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 
@@ -20,5 +20,15 @@ export default function TransitionLayoutComponent({ renderChild }) {
     setTimeout(update, 100);
   }, []);
 
-  return <>{renderChild(`left -${xy[0]}px top -${xy[1]}px`, ref)}</>;
+  return (
+    <div
+      ref={ref}
+      className={isInner ? 'wrapper-inner' : 'wrapper-outer'}
+      style={{
+        backgroundImage: `./img/flowers${image}.png`,
+        backgroundPosition: `left -${xy[0]}px top -${xy[1]}px`,
+      }}>
+      {children}
+    </div>
+  );
 }

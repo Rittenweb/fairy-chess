@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
+import ButtonWrapper from './ButtonWrapper';
 
 export default function ResetSetupButton({ show }) {
   const dispatch = useContext(DispatchContext);
@@ -13,13 +14,17 @@ export default function ResetSetupButton({ show }) {
 
   const renderFn = function renderFn(backgroundPosition, ref) {
     return (
-      <button
-        className='resetsetupbutton'
-        onClick={resetSetup}
-        style={{ backgroundPosition }}
-        ref={ref}>
-        Reset Setup
-      </button>
+      <ButtonWrapper isInner={false} image='beige'>
+        <ButtonWrapper isInner={true} image='black'>
+          <button
+            className='resetsetupbutton'
+            onClick={resetSetup}
+            style={{ backgroundPosition }}
+            ref={ref}>
+            Reset Setup
+          </button>
+        </ButtonWrapper>
+      </ButtonWrapper>
     );
   };
 

@@ -3,6 +3,7 @@ import { DispatchContext } from './Contexts';
 import useSound from 'use-sound';
 import startSound from './audio/enchanted_forest.mp3';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
+import ButtonWrapper from './ButtonWrapper';
 
 export default function StartButton({ gameOver, show }) {
   const dispatch = useContext(DispatchContext);
@@ -28,13 +29,17 @@ export default function StartButton({ gameOver, show }) {
 
   const renderFn = function renderFn(backgroundPosition, ref) {
     return (
-      <button
-        className='startbutton'
-        onClick={start}
-        style={{ backgroundPosition }}
-        ref={ref}>
-        {text}
-      </button>
+      <ButtonWrapper isInner={false} image='beige'>
+        <ButtonWrapper isInner={true} image='black'>
+          <button
+            className='startbutton'
+            onClick={start}
+            style={{ backgroundPosition }}
+            ref={ref}>
+            {text}
+          </button>
+        </ButtonWrapper>
+      </ButtonWrapper>
     );
   };
 

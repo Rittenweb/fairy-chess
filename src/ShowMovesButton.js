@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
+import ButtonWrapper from './ButtonWrapper';
 
 export default function ShowMovesButton({ captureShown, show }) {
   const dispatch = useContext(DispatchContext);
@@ -22,22 +23,26 @@ export default function ShowMovesButton({ captureShown, show }) {
 
   const renderFn = function renderFn(backgroundPosition, ref) {
     return (
-      <button
-        className='showmovesbutton'
-        onClick={togglemovesshown}
-        style={{ backgroundPosition }}
-        ref={ref}>
-        {captureShown && (
-          <span>
-            Hide Enemy<br></br>Capture Areas
-          </span>
-        )}
-        {!captureShown && (
-          <span>
-            Show Enemy<br></br>Capture Areas
-          </span>
-        )}
-      </button>
+      <ButtonWrapper isInner={false} image='beige'>
+        <ButtonWrapper isInner={true} image='black'>
+          <button
+            className='showmovesbutton'
+            onClick={togglemovesshown}
+            style={{ backgroundPosition }}
+            ref={ref}>
+            {captureShown && (
+              <span>
+                Hide Enemy<br></br>Capture Areas
+              </span>
+            )}
+            {!captureShown && (
+              <span>
+                Show Enemy<br></br>Capture Areas
+              </span>
+            )}
+          </button>
+        </ButtonWrapper>
+      </ButtonWrapper>
     );
   };
 

@@ -53,6 +53,9 @@ button {
   cursor: pointer;
   transition: background-image 350ms, box-shadow 100ms;
   font-family: 'Bitmgothic', cursive;
+  width: 20vw;
+  min-height: 4vw;
+  font-size: 2vw;
 }
 
 button:hover {
@@ -127,13 +130,6 @@ main {
   background: linear-gradient(90deg, var(--color-light), var(--color-green));
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-button {
-  height: 10vh;
-  min-height: 4vw;
-  width: 80%;
-  font-size: 2vw;
 }
 
 .readybutton {
@@ -406,6 +402,22 @@ button {
 .pulse {
   animation: pulse 2s ease-in-out;
   animation-iteration-count: infinite;
+}
+
+.wrapper-inner {
+  background-image: url('./img/flowersblack.png');
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper-outer {
+  background-image: url('./img/flowersbeige.png');
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .flex {

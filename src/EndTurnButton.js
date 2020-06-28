@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
+import ButtonWrapper from './ButtonWrapper';
 
 export default function EndTurnButton({ show, shouldTurnEnd }) {
   const dispatch = useContext(DispatchContext);
@@ -20,13 +21,17 @@ export default function EndTurnButton({ show, shouldTurnEnd }) {
 
   const renderFn = function renderFn(backgroundPosition, ref) {
     return (
-      <button
-        className={shouldTurnEnd ? 'endturnbutton pulse' : 'endturnbutton'}
-        onClick={endTurn}
-        style={{ backgroundPosition }}
-        ref={ref}>
-        End Turn
-      </button>
+      <ButtonWrapper isInner={false} image='beige'>
+        <ButtonWrapper isInner={true} image='black'>
+          <button
+            className={shouldTurnEnd ? 'endturnbutton pulse' : 'endturnbutton'}
+            onClick={endTurn}
+            style={{ backgroundPosition }}
+            ref={ref}>
+            End Turn
+          </button>
+        </ButtonWrapper>
+      </ButtonWrapper>
     );
   };
 
