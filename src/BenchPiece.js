@@ -43,7 +43,9 @@ export default function BenchPiece({ piece, canDrag }) {
       style={{ animation: 'fadeAndShrinkIn 300ms ease-out', opacity: opacity }}>
       <img
         className={
-          canDrag ? 'piece-symbol not-exhausted' : 'piece-symbol exhausted'
+          canDrag
+            ? 'piece-symbol not-exhausted pulse'
+            : 'piece-symbol exhausted'
         }
         src={require(`./img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>

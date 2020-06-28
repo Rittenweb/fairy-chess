@@ -2456,7 +2456,7 @@ const pieceDefs = {
     ],
     rarity: 3,
   },
-  bugeyedmonster: {
+  bugeye: {
     move: [
       ['bugeye']
     ],

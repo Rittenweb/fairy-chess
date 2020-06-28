@@ -43,8 +43,17 @@ export const reducer = function reducer(state, action) {
           },
         },
       };
+      let shouldTurnEnd = true;
+      for (let column in newPieces) {
+        for (let row in newPieces[column]) {
+          let piece = newPieces[column][row];
+          if (piece && piece.enemy === false && piece.exhausted === false) {
+            shouldTurnEnd = false
+          }
+        }
+      }
       return {
-        ...stateClone, pieces: newPieces
+        ...stateClone, pieces: newPieces, shouldTurnEnd
       };
     case 'benchMove':
       const placeX = action.xDest;
@@ -120,7 +129,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, state.wave);
+            // newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
               ...stateClone,
@@ -215,6 +224,7 @@ export const reducer = function reducer(state, action) {
                 lastTurnPieceState: currentPiecesRecord,
                 gamePhase: gamePhase,
                 benchPieces: newBenchPieces,
+                shouldTurnEnd: false,
                 wave: newWave
             };
           case 'benchHighlight':
@@ -344,7 +354,8 @@ export const reducer = function reducer(state, action) {
               newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
               return {
                 ...stateClone,
-                pieces: newPieces
+                pieces: newPieces,
+                  shouldTurnEnd: false,
               };
             case 'resetSetup':
               for (let x = 0; x < 12; x++) {

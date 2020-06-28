@@ -28,9 +28,9 @@ export default function ReadyButton({
   const renderFn = function renderFn(backgroundPosition, ref) {
     return ready ? (
       <button
-        className='readybutton'
-        onClick={setup}
+        className='readybutton pulse'
         style={{ backgroundPosition }}
+        onClick={setup}
         ref={ref}>
         I'm Ready
       </button>

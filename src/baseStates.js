@@ -1,6 +1,7 @@
 export const initialState = {
   gamePhase: 'start', //Can be: start, setup, inprogress, rewards, gameover, transition, transitioninprogress, transitionnoboard
   enemyCaptureShown: false,
+  shouldTurnEnd: false,
   benchPieces: [],
   choicesList: [],
   wave: 0,

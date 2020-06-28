@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 
-export default function EndTurnButton({ show }) {
+export default function EndTurnButton({ show, shouldTurnEnd }) {
   const dispatch = useContext(DispatchContext);
   const [myTimeOut, setMyTimeout] = useState(false);
 
@@ -21,7 +21,7 @@ export default function EndTurnButton({ show }) {
   const renderFn = function renderFn(backgroundPosition, ref) {
     return (
       <button
-        className='endturnbutton'
+        className={shouldTurnEnd ? 'endturnbutton pulse' : 'endturnbutton'}
         onClick={endTurn}
         style={{ backgroundPosition }}
         ref={ref}>

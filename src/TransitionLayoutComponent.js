@@ -47,10 +47,8 @@ export default function TransitionLayoutComponent({
   };
 
   const update = function update() {
-    console.log('ran');
     if (ref.current) {
       let rect = ref.current.getBoundingClientRect();
-      console.log(rect);
       setXY([rect.x, rect.y]);
     }
   };

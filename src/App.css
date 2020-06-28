@@ -402,6 +402,12 @@ button {
   width: 1.5vh;
   margin-right: 1.5vh;
 }
+
+.pulse {
+  animation: pulse 2s ease-in-out;
+  animation-iteration-count: infinite;
+}
+
 .flex {
   display: flex;
   justify-content: flex-start;
@@ -578,6 +584,18 @@ button {
   }
   100% {
     transform: rotateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

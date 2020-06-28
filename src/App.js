@@ -49,6 +49,7 @@ function App() {
                 gameState.gamePhase === 'inprogress' ||
                 gameState.gamePhase === 'transitioninprogress'
               }
+              shouldTurnEnd={gameState.shouldTurnEnd}
             />
             <ResetTurnButton
               show={
