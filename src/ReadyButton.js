@@ -56,12 +56,14 @@ export default function ReadyButton({
   };
 
   return (
-    <TransitionLayoutComponent
-      show={show}
-      transition={'fade'}
-      timeIn={500}
-      timeOut={500}
-      renderChild={renderFn}
-    />
+    <div style={{ width: '30vw' }}>
+      <TransitionLayoutComponent
+        show={show}
+        transition={'fade'}
+        timeIn={500}
+        timeOut={500}
+        renderChild={renderFn}
+      />
+    </div>
   );
 }

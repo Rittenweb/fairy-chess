@@ -94,7 +94,7 @@ const Particles = function Particles() {
       ref={ref}
       width={window.innerWidth}
       height={window.innerHeight}
-      style={{ position: 'fixed', zIndex: '-1' }}
+      style={{ position: 'fixed', zIndex: '-2' }}
     />
   );
 };
