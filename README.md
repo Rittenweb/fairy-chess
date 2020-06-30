@@ -6,7 +6,7 @@ Chess has a long history of variants and home-brewed spinoffs. Traditionally, cu
 
 ### How to Play
 
-To start the game, you'll be **randomly given a selection **of three "Common/Level 1" pieces, two "Uncommon/Level 2" pieces, and one "Rare/Level 3" piece, **which appear on your Bench**. The levels are separated by relative power. For example, pawn-like pieces are Common, knight-like pieces are Uncommon, and queen-like pieces are Rare.
+To start the game, you'll be **randomly given a selection** of three "Common/Level 1" pieces, two "Uncommon/Level 2" pieces, and one "Rare/Level 3" piece, **which appear on your Bench**. The levels are separated by relative power. For example, pawn-like pieces are Common, knight-like pieces are Uncommon, and queen-like pieces are Rare.
 
 **Drag your pieces onto the board** and when you can place no more pieces a "Ready" button will appear. The first three rows of the board are your starting zone.
 
@@ -16,12 +16,11 @@ Once you clear all pawns from the board and end your turn, you will be **taken t
 
 **After every wave clear**, your score will go up by one and **the difficulty will increase**. This means its a bit more likely that higher-level enemy pieces will spawn--though it's ultimately random and you can get an easy or difficult board at any point.
 
-**If you click end turn and an enemy piece is already at the last row of the board at your end, then it's GAME OVER.
-**
+**If you click end turn and an enemy piece is already at the last row of the board at your end, then it's GAME OVER.**
 
 ### Tips
 
-**Right click any piece on the board, bench, or reward screen to pop up a modal** that shows its name, level, and all its hypothetical moves. This is super important to know where your piece is capable of moving in any situation, not just from its current position. It's also vital to see which bonus piece you want to take
+**Right click any piece on the board, bench, or reward screen to pop up a modal** that shows its name, level, and all its hypothetical moves. This is super important to know where your piece is capable of moving in any situation, not just from its current position. The modal is also vital in deciding which bonus piece you want to take before you take it.
 
 It is recommended to **play with Enemy Capture Squares shown**. Click the like-named button to toggle the setting. Although you can hover over enemy pieces or right click on them to see their movement just like with your own pieces, there are so many of them that you will slow down and still lose pieces by accident if you try to remember all their capture squares, and there's no going back once you end your turn.
 
@@ -48,7 +47,8 @@ Music track "Puzzle Game 3" by [Eric Maytas](http://soundimage.org/)
 
 Sound effects by [ViRiX Dreamcore (David McKee)](https://soundcloud.com/virix)
 
-[Flower pattern template](https://www.colourlovers.com/pattern/template/16/Pattern_16) by COLOURLover
+[Flower pattern template](https://www.colourlovers.com/pattern/template/16/Pattern_16) by COLOURLover.
+
 Variations on the flower pattern by these COLOURLovers users:
 [candycrack](https://www.colourlovers.com/pattern/template/16/Pattern_16)
 [Skyblue2u](http://www.colourlovers.com/pattern/93812/goldleaf_floral)
