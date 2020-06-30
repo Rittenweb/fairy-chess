@@ -39,10 +39,7 @@ function App() {
               timeOut={300}>
               <div className='big-text'>Take One</div>
             </TransitionComponent>
-            <StartButton
-              gameOver={false}
-              show={gameState.gamePhase === 'start'}
-            />
+            <StartButton show={gameState.gamePhase === 'start'} />
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
             <EndTurnButton
               show={

@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import useSound from 'use-sound';
+import openSound from './audio/999 Get Small Item.mp3';
 
 export default function UnopenedPack({ onClick, rarity, animation }) {
+  const [play] = useSound(openSound, { volume: 0.6 });
+
   let [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 
@@ -21,6 +25,7 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
   }, []);
 
   const myClick = function myClick() {
+    play();
     onClick(rarity);
     updatePosition();
   };

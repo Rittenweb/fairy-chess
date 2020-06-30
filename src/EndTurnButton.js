@@ -2,12 +2,16 @@ import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
+import useSound from 'use-sound';
+import selectSound from './audio/Menu1A.wav';
 
 export default function EndTurnButton({ show, shouldTurnEnd }) {
   const dispatch = useContext(DispatchContext);
   const [myTimeOut, setMyTimeout] = useState(false);
+  const [play] = useSound(selectSound, { volume: 0.4 });
 
   const endTurn = function endTurn(e) {
+    play();
     dispatch({ type: 'transitioninprogress' });
     if (!myTimeOut) {
       setMyTimeout(true);

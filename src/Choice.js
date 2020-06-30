@@ -7,12 +7,15 @@ import React, {
 } from 'react';
 import { DispatchContext } from './Contexts';
 import ChoicePiece from './ChoicePiece';
+import useSound from 'use-sound';
+import getSound from './audio/999 Get Frog Coin.mp3';
 
 export default function Choice({ pieces, wide, clear }) {
   const dispatch = useContext(DispatchContext);
   const [myTimeout, setMyTimeout] = useState(false);
   const [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
+  const [play] = useSound(getSound, { volume: 0.6 });
 
   const updatePosition = function update() {
     if (ref.current) {
@@ -31,6 +34,7 @@ export default function Choice({ pieces, wide, clear }) {
   }, []);
 
   const handleClick = function handleClick(e) {
+    play();
     dispatch({
       type: 'transitionrewards',
     });

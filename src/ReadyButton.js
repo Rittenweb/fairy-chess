@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
+import useSound from 'use-sound';
+import enemySound from './audio/41.mp3';
 
 export default function ReadyButton({
   ready,
@@ -10,8 +12,10 @@ export default function ReadyButton({
   show,
 }) {
   const dispatch = useContext(DispatchContext);
+  const [play] = useSound(enemySound, { volume: 0.3 });
 
   const setup = function setup(e) {
+    play();
     dispatch({
       type: 'transitionstart',
     });

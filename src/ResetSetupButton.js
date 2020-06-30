@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
+import useSound from 'use-sound';
+import deselectSound from './audio/Menu1B.wav';
 
 export default function ResetSetupButton({ show }) {
   const dispatch = useContext(DispatchContext);
+  const [play] = useSound(deselectSound, { volume: 0.4 });
 
   const resetSetup = function resetSetup(e) {
+    play();
     dispatch({
       type: 'resetSetup',
     });

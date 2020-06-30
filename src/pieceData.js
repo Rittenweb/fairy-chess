@@ -758,7 +758,7 @@ const moveAlgorithms = {
       for (let j = 0; j < MAX_MOVE; j++) {
         let difx = Math.abs(x - i);
         let dify = Math.abs(y - j)
-        if (i !== x && j !== y && difx !== dify && !(dify / difx === 2) && !(difx / dify === 2)) {
+        if (i !== x && j !== y && difx !== dify && !(dify / difx === 2) && !(difx / dify === 2) && !(dify / difx === 3) && !(difx / dify === 3)) {
           if (!(pieceState[i][j] && pieceState[i][j].enemy === false)) {
             moveableSquares.push([i, j]);
           }
@@ -794,7 +794,6 @@ const enemyPieceDefs = {
       [-1, -1],
       [-1, 1],
       [1, 0],
-      [0, 2],
       [0, -1],
       [-1, 0],
     ],

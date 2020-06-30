@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
+import useSound from 'use-sound';
+import dropSound from './audio/drop.ogg';
 
 const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
   const dispatch = useContext(DispatchContext);
-
   const [draggingOver, setDraggingOver] = useState(false);
+  const [play] = useSound(dropSound);
 
   const handleDragOver = function handleDragOver(e) {
     e.preventDefault();
@@ -35,6 +37,7 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark }) => {
       });
       return;
     }
+    play();
     const pieceData = JSON.parse(e.dataTransfer.getData('text'));
     if (pieceData.piece.exhausted) {
       return;

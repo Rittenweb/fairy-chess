@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
+import useSound from 'use-sound';
+import deselectSound from './audio/Menu1B.wav';
 
 export default function ResetTurnButton({ show }) {
   const dispatch = useContext(DispatchContext);
+  const [play] = useSound(deselectSound, { volume: 0.4 });
 
   const resetturn = function resetturn(e) {
+    play();
     dispatch({
       type: 'resetTurn',
     });

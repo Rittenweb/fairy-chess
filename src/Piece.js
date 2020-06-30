@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { DispatchContext } from './Contexts';
 import Modal from './Modal';
+import useSound from 'use-sound';
+import highlightSound from './audio/sharp_echo.wav';
 
 export default function Piece({ piece, x, y }) {
   const dispatch = useContext(DispatchContext);
   const [modalDisplay, setModalDisplay] = useState(false);
   const [opacity, setOpacity] = useState(1);
+  const [play] = useSound(highlightSound, { volume: 0.2 });
 
   const handleDragStart = function handleDragStart(e) {
     const obj = { piece, x, y };
@@ -28,6 +31,7 @@ export default function Piece({ piece, x, y }) {
     if (piece.exhausted) {
       return;
     }
+    play();
     dispatch({
       type: 'highlight',
       pieceName: piece.name,
