@@ -115,7 +115,7 @@ main {
 
 .main-container {
   height: 100vh;
-  max-width: 95vmin;
+  max-width: 40vw; /* Or else it flexes too large in transition when board and rewards both momentarily there  */
   flex-basis: 1400px;
   flex-shrink: 1;
   display: flex;
@@ -180,6 +180,7 @@ main {
   display: inline-block;
   position: relative;
   width: 100%;
+  max-width: 95vmin;
   min-width: 300px;
   margin: 20px;
 }

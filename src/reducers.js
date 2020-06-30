@@ -44,13 +44,19 @@ export const reducer = function reducer(state, action) {
         },
       };
       let shouldTurnEnd = true;
+      let enemiesOnBoard = false;
       for (let column in newPieces) {
         for (let row in newPieces[column]) {
           let piece = newPieces[column][row];
           if (piece && piece.enemy === false && piece.exhausted === false) {
             shouldTurnEnd = false
+          } else if (piece && piece.enemy === true) {
+            enemiesOnBoard = true;
           }
         }
+      }
+      if (!enemiesOnBoard) {
+        shouldTurnEnd = true;
       }
       return {
         ...stateClone, pieces: newPieces, shouldTurnEnd
@@ -129,7 +135,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, state.wave);
+            // newPieces = randomizeEnemies(newPieces, state.wave);
             const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
             return {
               ...stateClone,
@@ -217,7 +223,6 @@ export const reducer = function reducer(state, action) {
             } else {
               currentPiecesRecord = JSON.parse(JSON.stringify(newPieces))
             }
-
             return {
               ...stateClone,
               pieces: newPieces,

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import useSound from 'use-sound';
-import startSound from './audio/enchanted_forest.mp3';
+import startSound from './audio/Digital Forest.ogg';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
 
