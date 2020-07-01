@@ -1,7 +1,9 @@
 import React from 'react';
 import DragSquare from './DragSquare';
+import useSound from 'use-sound';
+import dropSound from './audio/drop.ogg';
 
-function renderSquare(squareNum, gameState) {
+function renderSquare(squareNum, gameState, playSound) {
   const x = squareNum % 12;
   const y = Math.floor(squareNum / 12);
   const piece = gameState.pieces[x][y];
@@ -15,14 +17,17 @@ function renderSquare(squareNum, gameState) {
       piece={piece}
       canDrop={square.canDrop}
       captureMark={square.captureMark}
+      playSound={playSound}
     />
   );
 }
 
 export default function Board({ gameState }) {
+  const [play] = useSound(dropSound);
+
   const squareList = [];
   for (let i = 0; i < 144; i++) {
-    squareList.push(renderSquare(i, gameState));
+    squareList.push(renderSquare(i, gameState, play));
   }
   return (
     <div className='board-wrapper'>

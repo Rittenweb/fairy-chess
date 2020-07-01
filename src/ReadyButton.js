@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { DispatchContext } from './Contexts';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import useSound from 'use-sound';
-import enemySound from './audio/41.mp3';
+import enemySound from './audio/41.ogg';
 
 export default function ReadyButton({
   ready,

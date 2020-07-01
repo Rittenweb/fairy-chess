@@ -8,7 +8,7 @@ import React, {
 import { DispatchContext } from './Contexts';
 import ChoicePiece from './ChoicePiece';
 import useSound from 'use-sound';
-import getSound from './audio/999 Get Frog Coin.mp3';
+import getSound from './audio/999 Get Frog Coin.ogg';
 
 export default function Choice({ pieces, wide, clear }) {
   const dispatch = useContext(DispatchContext);
