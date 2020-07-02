@@ -39,7 +39,10 @@ function App() {
               timeOut={300}>
               <div className='big-text'>Take One</div>
             </TransitionComponent>
-            <StartButton show={gameState.gamePhase === 'start'} />
+            <StartButton
+              show={gameState.gamePhase === 'start'}
+              volume={gameState.volume}
+            />
             <ResetSetupButton show={gameState.gamePhase === 'setup'} />
             <EndTurnButton
               show={
@@ -90,6 +93,7 @@ function App() {
           )}
         </DispatchContext.Provider>
       </main>
+      {/* Fixed elements below here */}
       <div className='modal-background mobile-modal'>
         Touch events not yet supported! Please play on desktop.
       </div>
@@ -110,6 +114,19 @@ function App() {
           style={{ right: 0 }}>
           Pattern template by COLOURlover
         </a>
+      )}
+      {gameState.gamePhase !== 'start' && (
+        <div
+          className='attribution'
+          style={{ right: 0, cursor: 'pointer' }}
+          onClick={() => dispatch({ type: 'togglemute' })}>
+          {gameState.volume ? 'Mute Music' : 'Unmute Music'}
+        </div>
+      )}
+      {gameState.gamePhase !== 'start' && (
+        <div className='attribution' style={{ left: 0, cursor: 'pointer' }}>
+          Help?
+        </div>
       )}
     </div>
   );

@@ -5,11 +5,12 @@ import startSound from './audio/Puzzle Game 3.ogg';
 import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
 
-export default function StartButton({ show }) {
+export default function StartButton({ show, volume }) {
+  console.log(volume);
   const dispatch = useContext(DispatchContext);
   const [play] = useSound(startSound, {
     loop: true,
-    volume: 0.5,
+    volume,
   });
 
   const start = function start(e) {

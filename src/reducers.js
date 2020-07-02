@@ -399,7 +399,16 @@ export const reducer = function reducer(state, action) {
                       ...stateClone,
                       gamePhase: 'transitionrewards'
                     }
-                    default:
-                      throw new Error('No reducer for action type');
+                    case 'togglemute':
+                      let volume = 0;
+                      if (!state.volume) {
+                        volume = .5;
+                      }
+                      return {
+                        ...stateClone,
+                        volume
+                      }
+                      default:
+                        throw new Error('No reducer for action type');
   }
 }

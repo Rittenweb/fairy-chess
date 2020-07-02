@@ -5,6 +5,7 @@ export const initialState = {
   benchPieces: [],
   choicesList: [],
   wave: 0,
+  volume: .5,
   pieces: {
     '0': {
       '0': null,
