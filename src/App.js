@@ -10,6 +10,7 @@ import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
 import ResetSetupButton from './ResetSetupButton';
 import GameOverModal from './GameOverModal';
+import HelpButton from './HelpButton';
 import Particles from './Particles';
 import TransitionComponent from './TransitionComponent';
 import { DispatchContext } from './Contexts';
@@ -124,9 +125,7 @@ function App() {
         </div>
       )}
       {gameState.gamePhase !== 'start' && (
-        <div className='attribution' style={{ left: 0, cursor: 'pointer' }}>
-          Help?
-        </div>
+        <HelpButton gamePhase={gameState.gamePhase} />
       )}
     </div>
   );

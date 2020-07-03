@@ -6,7 +6,6 @@ import TransitionLayoutComponent from './TransitionLayoutComponent';
 import ButtonWrapper from './ButtonWrapper';
 
 export default function StartButton({ show, volume }) {
-  console.log(volume);
   const dispatch = useContext(DispatchContext);
   const [play] = useSound(startSound, {
     loop: true,
