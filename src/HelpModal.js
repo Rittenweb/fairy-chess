@@ -71,6 +71,7 @@ export default function HelpModal({ gamePhase, handleClick }) {
         animation: animation,
         color: 'white',
         fontFamily: 'Cinzel Decorative, serif',
+        backgroundColor: 'rgb(0, 0, 0, 0.8)',
       }}
       onClick={animateClick}
       onContextMenu={animateClick}>
