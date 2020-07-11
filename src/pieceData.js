@@ -1211,6 +1211,11 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  // raindrop: {
+  //   frontComponents: ['knight'],
+  //   backComponents: ['leftdog'],
+  //   rarity: 2
+  // },
   spectre: {
     moveNoCap: [
       ['N', MAX_MOVE],
@@ -1851,6 +1856,15 @@ const pieceDefs = {
     ],
     rarity: 2
   },
+  // emperor: {
+  //   components: ['hunter', 'elephant', 'knight'],
+  //   rarity: 3
+
+  // },
+  // otter: {
+  //   components: ['sword', 'shortrook'],
+  //   rarity: 2
+  // },
   scepter: {
     components: ['king', 'sword'],
     rarity: 2
@@ -2440,6 +2454,10 @@ const pieceDefs = {
     components: ['rook', 'nightrider'],
     rarity: 3
   },
+  // icedragon: {
+  //   components: ['queen', 'camel'],
+  //   rarity: 3,
+  // },
   amazon: {
     components: ['knight', 'rook', 'bishop'],
     rarity: 3
