@@ -1,8 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, lazy, Suspense } from 'react';
 import './App.css';
 import Board from './Board';
 import Bench from './Bench';
-import Rewards from './Rewards';
 import ScoreBoard from './ScoreBoard';
 import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
@@ -16,6 +15,8 @@ import TransitionComponent from './TransitionComponent';
 import { DispatchContext } from './Contexts';
 import { initialState } from './baseStates';
 import { reducer } from './reducers';
+
+const Rewards = lazy(() => import('./Rewards'));
 
 function App() {
   const [gameState, dispatch] = useReducer(reducer, initialState);
@@ -82,7 +83,9 @@ function App() {
               transition={'fade'}
               timeIn={1000}
               timeOut={300}>
-              <Rewards />
+              <Suspense fallback={<></>}>
+                <Rewards />
+              </Suspense>
             </TransitionComponent>
           </div>
           <div className='right-container'>
