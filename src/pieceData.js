@@ -769,7 +769,7 @@ const moveAlgorithms = {
   }
 }
 
-const enemyPieceDefs = {
+export const enemyPieceDefs = {
   shroom: {
     move: 1,
     cap: [
@@ -849,7 +849,7 @@ const enemyPieceDefs = {
   }
 }
 
-const pieceDefs = {
+export const pieceDefs = {
   // dummy: {
   //   rarity: 1
   // },
