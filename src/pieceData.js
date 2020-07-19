@@ -646,18 +646,31 @@ const moveAlgorithms = {
       return squares;
     }
 
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2, pieceState));
     if (posDelta1 === posDelta2) {
-      return moveableSquares
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2, pieceState));
+    } else if (posDelta1 === 0) {
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1, pieceState));
+    } else if (posDelta2 === 0) {
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1, pieceState));
+    } else {
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, negDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, negDelta2, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, negDelta1, pieceState));
+      moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1, pieceState));
     }
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, posDelta1, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, posDelta1, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, negDelta2, negDelta1, pieceState));
-    moveableSquares = moveableSquares.concat(helper(x, y, posDelta2, negDelta1, pieceState));
-
     return moveableSquares;
   },
   leapThenMove: (x, y, targetAndMove, pieceState, leaping, noCapture, onlyCapture) => {

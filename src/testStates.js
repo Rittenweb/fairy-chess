@@ -31,8 +31,8 @@ export const testState = {
         exhausted: false
       },
       '6': {
-        name: 'bishop',
-        enemy: false,
+        name: 'shroom',
+        enemy: true,
         exhausted: false
       },
       '7': null,
@@ -52,7 +52,7 @@ export const testState = {
       },
       '4': null,
       '5': {
-        name: 'bishop',
+        name: 'pasha',
         enemy: false,
         exhausted: false
       },
@@ -113,7 +113,11 @@ export const testState = {
       '2': null,
       '3': null,
       '4': null,
-      '5': null,
+      '5': {
+        name: 'knight',
+        enemy: false,
+        exhausted: false
+      },
       '6': null,
       '7': null,
       '8': null,
@@ -125,13 +129,21 @@ export const testState = {
       '0': null,
       '1': null,
       '2': null,
-      '3': null,
+      '3': {
+        name: 'queen',
+        enemy: false,
+        exhausted: false
+      },
       '4': null,
       '5': null,
       '6': null,
       '7': null,
       '8': null,
-      '9': null,
+      '9': {
+        name: 'shroom',
+        enemy: true,
+        exhausted: false
+      },
       '10': null,
       '11': null,
     },
@@ -159,7 +171,11 @@ export const testState = {
       '6': null,
       '7': null,
       '8': null,
-      '9': null,
+      '9': {
+        name: 'wisp',
+        enemy: false,
+        exhausted: false
+      },
       '10': null,
       '11': null,
     },
@@ -173,7 +189,11 @@ export const testState = {
       '6': null,
       '7': null,
       '8': null,
-      '9': null,
+      '9': {
+        name: 'threerider',
+        enemy: false,
+        exhausted: false
+      },
       '10': null,
       '11': null,
     },
@@ -187,7 +207,11 @@ export const testState = {
       '6': null,
       '7': null,
       '8': null,
-      '9': null,
+      '9': {
+        name: 'wisp',
+        enemy: 'false',
+        exhausted: 'false'
+      },
       '10': null,
       '11': null,
     },
@@ -215,7 +239,11 @@ export const testState = {
       '6': null,
       '7': null,
       '8': null,
-      '9': null,
+      '9': {
+        name: 'shroom',
+        enemy: true,
+        exhausted: true
+      },
       '10': null,
       '11': null,
     },
