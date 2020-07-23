@@ -14,7 +14,7 @@ export default function HelpModal({ gamePhase, handleClick }) {
 
   let helpBanner;
   let helpText;
-  //Can be: start, setup, inprogress, rewards, gameover, transitionstart, transitioninprogress, transitionnoboard
+  //gamPhase can be: start, setup, inprogress, rewards, gameover, transitionstart, transitioninprogress, transitionnoboard
   switch (gamePhase) {
     case 'setup':
       helpBanner = 'Setup Phase';

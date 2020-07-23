@@ -7,6 +7,7 @@ export default function EnemyModal({ piece, handleClick }) {
   const animateClick = function animateClick(e) {
     setAnimation('shrink 200ms ease-out');
     setTimeout(() => {
+      //handleclick toggles modalDisplay boolean in parent component, de-rendering
       handleClick(e);
     }, 200);
   };

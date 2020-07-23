@@ -2,6 +2,8 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import Choice from './Choice';
 
 export default function OpenedPack({ rarity, choices, clear }) {
+  //Layout component doesn't work as a wrapper here, so have to implement it inside...
+
   let [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 

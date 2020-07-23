@@ -5,6 +5,7 @@ import openSound from '../audio/999 Get Small Item.mp3';
 export default function UnopenedPack({ onClick, rarity, animation }) {
   const [play] = useSound(openSound, { volume: 0.6 });
 
+  //Layout component doesn't work as a wrapper here, so have to implement it inside...
   let [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 
@@ -26,6 +27,7 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
 
   const myClick = function myClick() {
     play();
+    //Passed-in from rewards: sets selected pack in rewards, and resets animations
     onClick(rarity);
     updatePosition();
   };

@@ -4,10 +4,12 @@ import { getAllEnemyCapSquaresRelative, getEnemyMoveSquareRelative } from '../ut
 export default function EnemyModalBoard({ piece }) {
   let squares = {};
 
+  //Enemy pieces can only move to one square from any position
   let moveSquare = getEnemyMoveSquareRelative(piece.name);
   moveSquare[0] = moveSquare[0] + 11;
   moveSquare[1] = moveSquare[1] + 11;
 
+  //Will always be a simple array, not an algorithm like ally pieces
   let capSquares = getAllEnemyCapSquaresRelative(piece.name);
   capSquares.forEach((square) => {
     square[0] = square[0] + 11;

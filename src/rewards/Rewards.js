@@ -5,24 +5,25 @@ import OpenedPack from './OpenedPack';
 
 export default function Rewards() {
   let [selected, setSelected] = useState('all');
-  let [animations, setAnimations] = useState({
+  let [packAnimations, setPackAnimations] = useState({
     common: 'fadeIn 1500ms',
     uncommon: 'fadeIn 1500ms',
     rare: 'fadeIn 1500ms',
   });
+  //Have to store the pieces generated so that they don't re-render, but persist until next round
   let choicesList = useRef([]);
 
-  const onClick = function onClick(whichPack) {
+  const onClick = function onClick(selectedPack) {
     let newAnimations = {
       common: 'fadeOutAndWait 1200ms',
       uncommon: 'fadeOutAndWait 1200ms',
       rare: 'fadeOutAndWait 1200ms',
     };
-    newAnimations[whichPack] = 'fadeOutAndGlow 1600ms linear';
-    setAnimations(newAnimations);
+    newAnimations[selectedPack] = 'fadeOutAndGlow 1600ms linear';
+    setPackAnimations(newAnimations);
 
     setTimeout(() => {
-      setSelected(whichPack);
+      setSelected(selectedPack);
     }, 1150);
   };
 
@@ -44,9 +45,9 @@ export default function Rewards() {
 
   return (
     <div className='rewards'>
-      {selected === 'all' && <UnopenedPack rarity={'common'} onClick={onClick} animation={animations.common} />}
-      {selected === 'all' && <UnopenedPack rarity={'uncommon'} onClick={onClick} animation={animations.uncommon} />}
-      {selected === 'all' && <UnopenedPack rarity={'rare'} onClick={onClick} animation={animations.rare} />}
+      {selected === 'all' && <UnopenedPack rarity={'common'} onClick={onClick} animation={packAnimations.common} />}
+      {selected === 'all' && <UnopenedPack rarity={'uncommon'} onClick={onClick} animation={packAnimations.uncommon} />}
+      {selected === 'all' && <UnopenedPack rarity={'rare'} onClick={onClick} animation={packAnimations.rare} />}
       {selected === 'common' && <OpenedPack rarity={'common'} choices={choicesList.current} clear={clearChoices} />}
       {selected === 'uncommon' && <OpenedPack rarity={'uncommon'} choices={choicesList.current} clear={clearChoices} />}
       {selected === 'rare' && <OpenedPack rarity={'rare'} choices={choicesList.current} clear={clearChoices} />}

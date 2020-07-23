@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 
 export default function ButtonWrapper({ isInner, image, children }) {
+  //Layout component doesn't work as a wrapper here, so have to implement it inside...
+
   const [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 

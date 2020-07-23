@@ -7,6 +7,8 @@ import getSound from '../audio/999 Get Frog Coin.ogg';
 export default function Choice({ pieces, wide, clear }) {
   const dispatch = useContext(DispatchContext);
   const [myTimeout, setMyTimeout] = useState(false);
+  //Layout component doesn't work as a wrapper here, so have to implement it inside...
+
   const [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
   const [play] = useSound(getSound, { volume: 0.6 });
@@ -33,6 +35,7 @@ export default function Choice({ pieces, wide, clear }) {
       type: 'transitionrewards',
     });
 
+    //Prevents rapidly clicking the button before it fades out to gain multiple copies of the piece
     if (!myTimeout) {
       setMyTimeout(true);
       setTimeout(() => {

@@ -9,6 +9,7 @@ for (let i = 0; i < 12; i++) {
   }
 }
 
+//Necessary to display all potential capture moves
 let dummyFullPieceState = {};
 for (let i = 0; i < 12; i++) {
   dummyFullPieceState[i] = {};
@@ -27,6 +28,7 @@ export default function ModalBoard({ piece }) {
   let moveNoCapSquares = [];
   let capNoMoveSquares = [];
 
+  //Piece position: bottom-right of regular board. Translates to top-left quadrant of large board
   [moveSquares, leapSquares, moveNoCapSquares, capNoMoveSquares] = getSquareHighlights(
     11,
     11,
@@ -34,6 +36,8 @@ export default function ModalBoard({ piece }) {
     dummyPieceState,
     dummyFullPieceState
   );
+  //temp arrays will hold the square results for subsequent piece positions, and then each merge into the non-temp array
+  //Piece position: bottom-left of regular board. Translates to top-right quadrant of large board
   let [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     0,
     11,
@@ -46,6 +50,7 @@ export default function ModalBoard({ piece }) {
   moveNoCapSquares = moveNoCapSquares.concat(tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1]]) || []);
   capNoMoveSquares = capNoMoveSquares.concat(tempCapNoMoveSquares.map((square) => [square[0] + 11, square[1]]) || []);
 
+  //Piece position: top-right of regular board. Translates to bottom-left quadrant of large board
   [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     11,
     0,
@@ -58,6 +63,7 @@ export default function ModalBoard({ piece }) {
   moveNoCapSquares = moveNoCapSquares.concat(tempMoveNoCapSquares.map((square) => [square[0], square[1] + 11]) || []);
   capNoMoveSquares = capNoMoveSquares.concat(tempCapNoMoveSquares.map((square) => [square[0], square[1] + 11]) || []);
 
+  //Piece position: top-left of regular board. Translates to bottom-right quadrant of large board
   [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     0,
     0,

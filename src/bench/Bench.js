@@ -8,6 +8,7 @@ let ready;
 function renderSquare(squareNum, gameState, rareNum, uncommonNum, commonNum) {
   const piece = gameState.benchPieces[squareNum];
   let canDrag;
+  //Can only drag if pieces of that rarity are not maxed out on the board
   if (piece) {
     let rarity = getRarity(piece.name);
     if (rarity === 3 && rareNum >= 1) {
@@ -20,9 +21,11 @@ function renderSquare(squareNum, gameState, rareNum, uncommonNum, commonNum) {
       canDrag = true;
     }
   }
+  //Can only ever deploy pieces during setup
   if (gameState.gamePhase !== 'setup') {
     canDrag = false;
   }
+  //If there are any pieces that can be dragged, the ready button won't appear
   if (canDrag) {
     ready = false;
   }
@@ -33,6 +36,7 @@ export default function Bench({ gameState }) {
   let rareNum = 0;
   let uncommonNum = 0;
   let commonNum = 0;
+  //Check how many pieces of each rarity are already deployed
   if (gameState.gamePhase === 'setup') {
     for (let x = 0; x < 12; x++) {
       for (let y = 0; y < 12; y++) {
