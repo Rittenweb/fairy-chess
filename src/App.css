@@ -27,7 +27,7 @@
   background: var(--color-green);
 }
 
-.attribution {
+.corner-button {
   position: fixed;
   bottom: 0;
   text-decoration: none;
@@ -529,12 +529,10 @@ main {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292,
-      0 0 35px #d6e292;
+    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292, 0 0 35px #d6e292;
   }
   100% {
-    box-shadow: 0 0 10px #fff, 0 0 20px #eef1bf, 0 0 30px #eef1bf,
-      0 0 40px #eef1bf;
+    box-shadow: 0 0 10px #fff, 0 0 20px #eef1bf, 0 0 30px #eef1bf, 0 0 40px #eef1bf;
   }
 }
 
@@ -561,18 +559,15 @@ main {
     opacity: 1;
   }
   35% {
-    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292,
-      0 0 35px #d6e292;
+    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292, 0 0 35px #d6e292;
     opacity: 1;
   }
   50% {
-    box-shadow: 0 0 10px #fff, 0 0 20px #eef1bf, 0 0 30px #eef1bf,
-      0 0 40px #eef1bf;
+    box-shadow: 0 0 10px #fff, 0 0 20px #eef1bf, 0 0 30px #eef1bf, 0 0 40px #eef1bf;
   }
   75% {
     opacity: 0;
-    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292,
-      0 0 35px #d6e292;
+    box-shadow: 0 0 5px #fff, 0 0 15px #d6e292, 0 0 25px #d6e292, 0 0 35px #d6e292;
   }
   100% {
     box-shadow: none;

@@ -11,7 +11,7 @@ export default function HelpButton({ gamePhase }) {
 
   return (
     <>
-      <div className='attribution' style={{ left: 0, cursor: 'pointer' }} onClick={handleClick}>
+      <div className='corner-button' style={{ left: 0, cursor: 'pointer' }} onClick={handleClick}>
         Need Help?
       </div>
       {modalDisplay && <HelpModal gamePhase={gamePhase} handleClick={handleClick} />}

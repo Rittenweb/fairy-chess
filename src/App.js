@@ -9,7 +9,7 @@ import ResetTurnButton from './ResetTurnButton';
 import ShowMovesButton from './ShowMovesButton';
 import ResetSetupButton from './ResetSetupButton';
 import GameOverModal from './modals/GameOverModal';
-import HelpButton from './HelpButton';
+import CornerButtons from './CornerButtons';
 import Particles from './Particles';
 import TransitionComponent from './wrappercomponents/TransitionComponent';
 import { DispatchContext } from './util/Contexts';
@@ -80,28 +80,7 @@ function App() {
       <div className='modal-background mobile-modal'>Touch events not yet supported! Please play on desktop.</div>
       <div className='app-background'></div>
       <Particles />
-      {gameState.gamePhase === 'start' && (
-        <a href='https://icons8.com/' className='attribution' style={{ left: 0 }}>
-          Icons by Icons8
-        </a>
-      )}
-      {gameState.gamePhase === 'start' && (
-        <a
-          href='https://www.colourlovers.com/pattern/template/16/Pattern_16'
-          className='attribution'
-          style={{ right: 0 }}>
-          Pattern template by COLOURlover
-        </a>
-      )}
-      {gameState.gamePhase !== 'start' && (
-        <div
-          className='attribution'
-          style={{ right: 0, cursor: 'pointer' }}
-          onClick={() => dispatch({ type: 'togglemute' })}>
-          {gameState.volume ? 'Mute Music' : 'Unmute Music'}
-        </div>
-      )}
-      {gameState.gamePhase !== 'start' && <HelpButton gamePhase={gameState.gamePhase} />}
+      <CornerButtons gamePhase={gameState.gamePhase} volume={gameState.volume} />
     </div>
   );
 }
