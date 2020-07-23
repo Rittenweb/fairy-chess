@@ -1,7 +1,7 @@
 import React from 'react';
 import DragSquare from './DragSquare';
 import useSound from 'use-sound';
-import dropSound from './audio/drop.ogg';
+import dropSound from '../audio/drop.ogg';
 
 function renderSquare(squareNum, gameState, playSound) {
   const x = squareNum % 12;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../modals/Modal';
 
 export default function ChoicePiece({ name }) {
   const [modalDisplay, setModalDisplay] = useState(false);
@@ -13,13 +13,11 @@ export default function ChoicePiece({ name }) {
     <>
       <img
         className={'piece-symbol'}
-        src={require(`./img/${name}.png`)}
+        src={require(`../img/${name}.png`)}
         alt={`${name}`}
         onContextMenu={handleRightClick}
         style={{ padding: '10%' }}></img>
-      {modalDisplay && (
-        <Modal piece={{ name: name }} handleClick={handleRightClick}></Modal>
-      )}
+      {modalDisplay && <Modal piece={{ name: name }} handleClick={handleRightClick}></Modal>}
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSquareHighlights } from './pieceData';
+import { getSquareHighlights } from '../util/pieceData';
 
 let dummyPieceState = {};
 for (let i = 0; i < 12; i++) {
@@ -27,86 +27,46 @@ export default function ModalBoard({ piece }) {
   let moveNoCapSquares = [];
   let capNoMoveSquares = [];
 
-  [
-    moveSquares,
-    leapSquares,
-    moveNoCapSquares,
-    capNoMoveSquares,
-  ] = getSquareHighlights(
+  [moveSquares, leapSquares, moveNoCapSquares, capNoMoveSquares] = getSquareHighlights(
     11,
     11,
     piece.name,
     dummyPieceState,
     dummyFullPieceState
   );
-  let [
-    tempMoveSquares,
-    tempLeapSquares,
-    tempMoveNoCapSquares,
-    tempCapNoMoveSquares,
-  ] = getSquareHighlights(
+  let [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     0,
     11,
     piece.name,
     dummyPieceState,
     dummyFullPieceState
   );
-  moveSquares = moveSquares.concat(
-    tempMoveSquares.map((square) => [square[0] + 11, square[1]]) || []
-  );
-  leapSquares = leapSquares.concat(
-    tempLeapSquares.map((square) => [square[0] + 11, square[1]]) || []
-  );
-  moveNoCapSquares = moveNoCapSquares.concat(
-    tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1]]) || []
-  );
-  capNoMoveSquares = capNoMoveSquares.concat(
-    tempCapNoMoveSquares.map((square) => [square[0] + 11, square[1]]) || []
-  );
+  moveSquares = moveSquares.concat(tempMoveSquares.map((square) => [square[0] + 11, square[1]]) || []);
+  leapSquares = leapSquares.concat(tempLeapSquares.map((square) => [square[0] + 11, square[1]]) || []);
+  moveNoCapSquares = moveNoCapSquares.concat(tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1]]) || []);
+  capNoMoveSquares = capNoMoveSquares.concat(tempCapNoMoveSquares.map((square) => [square[0] + 11, square[1]]) || []);
 
-  [
-    tempMoveSquares,
-    tempLeapSquares,
-    tempMoveNoCapSquares,
-    tempCapNoMoveSquares,
-  ] = getSquareHighlights(
+  [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     11,
     0,
     piece.name,
     dummyPieceState,
     dummyFullPieceState
   );
-  moveSquares = moveSquares.concat(
-    tempMoveSquares.map((square) => [square[0], square[1] + 11]) || []
-  );
-  leapSquares = leapSquares.concat(
-    tempLeapSquares.map((square) => [square[0], square[1] + 11]) || []
-  );
-  moveNoCapSquares = moveNoCapSquares.concat(
-    tempMoveNoCapSquares.map((square) => [square[0], square[1] + 11]) || []
-  );
-  capNoMoveSquares = capNoMoveSquares.concat(
-    tempCapNoMoveSquares.map((square) => [square[0], square[1] + 11]) || []
-  );
+  moveSquares = moveSquares.concat(tempMoveSquares.map((square) => [square[0], square[1] + 11]) || []);
+  leapSquares = leapSquares.concat(tempLeapSquares.map((square) => [square[0], square[1] + 11]) || []);
+  moveNoCapSquares = moveNoCapSquares.concat(tempMoveNoCapSquares.map((square) => [square[0], square[1] + 11]) || []);
+  capNoMoveSquares = capNoMoveSquares.concat(tempCapNoMoveSquares.map((square) => [square[0], square[1] + 11]) || []);
 
-  [
-    tempMoveSquares,
-    tempLeapSquares,
-    tempMoveNoCapSquares,
-    tempCapNoMoveSquares,
-  ] = getSquareHighlights(
+  [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(
     0,
     0,
     piece.name,
     dummyPieceState,
     dummyFullPieceState
   );
-  moveSquares = moveSquares.concat(
-    tempMoveSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
-  );
-  leapSquares = leapSquares.concat(
-    tempLeapSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
-  );
+  moveSquares = moveSquares.concat(tempMoveSquares.map((square) => [square[0] + 11, square[1] + 11]) || []);
+  leapSquares = leapSquares.concat(tempLeapSquares.map((square) => [square[0] + 11, square[1] + 11]) || []);
   moveNoCapSquares = moveNoCapSquares.concat(
     tempMoveNoCapSquares.map((square) => [square[0] + 11, square[1] + 11]) || []
   );
@@ -117,8 +77,7 @@ export default function ModalBoard({ piece }) {
   for (let i = 0; i < 23; i++) {
     squares[i] = {};
     for (let j = 0; j < 23; j++) {
-      squares[i][j] =
-        (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
+      squares[i][j] = (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
     }
   }
 

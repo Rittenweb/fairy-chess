@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { DispatchContext } from './Contexts';
-import TransitionLayoutComponent from './TransitionLayoutComponent';
-import ButtonWrapper from './ButtonWrapper';
+import { DispatchContext } from './util/Contexts';
+import TransitionLayoutComponent from './wrappercomponents/TransitionLayoutComponent';
+import ButtonWrapper from './wrappercomponents/ButtonWrapper';
 import useSound from 'use-sound';
 import deselectSound from './audio/Menu1B.wav';
 
@@ -20,11 +20,7 @@ export default function ResetSetupButton({ show }) {
     return (
       <ButtonWrapper isInner={false} image='beige'>
         <ButtonWrapper isInner={true} image='black'>
-          <button
-            className='resetsetupbutton'
-            onClick={resetSetup}
-            style={{ backgroundPosition }}
-            ref={ref}>
+          <button className='resetsetupbutton' onClick={resetSetup} style={{ backgroundPosition }} ref={ref}>
             Reset Setup
           </button>
         </ButtonWrapper>
@@ -33,12 +29,6 @@ export default function ResetSetupButton({ show }) {
   };
 
   return (
-    <TransitionLayoutComponent
-      show={show}
-      transition={'fade'}
-      timeIn={1000}
-      timeOut={500}
-      renderChild={renderFn}
-    />
+    <TransitionLayoutComponent show={show} transition={'fade'} timeIn={1000} timeOut={500} renderChild={renderFn} />
   );
 }

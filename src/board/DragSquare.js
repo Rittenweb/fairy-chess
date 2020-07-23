@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext } from './Contexts';
+import { DispatchContext } from '../util/Contexts';
 import Piece from './Piece';
 import EnemyPiece from './EnemyPiece';
 
@@ -39,9 +39,9 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark, playSound }) => {
     if (pieceData.piece.exhausted) {
       return;
     }
-    if (pieceData.bench) {
+    if (pieceData.fromBench) {
       dispatch({
-        type: 'benchMove',
+        type: 'moveFromBench',
         xDest: x,
         yDest: y,
         piece: pieceData.piece,
@@ -55,6 +55,7 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark, playSound }) => {
         yOrg: pieceData.y,
         piece: pieceData.piece,
       });
+      //Update enemy capture squares, in case an enemy has been taken
       dispatch({
         type: 'showEnemyCapture',
       });
@@ -64,14 +65,13 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark, playSound }) => {
     });
   };
 
-  let squareColor =
-    (x + y) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
+  let squareColor = (x + y) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
   if ((canDrop === 'no' && draggingOver) || canDrop === 'enemycap') {
-    squareColor = 'var(--color-red)';
+    squareColor = 'var(--color-red)'; //Can't drop here
   } else if (canDrop === 'yes' && !draggingOver) {
-    squareColor = `var(--color-light)`;
+    squareColor = `var(--color-light)`; //Can drop here
   } else if (canDrop === 'cap') {
-    squareColor = '#63474D';
+    squareColor = '#63474D'; //Can capture here
   }
   let squareColorRef = squareColor; //Save it for the beneath gradient so its not overwritten by next line
   if (captureMark) {
@@ -94,9 +94,7 @@ const DragSquare = ({ x, y, piece, canDrop, captureMark, playSound }) => {
           background: `radial-gradient(${squareColorRef} 0%, ${squareColorRef} 30%, var(--color-red) 100%)`,
         }}></div>
       {piece && piece.enemy === false && <Piece piece={piece} x={x} y={y} />}
-      {piece && piece.enemy === true && (
-        <EnemyPiece piece={piece} x={x} y={y} />
-      )}
+      {piece && piece.enemy === true && <EnemyPiece piece={piece} x={x} y={y} />}
     </div>
   );
 };

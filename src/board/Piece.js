@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext } from './Contexts';
-import Modal from './Modal';
+import { DispatchContext } from '../util/Contexts';
+import Modal from '../modals/Modal';
 import useSound from 'use-sound';
-import highlightSound from './audio/sharp_echo.wav';
+import highlightSound from '../audio/sharp_echo.wav';
 
 export default function Piece({ piece, x, y }) {
   const dispatch = useContext(DispatchContext);
@@ -65,16 +65,10 @@ export default function Piece({ piece, x, y }) {
       onContextMenu={handleRightClick}
       style={{ opacity: opacity }}>
       <img
-        className={
-          piece.exhausted
-            ? 'piece-symbol exhausted'
-            : 'piece-symbol not-exhausted'
-        }
-        src={require(`./img/${piece.name}.png`)}
+        className={piece.exhausted ? 'piece-symbol exhausted' : 'piece-symbol not-exhausted'}
+        src={require(`../img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>
-      {modalDisplay && (
-        <Modal piece={piece} handleClick={handleRightClick}></Modal>
-      )}
+      {modalDisplay && <Modal piece={piece} handleClick={handleRightClick}></Modal>}
     </div>
   );
 }

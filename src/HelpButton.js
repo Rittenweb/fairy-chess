@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HelpModal from './HelpModal';
+import HelpModal from './modals/HelpModal';
 
 export default function HelpButton({ gamePhase }) {
   const [modalDisplay, setModalDisplay] = useState(false);
@@ -11,15 +11,10 @@ export default function HelpButton({ gamePhase }) {
 
   return (
     <>
-      <div
-        className='attribution'
-        style={{ left: 0, cursor: 'pointer' }}
-        onClick={handleClick}>
+      <div className='attribution' style={{ left: 0, cursor: 'pointer' }} onClick={handleClick}>
         Need Help?
       </div>
-      {modalDisplay && (
-        <HelpModal gamePhase={gamePhase} handleClick={handleClick} />
-      )}
+      {modalDisplay && <HelpModal gamePhase={gamePhase} handleClick={handleClick} />}
     </>
   );
 }

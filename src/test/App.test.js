@@ -1,6 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import {
+  render
+} from '@testing-library/react';
+import App from '../App';
 import {
   getRarity,
   getPieceWithRarity,
@@ -14,9 +16,13 @@ import {
   getSquareHighlights,
   enemyPieceDefs,
   pieceDefs,
-} from './pieceData';
-import { testState } from './testStates';
-import { initialState } from './baseStates';
+} from '../util/pieceData';
+import {
+  testState
+} from './testStates';
+import {
+  initialState
+} from '../util/baseStates';
 
 // it('renders without crashing', () => {
 //   const { getByText } = render(<App />);

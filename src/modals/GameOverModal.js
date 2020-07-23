@@ -1,7 +1,7 @@
 import React from 'react';
-import PlayAgainButton from './PlayAgainButton';
+import PlayAgainButton from '../PlayAgainButton';
 import useSound from 'use-sound';
-import gameOverSound from './audio/999 Ozzie Laugh.mp3';
+import gameOverSound from '../audio/999 Ozzie Laugh.mp3';
 import { useEffect } from 'react';
 
 export default function GameOverModal({ score }) {

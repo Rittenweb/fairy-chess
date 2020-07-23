@@ -61,7 +61,7 @@ export const reducer = function reducer(state, action) {
       return {
         ...stateClone, pieces: newPieces, shouldTurnEnd
       };
-    case 'benchMove':
+    case 'moveFromBench':
       const placeX = action.xDest;
       const placeY = action.yDest;
       newBenchPieces[action.piece.id] = null;

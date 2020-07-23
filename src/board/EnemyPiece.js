@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext } from './Contexts';
-import EnemyModal from './EnemyModal';
+import { DispatchContext } from '../util/Contexts';
+import EnemyModal from '../modals/EnemyModal';
 
 export default function EnemyPiece({ piece, x, y }) {
   const dispatch = useContext(DispatchContext);
@@ -36,18 +36,10 @@ export default function EnemyPiece({ piece, x, y }) {
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleRightClick}
       style={{
-        animation:
-          piece.fade === 'out'
-            ? 'fadeAndGrowOut 300ms ease-out'
-            : 'fadeAndShrinkIn 300ms ease-out',
+        animation: piece.fade === 'out' ? 'fadeAndGrowOut 300ms ease-out' : 'fadeAndShrinkIn 300ms ease-out',
       }}>
-      <img
-        className='piece-symbol'
-        src={require(`./img/${piece.name}.png`)}
-        alt={`${piece.name}`}></img>
-      {modalDisplay && (
-        <EnemyModal piece={piece} handleClick={handleRightClick}></EnemyModal>
-      )}
+      <img className='piece-symbol' src={require(`../img/${piece.name}.png`)} alt={`${piece.name}`}></img>
+      {modalDisplay && <EnemyModal piece={piece} handleClick={handleRightClick}></EnemyModal>}
     </div>
   );
 }

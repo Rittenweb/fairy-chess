@@ -25,7 +25,7 @@ export default function ButtonWrapper({ isInner, image, children }) {
       ref={ref}
       className={isInner ? 'wrapper-inner' : 'wrapper-outer'}
       style={{
-        backgroundImage: `./img/flowers${image}.png`,
+        backgroundImage: `../img/flowers${image}.png`,
         backgroundPosition: `left -${xy[0]}px top -${xy[1]}px`,
       }}>
       {children}

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { DispatchContext } from './Contexts';
+import { DispatchContext } from './util/Contexts';
 import useSound from 'use-sound';
 import startSound from './audio/Puzzle Game 3.ogg';
-import TransitionLayoutComponent from './TransitionLayoutComponent';
-import ButtonWrapper from './ButtonWrapper';
+import TransitionLayoutComponent from './wrappercomponents/TransitionLayoutComponent';
+import ButtonWrapper from './wrappercomponents/ButtonWrapper';
 
 export default function StartButton({ show, volume }) {
   const dispatch = useContext(DispatchContext);
@@ -32,11 +32,7 @@ export default function StartButton({ show, volume }) {
     return (
       <ButtonWrapper isInner={false} image='beige'>
         <ButtonWrapper isInner={true} image='black'>
-          <button
-            className='startbutton'
-            onClick={start}
-            style={{ backgroundPosition }}
-            ref={ref}>
+          <button className='startbutton' onClick={start} style={{ backgroundPosition }} ref={ref}>
             Start Game
           </button>
         </ButtonWrapper>
@@ -44,13 +40,5 @@ export default function StartButton({ show, volume }) {
     );
   };
 
-  return (
-    <TransitionLayoutComponent
-      show={show}
-      transition='fade'
-      timeIn={2000}
-      timeOut={400}
-      renderChild={renderFn}
-    />
-  );
+  return <TransitionLayoutComponent show={show} transition='fade' timeIn={2000} timeOut={400} renderChild={renderFn} />;
 }

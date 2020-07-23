@@ -1,16 +1,10 @@
 import React, { useContext } from 'react';
-import { DispatchContext } from './Contexts';
-import TransitionLayoutComponent from './TransitionLayoutComponent';
+import { DispatchContext } from './util/Contexts';
+import TransitionLayoutComponent from './wrappercomponents/TransitionLayoutComponent';
 import useSound from 'use-sound';
 import enemySound from './audio/41.ogg';
 
-export default function ReadyButton({
-  ready,
-  rareNum,
-  uncommonNum,
-  commonNum,
-  show,
-}) {
+export default function ReadyButton({ ready, rareNum, uncommonNum, commonNum, show }) {
   const dispatch = useContext(DispatchContext);
   const [play] = useSound(enemySound, { volume: 0.3 });
 
@@ -31,18 +25,11 @@ export default function ReadyButton({
 
   const renderFn = function renderFn(backgroundPosition, ref) {
     return ready ? (
-      <button
-        className='readybutton pulse'
-        style={{ backgroundPosition }}
-        onClick={setup}
-        ref={ref}>
+      <button className='readybutton pulse' style={{ backgroundPosition }} onClick={setup} ref={ref}>
         I'm Ready
       </button>
     ) : (
-      <div
-        className='readybutton pre-ready'
-        style={{ backgroundPosition }}
-        ref={ref}>
+      <div className='readybutton pre-ready' style={{ backgroundPosition }} ref={ref}>
         <div className='ready-type'>
           <div className='ready-rarity'>Common</div>
           <div className='ready-num'>{`${commonNum}/3`}</div>
@@ -61,13 +48,7 @@ export default function ReadyButton({
 
   return (
     <div style={{ width: '30vw' }}>
-      <TransitionLayoutComponent
-        show={show}
-        transition={'fade'}
-        timeIn={500}
-        timeOut={500}
-        renderChild={renderFn}
-      />
+      <TransitionLayoutComponent show={show} transition={'fade'} timeIn={500} timeOut={500} renderChild={renderFn} />
     </div>
   );
 }

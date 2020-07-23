@@ -1,14 +1,8 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-} from 'react';
-import { DispatchContext } from './Contexts';
+import React, { useContext, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { DispatchContext } from '../util/Contexts';
 import ChoicePiece from './ChoicePiece';
 import useSound from 'use-sound';
-import getSound from './audio/999 Get Frog Coin.ogg';
+import getSound from '../audio/999 Get Frog Coin.ogg';
 
 export default function Choice({ pieces, wide, clear }) {
   const dispatch = useContext(DispatchContext);

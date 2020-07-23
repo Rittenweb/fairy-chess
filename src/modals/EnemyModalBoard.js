@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  getAllEnemyCapSquaresRelative,
-  getEnemyMoveSquareRelative,
-} from './pieceData';
+import { getAllEnemyCapSquaresRelative, getEnemyMoveSquareRelative } from '../util/pieceData';
 
 export default function EnemyModalBoard({ piece }) {
   let squares = {};
@@ -20,8 +17,7 @@ export default function EnemyModalBoard({ piece }) {
   for (let i = 0; i < 23; i++) {
     squares[i] = {};
     for (let j = 0; j < 23; j++) {
-      squares[i][j] =
-        (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
+      squares[i][j] = (i + j) % 2 === 0 ? 'var(--color-green)' : 'var(--color-dark)';
     }
   }
 

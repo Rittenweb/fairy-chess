@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext } from './Contexts';
-import Modal from './Modal';
+import { DispatchContext } from '../util/Contexts';
+import Modal from '../modals/Modal';
 
 export default function BenchPiece({ piece, canDrag }) {
   const dispatch = useContext(DispatchContext);
@@ -8,7 +8,7 @@ export default function BenchPiece({ piece, canDrag }) {
   const [opacity, setOpacity] = useState(1);
 
   const handleDragStart = function handleDragStart(e) {
-    const obj = { piece, bench: true };
+    const obj = { piece, fromBench: true };
     const json = JSON.stringify(obj);
     e.dataTransfer.setData('text/plain', json);
     dispatch({
@@ -42,16 +42,10 @@ export default function BenchPiece({ piece, canDrag }) {
       onContextMenu={handleRightClick}
       style={{ animation: 'fadeAndShrinkIn 300ms ease-out', opacity: opacity }}>
       <img
-        className={
-          canDrag
-            ? 'piece-symbol not-exhausted pulse'
-            : 'piece-symbol exhausted'
-        }
-        src={require(`./img/${piece.name}.png`)}
+        className={canDrag ? 'piece-symbol not-exhausted pulse' : 'piece-symbol exhausted'}
+        src={require(`../img/${piece.name}.png`)}
         alt={`${piece.name}`}></img>
-      {modalDisplay && (
-        <Modal piece={piece} handleClick={handleRightClick}></Modal>
-      )}
+      {modalDisplay && <Modal piece={piece} handleClick={handleRightClick}></Modal>}
     </div>
   );
 }

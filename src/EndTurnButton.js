@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { DispatchContext } from './Contexts';
-import TransitionLayoutComponent from './TransitionLayoutComponent';
-import ButtonWrapper from './ButtonWrapper';
+import { DispatchContext } from './util/Contexts';
+import TransitionLayoutComponent from './wrappercomponents/TransitionLayoutComponent';
+import ButtonWrapper from './wrappercomponents/ButtonWrapper';
 import useSound from 'use-sound';
 import selectSound from './audio/Menu1A.wav';
 
@@ -39,13 +39,5 @@ export default function EndTurnButton({ show, shouldTurnEnd }) {
     );
   };
 
-  return (
-    <TransitionLayoutComponent
-      show={show}
-      transition='fade'
-      timeIn={2000}
-      timeOut={300}
-      renderChild={renderFn}
-    />
-  );
+  return <TransitionLayoutComponent show={show} transition='fade' timeIn={2000} timeOut={300} renderChild={renderFn} />;
 }

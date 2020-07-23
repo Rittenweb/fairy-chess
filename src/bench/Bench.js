@@ -1,7 +1,7 @@
 import React from 'react';
 import BenchSquare from './BenchSquare';
-import ReadyButton from './ReadyButton';
-import { getRarity } from './pieceData';
+import ReadyButton from '../ReadyButton';
+import { getRarity } from '../util/pieceData';
 
 let ready;
 
@@ -26,14 +26,7 @@ function renderSquare(squareNum, gameState, rareNum, uncommonNum, commonNum) {
   if (canDrag) {
     ready = false;
   }
-  return (
-    <BenchSquare
-      key={squareNum}
-      num={squareNum}
-      piece={piece}
-      canDrag={canDrag}
-    />
-  );
+  return <BenchSquare key={squareNum} num={squareNum} piece={piece} canDrag={canDrag} />;
 }
 
 export default function Bench({ gameState }) {
@@ -60,9 +53,7 @@ export default function Bench({ gameState }) {
 
   const squareList = [];
   for (let i = 0; i < 16; i++) {
-    squareList.push(
-      renderSquare(i, gameState, rareNum, uncommonNum, commonNum)
-    );
+    squareList.push(renderSquare(i, gameState, rareNum, uncommonNum, commonNum));
   }
   return (
     <>

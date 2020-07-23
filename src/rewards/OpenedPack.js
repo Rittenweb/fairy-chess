@@ -34,12 +34,7 @@ export default function OpenedPack({ rarity, choices, clear }) {
       }}
       onClick={myClick}>
       {choices.map((choice, i) => (
-        <Choice
-          pieces={choice}
-          wide={rarity === 'common'}
-          key={i}
-          clear={clear}
-        />
+        <Choice pieces={choice} wide={rarity === 'common'} key={i} clear={clear} />
       ))}
     </div>
   );

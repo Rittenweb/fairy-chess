@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import useSound from 'use-sound';
-import openSound from './audio/999 Get Small Item.mp3';
+import openSound from '../audio/999 Get Small Item.mp3';
 
 export default function UnopenedPack({ onClick, rarity, animation }) {
   const [play] = useSound(openSound, { volume: 0.6 });
