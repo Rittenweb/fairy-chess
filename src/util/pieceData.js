@@ -4,9 +4,15 @@ export const getRarity = function getRarity(pieceName) {
   return pieceDefs[pieceName].rarity;
 }
 
+//Returns a piece-representative object with three properties:
+//Its NAME is randomly chosen from all names that match the specified rarity
+//Its ENEMY is set to false, because this method is used for ally bench population
+//Its ID is set to the parameter-specified id, so that the bench pieces stay in order
 export const getPieceWithRarity = function getPieceWithRarity(rarity, id) {
   let pieceNames = Object.keys(pieceDefs);
   let pieceName = pieceNames[Math.floor(pieceNames.length * Math.random())];
+  //It is slower on average to iterate through the pieceDefs object and separate it by rarity
+  //than just hope we get the right rarity within a few attempts
   while (pieceDefs[pieceName].rarity !== rarity) {
     pieceName = pieceNames[Math.floor(pieceNames.length * Math.random())];
   }
@@ -17,31 +23,41 @@ export const getPieceWithRarity = function getPieceWithRarity(rarity, id) {
   };
 }
 
+//Returns the coordinates of square that the enemy piece should move to
 export const getEnemyMoveSquare = function getEnemyMoveSquare(x, y, pieceState) {
-  let pieceMove = enemyPieceDefs[pieceState[x][y].name].move;
+  let pieceMoveDistance = enemyPieceDefs[pieceState[x][y].name].move;
   do {
-    if (pieceState[x][y + pieceMove] === null) {
-      return [x, y + pieceMove];
+    //If square at the max move distance is empty
+    if (pieceState[x][y + pieceMoveDistance] === null) {
+      return [x, y + pieceMoveDistance];
     }
-    pieceMove--;
-  } while (pieceMove > 0)
+    //Square is occupied, check at a square one closer
+    pieceMoveDistance--;
+  } while (pieceMoveDistance > 0)
 }
 
+//Return a square in form [xMoveValue, yMoveValue]
 export const getEnemyMoveSquareRelative = function getEnemyMoveSquareRelative(pieceName) {
   return [0, enemyPieceDefs[pieceName].move]
 }
 
+//Return an array of squares that look like [xMoveValue, yMoveValue]
 export const getAllEnemyCapSquaresRelative = function getAllEnemyCapSquaresRelative(pieceName) {
+  //Make a deep clone of the nested object so subsequent operations don't mutate the original
   let enemyPiece = JSON.parse(JSON.stringify(enemyPieceDefs[pieceName]))
   return enemyPiece.cap
 }
 
+//Return the square the enemy should capture at, or if it shouldn't, undefined
 export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   const piece = enemyPieceDefs[pieceState[x][y].name];
-  let cappableSquares = piece.cap;
+  let cappableSquares = piece.cap; //An array of coordinates relative to starting square
+
+  //Turn the array into a shorter array of static square coordinates
   cappableSquares = cappableSquares.reduce((acc, square) => {
     let newX = x + square[0];
     let newY = y + square[1];
+    //Only include the square if it is on the board, and contains a player piece
     if (newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE && pieceState[newX][newY] && pieceState[newX][newY].enemy === false) {
       return acc.concat([
         [newX, newY]
@@ -53,6 +69,8 @@ export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   if (!cappableSquares.length) {
     return;
   }
+
+  //Divide the valid squares based on the rarity of player piece on them
   let rareSquares = cappableSquares.filter((square) => {
     return pieceState[square[0]][square[1]] && pieceDefs[pieceState[square[0]][square[1]].name].rarity === 3;
   })
@@ -62,6 +80,8 @@ export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   let commonSquares = cappableSquares.filter((square) => {
     return pieceState[square[0]][square[1]] && pieceDefs[pieceState[square[0]][square[1]].name].rarity === 1;
   })
+
+  //Enemy AI should prioritze player pieces of higher rarity to take
   if (rareSquares.length) {
     return rareSquares[Math.floor(Math.random() * rareSquares.length)];
   } else if (uncommonSquares.length) {
@@ -73,12 +93,14 @@ export const getEnemyCapSquare = function getEnemyCapSquare(x, y, pieceState) {
   }
 }
 
+//Return an array of all squares this enemy can capture at, at static coordinates
 export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceState) {
   const piece = enemyPieceDefs[pieceState[x][y].name];
   let cappableSquares = piece.cap;
   let result = cappableSquares.reduce((acc, square) => {
     let newX = x + square[0];
     let newY = y + square[1];
+    //Disregard whether a player piece is on the square--this method is for highlighting
     if (newX >= 0 && newX < MAX_MOVE && newY >= 0 && newY < MAX_MOVE) {
       return acc.concat([
         [newX, newY]
@@ -90,16 +112,28 @@ export const getAllEnemyCapSquares = function getAllEnemyCapSquares(x, y, pieceS
   return result;
 }
 
+//Pass in the board's pieceState, and return a new pieceState that has
+//been populated with enemy-representative objects for the game's start. 
 export const randomizeEnemies = function randomizeEnemies(pieceState, difficulty) {
+
+  //Each index corresponds to a column of the board: there will be one enemy on each column
   for (let i = 0; i < MAX_MOVE; i++) {
+    //Each piece will be either 0, 1, or 2 spaces away from the opposite side of the board
     let y = Math.floor(Math.random() * 3);
+    //Twelve discrete values, representing how many of the twelve pieces should be that rarity
     let rarityWeighted = Math.floor(Math.random() * 12);
-    let rarity;
+    let rarity; //The rarity to fetch: 1, 2, or 3
+    //Each round, difficulty gets higher, so each round, there is a smaller range that can be rarity-1 pieces
+    //To begin: 8 out of 12 pieces on average should be rarity 1
     if (rarityWeighted <= 7 - difficulty) {
       rarity = 1;
-    } else if (rarityWeighted <= 10 - difficulty) {
+    }
+    //To begin: 3 out of 12 pieces on average should be rarity 2
+    else if (rarityWeighted <= 10 - difficulty) {
       rarity = 2;
-    } else {
+    }
+    //To begin: 1 out of twelve pieces (at value 11) should be rarity 3
+    else {
       rarity = 3;
     }
     let enemyNames = Object.keys(enemyPieceDefs);
@@ -119,12 +153,15 @@ export const randomizeEnemies = function randomizeEnemies(pieceState, difficulty
   return pieceState;
 }
 
+//Return an array of static square coordinates that the piece at x and y can move to
 export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, pieceState) {
-  let moveableSquares = [];
+  let moveableSquares = []; //The return value, to be populated
   let moveTypes = [];
   let moveNoCapTypes = [];
   let capNoMoveTypes = [];
   let piece = pieceDefs[pieceName];
+  //For each component, collect the move-square-collection algorithms into the above arrays 
+  // based on their capability (move and capture, just move, or just capture)
   if (piece.components) {
     let components = piece.components;
     components.forEach((component) => {
@@ -132,19 +169,31 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
       moveTypes = moveTypes.concat(componentObject["move"] || []);
       moveNoCapTypes = moveNoCapTypes.concat(componentObject["moveNoCap"] || []);
       capNoMoveTypes = capNoMoveTypes.concat(componentObject["capNoMove"] || []);
+
+      //For each component that has its own components, recurse as deep as necessary,
+      //eventually adding return arrays of component pieces to the single parent array
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         moveableSquares = moveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
       }
     })
   }
+
+  //Front components are like components, but their squares are only kept if they are ahead of the piece,
+  //More technically, their y value is lower (because 0, 0 is the top left square)
   if (piece.frontComponents) {
     let components = piece.frontComponents;
     let tempMoveableSquares = []
     components.forEach((component) => {
       let componentObject = pieceDefs[component];
+
+      //Move algorithms are collected
       let tempMoveTypes = componentObject["move"] || [];
       let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
       let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
+
+      //Collected algorithms are called.
+      //Move type algorithms all have the same signature. They are called here with the last two arguments varying based
+      //on the desired capability (move and cap, move, or cap) specficied in the component piece's definition.
       tempMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
       })
@@ -158,18 +207,29 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
         tempMoveableSquares = tempMoveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
       }
     })
+    //Filter out all the squares that are not "front", including those recursed from components of the component
+    //And then add them to the results array.
     moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
       return moveableSquare[1] < y;
     }))
   }
+
+  //Back components are like components, but their squares are only kept if they are behind of the piece,
+  //More technically, their y value is higher (because 0, 0 is the top left square)
   if (piece.backComponents) {
     let components = piece.backComponents;
     let tempMoveableSquares = []
     components.forEach((component) => {
       let componentObject = pieceDefs[component];
+
+      //Move algorithms are collected
       let tempMoveTypes = componentObject["move"] || [];
       let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
       let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
+
+      //Collected algorithms are called.
+      //Move type algorithms all have the same signature. They are called here with the last two arguments varying based
+      //on the desired capability (move and cap, move, or cap) specficied in the component piece's definition.
       tempMoveTypes.forEach((moveType) => {
         tempMoveableSquares = tempMoveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
       })
@@ -183,15 +243,22 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
         tempMoveableSquares = tempMoveableSquares.concat(getMoveableSquares(x, y, component, pieceState));
       }
     })
+
+    //Filter out and all the squares that are not "front", including those recursed from components of the component
+    //And then add them to the results array.
     moveableSquares = moveableSquares.concat(tempMoveableSquares.filter((moveableSquare) => {
       return moveableSquare[1] > y;
     }))
   }
 
+  //Move algorithms are collected for the main piece (we're done with components)
   moveTypes = moveTypes.concat(pieceDefs[pieceName]["move"] || []);
   moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[pieceName]["moveNoCap"] || []);
   capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[pieceName]["capNoMove"] || []);
 
+  //Collected algorithms are called.
+  //Move type algorithms all have the same signature. They are called here with the last two arguments varying based
+  //on the desired capability (move and cap, move, or cap) specficied in the component piece's definition.
   moveTypes.forEach((moveType) => {
     moveableSquares = moveableSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], pieceState, moveType[2], false, false))
   })
@@ -204,22 +271,34 @@ export const getMoveableSquares = function getMoveableSquares(x, y, pieceName, p
   return moveableSquares;
 };
 
+//Returns four distinct arrays of moveable squares for different move capabilities (sliding move, leaping move,
+//move but no capture, capture but no move), so they can be displayed in different colors on the modal helper board.
+//This method is also different than the above one in that it must fake an empty board.
 export const getSquareHighlights = function getSquareHighlights(x, y, pieceName, piecesEmpty, piecesFull) {
+  //The four arrays that will be returned
   let moveSquares = [];
   let leapSquares = [];
   let moveNoCapSquares = [];
   let capNoMoveSquares = [];
+
   let moveTypes = [];
   let moveNoCapTypes = [];
   let capNoMoveTypes = [];
+
   let piece = pieceDefs[pieceName];
+
+  //Similar to the analogous stage in getMoveableSquares. Collect move algorithms for each component.
   if (piece.components) {
     let components = piece.components;
+
     components.forEach((component) => {
       let componentObject = pieceDefs[component];
+
       moveTypes = moveTypes.concat(componentObject["move"] || []);
       moveNoCapTypes = moveNoCapTypes.concat(componentObject["moveNoCap"] || []);
       capNoMoveTypes = capNoMoveTypes.concat(componentObject["capNoMove"] || []);
+
+      //Different from getMoveableSquares: dummy piece states must be passed in, and there are four result arrays to handle
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         let [tempMoveSquares, tempLeapSquares, tempMoveNoCapSquares, tempCapNoMoveSquares] = getSquareHighlights(x, y, component, piecesEmpty, piecesFull);
         moveSquares = moveSquares.concat(tempMoveSquares);
@@ -229,31 +308,46 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
       }
     })
   }
+
+  //Similar to the analogous stage in getMoveableSquares. Collect move squares for each front component.
   if (piece.frontComponents) {
     let components = piece.frontComponents;
+
     let tempMoveSquares = [];
     let tempLeapSquares = [];
     let tempMoveNoCapSquares = [];
     let tempCapNoMoveSquares = [];
+
     components.forEach((component) => {
       let componentObject = pieceDefs[component];
+
+      //Collect move algorithms
       let tempMoveTypes = componentObject["move"] || [];
       let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
       let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
+
+      //Collected algorithms are called
       tempMoveTypes.forEach((moveType) => {
+        //Leaping is represented in a different color, so move types counted as leaps must be checked for
         if (moveType[0] === "leap" || moveType[0] === 'preciseLeap') {
           tempLeapSquares = tempLeapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
         } else {
           tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
         }
-        tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
       })
+
+      //When no capturing is allowed, pass in an empty-board dummy piece state to the move alg
       tempMoveNoCapTypes.forEach((moveType) => {
         tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
       })
+
+      //When only capturing is allowed, pass in a full-board dummy piece state to the move alg
       tempCapNoMoveTypes.forEach((moveType) => {
         tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
       })
+
+      //Add results to their respective arrays. Can only touch temp arrays, not the final result arrays, because we still
+      //need to check that the squares are only in the front of the piece before final merging.
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         let [veryTempMoveSquares, veryTempLeapSquares, veryTempMoveNoCapSquares, veryTempCapNoMoveSquares] = getSquareHighlights(x, y, component, piecesEmpty, piecesFull);
         tempMoveSquares = tempMoveSquares.concat(veryTempMoveSquares);
@@ -262,6 +356,8 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
         tempCapNoMoveSquares = tempCapNoMoveSquares.concat(veryTempCapNoMoveSquares);
       }
     })
+
+    //Final merging into result arrays
     moveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
       return moveableSquare[1] < y;
     }));
@@ -275,6 +371,8 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
       return moveableSquare[1] < y;
     }));
   }
+
+  //Similar to the analogous stage in getMoveableSquares. Collect move squares for each back component.
   if (piece.backComponents) {
     let components = piece.backComponents;
     let tempMoveSquares = [];
@@ -283,23 +381,34 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
     let tempCapNoMoveSquares = [];
     components.forEach((component) => {
       let componentObject = pieceDefs[component];
+
+      //Collect move algorithms
       let tempMoveTypes = componentObject["move"] || [];
       let tempMoveNoCapTypes = componentObject["moveNoCap"] || [];
       let tempCapNoMoveTypes = componentObject["capNoMove"] || [];
+
+      //Collected algorithms are called
       tempMoveTypes.forEach((moveType) => {
+        //Leaping is represented in a different color, so move types counted as leaps must be checked for
         if (moveType[0] === "leap" || moveType[0] === 'preciseLeap') {
           tempLeapSquares = tempLeapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
         } else {
           tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
         }
-        tempMoveSquares = tempMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
       })
+
+      //When no capturing is allowed, pass in an empty-board dummy piece state to the move alg
       tempMoveNoCapTypes.forEach((moveType) => {
         tempMoveNoCapSquares = tempMoveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
       })
+
+      //When only capturing is allowed, pass in a full-board dummy piece state to the move alg
       tempCapNoMoveTypes.forEach((moveType) => {
         tempCapNoMoveSquares = tempCapNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
       })
+
+      //Add results to their respective arrays. Can only touch temp arrays, not the final result arrays, because we still
+      //need to check that the squares are only in the back of the piece before final merging.
       if (componentObject.components || componentObject.frontComponents || componentObject.backComponents) {
         let [veryTempMoveSquares, veryTempLeapSquares, veryTempMoveNoCapSquares, veryTempCapNoMoveSquares] = getSquareHighlights(x, y, component, piecesEmpty, piecesFull);
         tempMoveSquares = tempMoveSquares.concat(veryTempMoveSquares);
@@ -308,6 +417,8 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
         tempCapNoMoveSquares = tempCapNoMoveSquares.concat(veryTempCapNoMoveSquares);
       }
     })
+
+    //Final merging into result arrays
     moveSquares = moveSquares.concat(tempMoveSquares.filter((moveableSquare) => {
       return moveableSquare[1] > y;
     }));
@@ -321,10 +432,13 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
       return moveableSquare[1] > y;
     }));
   }
+
+  //Collect algorithms once more, for original parent piece
   moveTypes = moveTypes.concat(pieceDefs[pieceName]["move"] || []);
   moveNoCapTypes = moveNoCapTypes.concat(pieceDefs[pieceName]["moveNoCap"] || []);
   capNoMoveTypes = capNoMoveTypes.concat(pieceDefs[pieceName]["capNoMove"] || []);
 
+  //Call algorithms once more, and merge results into parent arrays
   moveTypes.forEach((moveType) => {
     if (moveType[0] === "leap" || moveType[0] === 'preciseLeap') {
       leapSquares = leapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
@@ -332,12 +446,15 @@ export const getSquareHighlights = function getSquareHighlights(x, y, pieceName,
       moveSquares = moveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], false, false))
     }
   })
+
   moveNoCapTypes.forEach((moveType) => {
     moveNoCapSquares = moveNoCapSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesEmpty, moveType[2], true, false))
   })
+
   capNoMoveTypes.forEach((moveType) => {
     capNoMoveSquares = capNoMoveSquares.concat(moveAlgorithms[moveType[0]](x, y, moveType[1], piecesFull, true, false, true))
   })
+
   return [moveSquares, leapSquares, moveNoCapSquares, capNoMoveSquares];
 };
 
