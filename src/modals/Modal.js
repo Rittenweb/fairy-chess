@@ -10,6 +10,7 @@ export default function Modal({ piece, handleClick }) {
     e.stopPropagation();
     setAnimation('shrink 200ms ease-out');
     setTimeout(() => {
+      //handleclick toggles modalDisplay boolean in parent component, de-rendering
       handleClick(e);
     }, 200);
   };

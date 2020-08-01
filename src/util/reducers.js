@@ -18,6 +18,12 @@ export const reducer = function reducer(state, action) {
   let newPieces = stateClone.pieces;
   let newSquares = stateClone.squares;
   let newBenchPieces = stateClone.benchPieces
+
+  //Initialize clone objects pointers which will be needed later, but switch/case is all one block scope
+  let piecesClone;
+  let squaresClone;
+  let benchPiecesClone;
+
   switch (action.type) {
     //A standard move of a piece from one square to another.
     //If an enemy piece is in the new location, its object representation will simply be overwritten
@@ -88,11 +94,11 @@ export const reducer = function reducer(state, action) {
       newBenchPieces = newBenchPieces.sort((a, b) => a.id - b.id);
       newBenchPieces.forEach((piece, i) => piece.id = i)
       //Need a clone so that the reference object for bench reset (base bench pieces) is not altered by moving
-      const benchPieceBaseClone = JSON.parse(JSON.stringify(newBenchPieces))
+      benchPiecesClone = JSON.parse(JSON.stringify(newBenchPieces))
       return {
         ...stateClone,
         benchPieces: newBenchPieces,
-          baseBenchPieces: benchPieceBaseClone,
+          baseBenchPieces: benchPiecesClone,
       }
       //At the beginning of the game, generate the starting pieces
       case 'setup':
@@ -106,27 +112,26 @@ export const reducer = function reducer(state, action) {
         newBenchPieces.push(getPieceWithRarity(1, 4));
         newBenchPieces.push(getPieceWithRarity(1, 5));
 
-        const benchPieceClone = JSON.parse(JSON.stringify(newBenchPieces)); //Clone for bench base reference
-        const baseSquaresClone = JSON.parse(JSON.stringify(newSquares)); //Clone for squares base reference
-
-        const basePiecesClone = JSON.parse(JSON.stringify(initialState.pieces)); //Clone from static initialization object
+        benchPiecesClone = JSON.parse(JSON.stringify(newBenchPieces)); //Clone for bench base reference
+        squaresClone = JSON.parse(JSON.stringify(newSquares)); //Clone for squares base reference
+        piecesClone = JSON.parse(JSON.stringify(initialState.pieces)); //Clone from static initialization object
 
         return {
           ...stateClone,
           benchPieces: newBenchPieces,
-            baseBenchPieces: benchPieceClone,
-            baseSquares: baseSquaresClone,
-            pieces: basePiecesClone,
+            baseBenchPieces: benchPiecesClone,
+            baseSquares: squaresClone,
+            pieces: piecesClone,
             gamePhase: 'setup'
         }
 
         //Setup for the second through infinitieth time. Just wipe the board.
         case 'reSetup':
-          const basePiecesClone2 = JSON.parse(JSON.stringify(initialState.pieces));
+          piecesClone = JSON.parse(JSON.stringify(initialState.pieces));
 
           return {
             ...stateClone,
-            pieces: basePiecesClone2,
+            pieces: piecesClone,
               gamePhase: 'setup'
           }
 
@@ -144,12 +149,12 @@ export const reducer = function reducer(state, action) {
             newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
 
             //Make a clone of the piece state for reset turn reference
-            const currentPiecesClone = JSON.parse(JSON.stringify(newPieces));
+            piecesClone = JSON.parse(JSON.stringify(newPieces));
 
             return {
               ...stateClone,
               pieces: newPieces,
-                lastTurnPieceState: currentPiecesClone,
+                lastTurnPieceState: piecesClone,
                 gamePhase: 'inprogress'
             };
 
@@ -199,7 +204,6 @@ export const reducer = function reducer(state, action) {
             }
 
             let newWave = state.wave
-            let currentPiecesRecord;
 
             if (enemyCount === 0) {
               gamePhase = 'rewards';
@@ -221,15 +225,15 @@ export const reducer = function reducer(state, action) {
               }
               newBenchPieces = newBenchPieces.sort((a, b) => a.id - b.id) //Make sure they stay in order
               newBenchPieces.forEach((piece, i) => piece.id = i) //Hard reset their ids
-              currentPiecesRecord = JSON.parse(JSON.stringify(initialState.pieces)) //Clear the 'reset turn' base
+              piecesClone = JSON.parse(JSON.stringify(initialState.pieces)) //Clear the 'reset turn' base
             } else {
-              currentPiecesRecord = JSON.parse(JSON.stringify(newPieces)) //Set the 'reset turn' base reference
+              piecesClone = JSON.parse(JSON.stringify(newPieces)) //Set the 'reset turn' base reference
             }
 
             return {
               ...stateClone,
               pieces: newPieces,
-                lastTurnPieceState: currentPiecesRecord,
+                lastTurnPieceState: piecesClone,
                 gamePhase: gamePhase,
                 benchPieces: newBenchPieces,
                 shouldTurnEnd: false,
@@ -333,7 +337,7 @@ export const reducer = function reducer(state, action) {
           case 'showEnemyCapture':
 
             //baseSquares must remain totally separate from squares, but their capture marks must match
-            let squaresClone = state.baseSquares;
+            squaresClone = state.baseSquares;
 
             if (state.enemyCaptureShown) {
               let squares = []; //Hold all squares that should have a capture mark
@@ -390,10 +394,10 @@ export const reducer = function reducer(state, action) {
 
             case 'dehighlight':
               //Base squares must be a separate object from normal squares, can't just pass in squares
-              let otherSquaresClone = JSON.parse(JSON.stringify(stateClone.baseSquares))
+              squaresClone = JSON.parse(JSON.stringify(stateClone.baseSquares))
               return {
                 ...stateClone,
-                squares: otherSquaresClone
+                squares: squaresClone
               };
 
               //Access the last turn reference state, and set it as the current state

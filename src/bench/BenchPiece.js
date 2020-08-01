@@ -8,6 +8,7 @@ export default function BenchPiece({ piece, canDrag }) {
   const [opacity, setOpacity] = useState(1);
 
   const handleDragStart = function handleDragStart(e) {
+    //fromBench alerts drop square to dispatch the moveFromBench action type
     const obj = { piece, fromBench: true };
     const json = JSON.stringify(obj);
     e.dataTransfer.setData('text/plain', json);
