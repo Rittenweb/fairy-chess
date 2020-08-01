@@ -704,6 +704,8 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
+  //Specifies an a and b value in the 'target' parameter. The piece can reach any square whose
+  //coordinates are different from its own by a magnitude of [a, b] or [b, a], negative or positive
   leap: (x, y, target, pieceState, leaping, noCapture, onlyCapture) => {
     const moveableSquares = [];
     for (let x2 = 0; x2 < MAX_MOVE; x2++) {
@@ -726,11 +728,15 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
+  //Multiple tuples representing pre-signed x and y magnitudes are stored in the 'targets' parameter.
+  //The piece can reach any of these individually defined targets
   preciseLeap: (x, y, targets, pieceState) => {
     const moveableSquares = [];
     targets.forEach((target) => {
       const newSquare = [x + target[0], y + target[1]];
+      //Skip if the square is off the board
       if (newSquare[0] >= 0 && newSquare[0] < MAX_MOVE && newSquare[1] >= 0 && newSquare[1] < MAX_MOVE) {
+        //Skip if there's a friendly piece
         if (!(pieceState[newSquare[0]][newSquare[1]] && pieceState[newSquare[0]][newSquare[1]].enemy === false)) {
           moveableSquares.push(newSquare);
         }
@@ -738,6 +744,8 @@ const moveAlgorithms = {
     })
     return moveableSquares;
   },
+  //Just like the 'leap' algorithm, except once the a and b magnitudes have been ordered and signed, they are
+  //repeated in that arrangement from the resulting square, until the end of the board is reached.
   repeatingLeap: (x, y, target, pieceState) => {
     let moveableSquares = [];
 
@@ -746,23 +754,29 @@ const moveAlgorithms = {
     let negDelta1 = posDelta1 * -1;
     let negDelta2 = posDelta2 * -1;
 
+    //To calculate the squares along the repeated leap once the a and b magnitudes are ordered, signed and passed in.
     const helper = function helper(x, y, delta1, delta2, pieceState) {
       const squares = [];
       x += delta1;
       y += delta2;
+      //Make sure the square is on the board
       while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
+        //Make sure the square isn't occupied by an ally
         if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
           squares.push([x, y]);
         }
+        //Even if the square has an enemy and can be captured, the leap can't go beyond.
         if (pieceState[x][y] !== null) {
           break;
         }
+        //Move to the next leap location and repeat
         x += delta1;
         y += delta2;
       }
       return squares;
     }
 
+    //Under certain [a, b] conditions, only four directions need be calculated instead of eight
     if (posDelta1 === posDelta2) {
       moveableSquares = moveableSquares.concat(helper(x, y, posDelta1, posDelta2, pieceState));
       moveableSquares = moveableSquares.concat(helper(x, y, negDelta1, posDelta2, pieceState));
@@ -790,10 +804,15 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
+  //The targetAndMove paremeter contains a tuple whose first value is another tuple, representing the
+  //coordinates of the square to leap to, and whose second value is a sliding move to execute from the new square.
   leapThenMove: (x, y, targetAndMove, pieceState, leaping, noCapture, onlyCapture) => {
     let moveableSquares = [];
 
+    //Get the initial leap square from which the piece will then slide
     const anchorSquare = [x + targetAndMove[0][0], y + targetAndMove[0][1]];
+
+    //Check that the initial leap square is valid
     if (anchorSquare[0] >= 0 && anchorSquare[0] < MAX_MOVE && anchorSquare[1] >= 0 && anchorSquare[1] < MAX_MOVE) {
       if (!(pieceState[anchorSquare[0]][anchorSquare[1]] && pieceState[anchorSquare[0]][anchorSquare[1]].enemy === false)) {
         //Skip if theres a friendly piece
@@ -807,12 +826,14 @@ const moveAlgorithms = {
           }
         }
       }
+      //The anchor square is valid, now we can execute the subsequent slide
       if (pieceState[anchorSquare[0]][anchorSquare[1]] === null) {
         moveableSquares = moveableSquares.concat(moveAlgorithms[[targetAndMove[1][0]]](anchorSquare[0], anchorSquare[1], targetAndMove[1][1], pieceState, leaping, noCapture, onlyCapture));
       }
     }
     return moveableSquares;
   },
+  //A bishop move, but it bounces off the first wall it reaches and continues.
   reflect: (x, y, direction, pieceState) => {
     const moveableSquares = [];
     let xdelta;
@@ -826,12 +847,13 @@ const moveAlgorithms = {
     } else if (direction === 'SW') {
       xdelta = -1;
       ydelta = 1;
-    } else {
+    } else if (direction === 'NW') {
       xdelta = -1;
       ydelta = -1;
     }
     x = x + xdelta;
     y = y + ydelta;
+    //Execute the normal bishop move in the given direction
     while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
       if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
         moveableSquares.push([x, y]);
@@ -842,6 +864,8 @@ const moveAlgorithms = {
       x = x + xdelta;
       y = y + ydelta;
     }
+    //Pick up the x and y from before: if they are off the board, a reflect is needed.
+    //We can tell the new direction we need based on which "wall" was hit.
     if (x < 0) {
       xdelta = xdelta * -1;
       x = 0;
@@ -859,6 +883,7 @@ const moveAlgorithms = {
       y = MAX_MOVE - 1
       x = x + (xdelta * -1)
     }
+    //Execute a normal bishop move in the new direction after reflection
     while (x < MAX_MOVE && x >= 0 && y < MAX_MOVE && y >= 0) {
       if (!(pieceState[x][y] && pieceState[x][y].enemy === false)) {
         moveableSquares.push([x, y]);
@@ -871,6 +896,7 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
+  //Any square on the board is included as long as it is unoccupied
   all: (x, y, nullArg, pieceState) => {
     const moveableSquares = [];
     for (let i = 0; i < MAX_MOVE; i++) {
@@ -882,12 +908,16 @@ const moveAlgorithms = {
     }
     return moveableSquares;
   },
+  //The bugeye can move anywhere that the Queen of Night plus a Camelrider would not be
+  //able to move from its position
   bugeye: (x, y, nullArg, pieceState) => {
     const moveableSquares = [];
     for (let i = 0; i < MAX_MOVE; i++) {
       for (let j = 0; j < MAX_MOVE; j++) {
         let difx = Math.abs(x - i);
         let dify = Math.abs(y - j)
+        //This long conditional hardcodes the bishop, rook, nightrider and camelrider algorithms
+        //If any of them would pass, the square is skipped. Else, it's included.
         if (i !== x && j !== y && difx !== dify && !(dify / difx === 2) && !(difx / dify === 2) && !(dify / difx === 3) && !(difx / dify === 3)) {
           if (!(pieceState[i][j] && pieceState[i][j].enemy === false)) {
             moveableSquares.push([i, j]);
