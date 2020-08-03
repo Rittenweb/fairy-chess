@@ -1,3 +1,5 @@
+/* APP-WIDE STYLES */
+
 @font-face {
   font-family: 'Bitmgothic';
   src: url('./font/Bitmgothic.woff') format('woff');
@@ -11,60 +13,255 @@
 }
 
 .App {
-  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
+
+  text-align: center;
   font-size: calc(10px + 2vmin);
   color: var(--color-light);
-  box-sizing: border-box;
   font-size: 2vw;
-  overflow: hidden;
+}
+
+.app-background {
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url(./img/flowersblack.png);
+  z-index: -2;
 }
 
 *::selection {
   background: var(--color-green);
 }
 
-.corner-button {
-  position: fixed;
-  cursor: pointer;
-  bottom: 0;
-  text-decoration: none;
-  color: var(--color-light);
-  font-size: 1vw;
-  margin: 1vh 1vw;
-  font-family: 'Cinzel Decorative', serif;
-}
+/* MAIN LAYOUT */
 
-.corner-left {
-  left: 0;
-}
+main {
+  display: flex;
+  justify-content: space-between;
 
-.corner-right {
-  right: 0;
-}
-
-.app-background {
-  background-image: url(./img/flowersblack.png);
-  position: fixed;
-  width: 100vw;
   height: 100vh;
-  z-index: -2;
+  width: 100vw;
 }
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-basis: 600px;
+  flex-shrink: 3;
+
+  height: 100vh;
+  min-width: 30vw; /* So that main container doesn't flex too large during transitionstart */
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 600px;
+  flex-shrink: 4;
+
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 1400px;
+  flex-shrink: 1;
+
+  max-width: 40vw; /* Or else it flexes too large in transition when board and rewards both momentarily there  */
+  height: 100vh;
+}
+
+/* BOARD COMPONENT CLASSES */
+
+.board-wrapper {
+  display: inline-block;
+  position: relative;
+
+  width: 100%;
+  max-width: 95vmin;
+  min-width: 300px;
+  margin: 20px;
+}
+
+.board {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  /* min-width: 500px; */
+  /* min-height: 500px; */
+}
+
+.square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: calc(8.33% - 3px);
+  width: calc(8.33% - 3px);
+
+  border: 1.5px solid black;
+  transition: background-color 200ms ease-out;
+}
+
+.piece {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 75%;
+  height: 75%;
+}
+
+.not-exhausted {
+  cursor: grab;
+}
+
+.exhausted {
+  opacity: 0.5;
+}
+
+.piece-symbol {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+}
+
+/* BENCH COMPONENT CLASSES */
+
+.bench {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  width: 12vh;
+  height: 48vh;
+  margin: 0 20px;
+
+  z-index: 101;
+}
+
+.bench-square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 12.5%;
+  width: 50%;
+
+  outline: 2px solid var(--color-green);
+  color: white;
+}
+
+.bench-piece {
+  animation: fadeAndShrinkIn 300ms ease-out;
+}
+
+/* REWARDS COMPONENT CLASSES */
+
+.rewards {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100%;
+  height: 66vh;
+
+  background-image: url(./img/flowersblue.png);
+  background-attachment: fixed;
+}
+
+.pack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  max-height: 90%;
+  max-width: 90%;
+
+  font-family: 'Cinzel Decorative', 'Bitmgothic', serif;
+  color: var(--color-dark);
+  font-size: 1.5vw;
+
+  background-image: url(./img/flowersdullpink.png);
+}
+
+.unopened {
+  width: 25%;
+}
+
+.unopened div {
+  padding: 10%;
+}
+
+.unopened div:last-child {
+  font-size: 3vw;
+}
+
+.unopened:hover {
+  background-image: url(./img/flowersgold.png);
+}
+
+.opened {
+  animation: fadeIn 500ms, glow 900ms ease-in-out infinite alternate;
+}
+
+.choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  max-height: 15vh;
+  margin: 2rem;
+
+  border: 1px solid black;
+  background-image: url(./img/flowerspink.png);
+}
+
+.choice:hover {
+  background-image: url(./img/flowersgold.png);
+}
+
+/* APP-LEVEL BUTTON CLASSES */
 
 button {
-  border: none;
-  color: black;
-  background-image: url(./img/flowersbeige.png);
-  padding: 0;
-  cursor: pointer;
-  transition: background-image 350ms, box-shadow 100ms;
-  font-family: 'Bitmgothic', cursive;
   width: 20vw;
   min-height: 4vw;
+  padding: 0;
+
+  font-family: 'Bitmgothic', cursive;
   font-size: 2vw;
+  color: black;
+
+  background-image: url(./img/flowersbeige.png);
+  cursor: pointer;
+  transition: background-image 350ms, box-shadow 100ms;
+  border: none;
 }
 
 button:hover {
@@ -94,69 +291,23 @@ button:focus {
   box-shadow: inset 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
 }
 
-main {
-  display: flex;
-  justify-content: space-between;
-  height: 100vh;
-  width: 100vw;
-}
-
-.left-container {
-  height: 100vh;
-  flex-basis: 600px;
-  flex-shrink: 3;
-  min-width: 30vw; /* So that main container doesn't flex too large during transitionstart */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.right-container {
-  height: 100vh;
-  flex-basis: 600px;
-  flex-shrink: 4;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.main-container {
-  height: 100vh;
-  max-width: 40vw; /* Or else it flexes too large in transition when board and rewards both momentarily there  */
-  flex-basis: 1400px;
-  flex-shrink: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.big-text {
-  width: 20vw;
-  font-size: 5vw;
-  font-family: 'Cinzel Decorative', serif;
-  color: var(--color-light);
-  background: linear-gradient(90deg, var(--color-light), var(--color-green));
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .readybutton {
-  z-index: 100;
-  margin: 4vh 0;
   height: 10vh;
   width: 80%;
-  animation: fadeIn 500ms;
+  margin: 4vh 0;
+
   background-image: url('./img/flowersbeige.png');
   color: black;
+  animation: fadeIn 500ms;
+  z-index: 100;
 }
 
 .pre-ready {
-  font-family: 'Cinzel Decorative', serif;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+
+  font-family: 'Cinzel Decorative', serif;
   font-size: 1vw;
 }
 
@@ -172,17 +323,32 @@ main {
   font-size: 1.5vw;
 }
 
+.enemy-capture {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+}
+
+/* OTHER APP-LEVEL COMPONENT CLASSES*/
+
 .scoreboard {
-  height: 20vh;
-  width: 12vh;
-  margin: 4vh 0;
-  background-image: url(./img/flowersgreyandgreen.png);
-  color: black;
-  background-attachment: fixed;
-  font-family: 'Bitmgothic', serif;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+
+  height: 20vh;
+  width: 12vh;
+  margin: 4vh 0;
+  font-family: 'Bitmgothic', serif;
+
+  background-image: url(./img/flowersgreyandgreen.png);
+  color: black;
+  background-attachment: fixed;
 }
 
 .scoreboard div:first-child {
@@ -193,203 +359,108 @@ main {
   font-size: 150%;
 }
 
-.board-wrapper {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  max-width: 95vmin;
-  min-width: 300px;
-  margin: 20px;
+.big-text {
+  width: 20vw;
+
+  font-size: 5vw;
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--color-light);
+
+  background: linear-gradient(90deg, var(--color-light), var(--color-green));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.board {
-  position: absolute;
-  top: 0;
+/* FIXED COMPONENT CLASSES */
+
+.corner-button {
+  position: fixed;
   bottom: 0;
+
+  margin: 1vh 1vw;
+
+  text-decoration: none;
+  color: var(--color-light);
+  font-size: 1vw;
+  font-family: 'Cinzel Decorative', serif;
+
+  cursor: pointer;
+}
+
+.corner-left {
   left: 0;
+}
+
+.corner-right {
   right: 0;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  /* min-width: 500px; */
-  /* min-height: 500px; */
-}
-
-.bench {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 12vh;
-  height: 48vh;
-  z-index: 101;
-  margin: 0 20px;
-}
-
-.bench-square {
-  position: relative;
-  height: 12.5%;
-  width: 50%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  outline: 2px solid var(--color-green);
-}
-
-.square {
-  position: relative;
-  height: calc(8.33% - 3px);
-  width: calc(8.33% - 3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1.5px solid black;
-  transition: background-color 200ms ease-out;
-}
-
-.enemy-capture {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.piece {
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.bench-piece {
-  animation: fadeAndShrinkIn 300ms ease-out;
-}
-
-.not-exhausted {
-  cursor: grab;
-}
-
-.exhausted {
-  opacity: 0.5;
-}
-
-.piece-symbol {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-}
-
-.rewards {
-  width: 100%;
-  height: 66vh;
-  background-image: url(./img/flowersblue.png);
-  background-attachment: fixed;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.pack {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-image: url(./img/flowersdullpink.png);
-  font-family: 'Cinzel Decorative', 'Bitmgothic', serif;
-  color: var(--color-dark);
-  font-size: 1.5vw;
-  max-height: 90%;
-  max-width: 90%;
-}
-
-.unopened {
-  width: 25%;
-}
-
-.unopened div {
-  padding: 10%;
-}
-
-.unopened div:last-child {
-  font-size: 3vw;
-}
-
-.unopened:hover {
-  background-image: url(./img/flowersgold.png);
-}
-
-.opened {
-  animation: fadeIn 500ms, glow 900ms ease-in-out infinite alternate;
-}
-
-.choice {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  max-height: 15vh;
-  margin: 2rem;
-  background-image: url(./img/flowerspink.png);
-}
-
-.choice:hover {
-  background-image: url(./img/flowersgold.png);
 }
 
 .modal-background {
   position: fixed;
-  background-color: rgb(0, 0, 0, 0.5);
   top: 0px;
   left: 0px;
+
   height: 100vh;
   width: 100vw;
+
+  background-color: rgb(0, 0, 0, 0.5);
   z-index: 103;
   cursor: auto;
 }
 
+.mobile-modal {
+  display: none;
+}
+
+/* MODAL COMPONENT CLASSES */
+
 .modal {
-  margin: 20vh auto auto auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+
   height: 60vh;
+  min-height: 300px;
   width: 60vh;
   min-width: 300px;
-  min-height: 300px;
-  background-image: url('./img/flowersgreyandgreen.png');
-  border-radius: 4px;
-  display: flex;
+  margin: 20vh auto auto auto;
+
   color: black;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
   font-size: 1.5rem;
   font-family: 'Bitmgothic', serif;
+
+  background-image: url('./img/flowersgreyandgreen.png');
+  border-radius: 4px;
 }
 
 .enemy-modal {
   font-size: 2.5rem;
+
   background-image: url('./img/flowersgreyandred.png');
   color: whitesmoke;
 }
 
 .gameover-modal {
-  background-image: url('./img/flowersblack.png');
   font-size: 150%;
   color: var(--color-light);
+
+  background-image: url('./img/flowersblack.png');
 }
 
 .help-modal {
   color: white;
   font-family: 'Cinzel Decorative', serif;
+
   background-color: rgb(0, 0, 0, 0.8);
 }
 
 .modal-banner {
+  display: flex;
+
   width: 60%;
   height: 2rem;
-  display: flex;
+
   font-size: 1.2rem;
 }
 
@@ -397,7 +468,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 50%;
+
   background-color: var(--color-green);
 }
 
@@ -405,33 +478,41 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 50%;
+
   background-color: var(--color-dark);
 }
 
 .modal-board {
-  height: 60%;
-  width: 60%;
   display: flex;
   flex-wrap: wrap-reverse; /* Necessary or else move previews are reflected... sorry */
+
+  height: 60%;
+  width: 60%;
+
   transform: rotate(90deg);
 }
 
 .modal-movetypes {
-  font-size: 0.75rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 100%;
+
+  font-size: 0.75rem;
 }
 
 .modal-movetype {
-  width: 60%;
-  text-align: center;
-  height: 1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  width: 60%;
+  height: 1rem;
+
+  text-align: center;
 }
 
 .modal-square {
@@ -440,42 +521,45 @@ main {
   margin-right: 1.5vh;
 }
 
+/* REPEATED/WRAPPER CLASSES */
+
 .pulse {
   animation: pulse 2s ease-in-out;
   animation-iteration-count: infinite;
 }
 
 .wrapper-inner {
-  background-image: url('./img/flowersblack.png');
-  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: 15px;
+
+  background-image: url('./img/flowersblack.png');
 }
 
 .wrapper-outer {
-  background-image: url('./img/flowersbeige.png');
-  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: 15px;
   margin: 0 20px;
+
+  background-image: url('./img/flowersbeige.png');
 }
 
 .transition-wrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
+
+  width: 100%;
 }
 
 .flex {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-
-.mobile-modal {
-  display: none;
 }
 
 .color-light {
@@ -494,7 +578,7 @@ main {
   background-color: var(--color-green);
 }
 
-/* ANIMATION */
+/* ANIMATIONS */
 
 @keyframes fadeIn {
   0% {
@@ -631,15 +715,6 @@ main {
   }
 }
 
-@keyframes flipAndGrow {
-  0% {
-    transform: scale(0.1) rotateY(-90deg);
-  }
-  100% {
-    transform: scale(1) rotateY(0);
-  }
-}
-
 @keyframes collapseOut {
   0% {
     transform: rotateY(0);
@@ -690,12 +765,14 @@ main {
   }
   .left-container {
     flex-direction: row;
+
     height: 30vh;
     width: 100vw;
     min-height: 20vh;
   }
   .right-container {
     flex-direction: row;
+
     height: 30vh;
     width: 100vw;
   }
@@ -707,6 +784,7 @@ main {
 
   .bench {
     flex-direction: row;
+
     width: 48vw;
     height: 12vw;
     margin: 20px 0;
@@ -755,9 +833,9 @@ main {
 @media only screen and (max-device-width: 800px) {
   .mobile-modal {
     display: inline;
-    z-index: 102;
     text-align: center;
-    font-size: 7vw;
     padding-top: 30vh;
+    font-size: 7vw;
+    z-index: 102;
   }
 }
