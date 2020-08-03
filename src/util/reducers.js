@@ -146,7 +146,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
+            // newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
 
             //Make a clone of the piece state for reset turn reference
             piecesClone = JSON.parse(JSON.stringify(newPieces));

@@ -66,13 +66,8 @@ export default function HelpModal({ gamePhase, handleClick }) {
 
   return (
     <div
-      className='modal-background'
-      style={{
-        animation: animation,
-        color: 'white',
-        fontFamily: 'Cinzel Decorative, serif',
-        backgroundColor: 'rgb(0, 0, 0, 0.8)',
-      }}
+      className='modal-background help-modal'
+      style={{ animation: animation }}
       onClick={animateClick}
       onContextMenu={animateClick}>
       <h3>

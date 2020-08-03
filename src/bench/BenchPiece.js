@@ -36,12 +36,12 @@ export default function BenchPiece({ piece, canDrag }) {
 
   return (
     <div
-      className='piece'
+      className='piece bench-piece'
       draggable={piece.canDrag ? 'true' : 'false'}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onContextMenu={handleRightClick}
-      style={{ animation: 'fadeAndShrinkIn 300ms ease-out', opacity: opacity }}>
+      style={{ opacity: opacity }}>
       <img
         className={canDrag ? 'piece-symbol not-exhausted pulse' : 'piece-symbol exhausted'}
         src={require(`../img/${piece.name}.png`)}

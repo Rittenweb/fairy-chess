@@ -27,19 +27,11 @@ export default function EnemyModal({ piece, handleClick }) {
         <EnemyModalBoard piece={piece}></EnemyModalBoard>
         <div style={{ fontSize: '1rem' }}>
           <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'var(--color-light)',
-              }}></div>
+            <div className='modal-square color-light'></div>
             Move Square
           </div>
           <div className='flex'>
-            <div
-              className='modal-square'
-              style={{
-                backgroundColor: 'var(--color-red)',
-              }}></div>
+            <div className='modal-square color-red'></div>
             Capture Squares
           </div>
         </div>

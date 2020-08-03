@@ -54,8 +54,8 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
         animation: animation,
       }}
       onClick={myClick}>
-      <div style={{ padding: '10%' }}>{rarityText}</div>
-      <div style={{ padding: '10%', fontSize: '3vw' }}>{packNumText}</div>
+      <div>{rarityText}</div>
+      <div>{packNumText}</div>
     </div>
   );
 }

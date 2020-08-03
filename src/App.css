@@ -29,12 +29,21 @@
 
 .corner-button {
   position: fixed;
+  cursor: pointer;
   bottom: 0;
   text-decoration: none;
   color: var(--color-light);
   font-size: 1vw;
   margin: 1vh 1vw;
   font-family: 'Cinzel Decorative', serif;
+}
+
+.corner-left {
+  left: 0;
+}
+
+.corner-right {
+  right: 0;
 }
 
 .app-background {
@@ -176,6 +185,14 @@ main {
   justify-content: space-evenly;
 }
 
+.scoreboard div:first-child {
+  text-decoration: underline;
+}
+
+.scoreboard div:last-child {
+  font-size: 150%;
+}
+
 .board-wrapper {
   display: inline-block;
   position: relative;
@@ -247,6 +264,10 @@ main {
   align-items: center;
 }
 
+.bench-piece {
+  animation: fadeAndShrinkIn 300ms ease-out;
+}
+
 .not-exhausted {
   cursor: grab;
 }
@@ -287,6 +308,14 @@ main {
 
 .unopened {
   width: 25%;
+}
+
+.unopened div {
+  padding: 10%;
+}
+
+.unopened div:last-child {
+  font-size: 3vw;
 }
 
 .unopened:hover {
@@ -349,6 +378,12 @@ main {
   background-image: url('./img/flowersblack.png');
   font-size: 150%;
   color: var(--color-light);
+}
+
+.help-modal {
+  color: white;
+  font-family: 'Cinzel Decorative', serif;
+  background-color: rgb(0, 0, 0, 0.8);
 }
 
 .modal-banner {
@@ -427,6 +462,12 @@ main {
   margin: 0 20px;
 }
 
+.transition-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .flex {
   display: flex;
   justify-content: flex-start;
@@ -435,6 +476,22 @@ main {
 
 .mobile-modal {
   display: none;
+}
+
+.color-light {
+  background-color: var(--color-light);
+}
+
+.color-dark {
+  background-color: var(--color-dark);
+}
+
+.color-red {
+  background-color: var(--color-red);
+}
+
+.color-green {
+  background-color: var(--color-green);
 }
 
 /* ANIMATION */

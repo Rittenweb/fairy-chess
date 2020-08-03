@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function TransitionComponent({
-  show,
-  children,
-  transition,
-  timeIn,
-  timeOut,
-}) {
+export default function TransitionComponent({ show, children, transition, timeIn, timeOut }) {
   const [shouldRender, setShouldRender] = useState(false);
 
   let transIn;
@@ -53,13 +47,9 @@ export default function TransitionComponent({
   return (
     shouldRender && (
       <div
+        className='transition-wrapper'
         style={{
-          animation: `${show ? transIn : transOut} ${
-            show ? timeIn : timeOut
-          }ms`,
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
+          animation: `${show ? transIn : transOut} ${show ? timeIn : timeOut}ms`,
         }}
         onAnimationEnd={onAnimationEnd}>
         {children}

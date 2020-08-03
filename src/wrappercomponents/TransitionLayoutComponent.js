@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 
-export default function TransitionLayoutComponent({
-  show,
-  transition,
-  timeIn,
-  timeOut,
-  renderChild,
-}) {
+export default function TransitionLayoutComponent({ show, transition, timeIn, timeOut, renderChild }) {
   const [shouldRender, setShouldRender] = useState(false);
   const [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
@@ -72,12 +66,7 @@ export default function TransitionLayoutComponent({
     shouldRender && (
       <div
         style={{
-          animation: `${show ? transIn : transOut} ${
-            show ? timeIn : timeOut
-          }ms`,
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
+          animation: `${show ? transIn : transOut} ${show ? timeIn : timeOut}ms`,
         }}
         onAnimationEnd={onAnimationEnd}>
         {renderChild(`left -${xy[0]}px top -${xy[1]}px`, ref)}

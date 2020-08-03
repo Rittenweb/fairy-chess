@@ -8,23 +8,17 @@ export default function CornerButtons({ gamePhase, volume }) {
   return (
     <>
       {gamePhase === 'start' && (
-        <a href='https://icons8.com/' className='corner-button' style={{ left: 0 }}>
+        <a href='https://icons8.com/' className='corner-button corner-left'>
           Icons by Icons8
         </a>
       )}
       {gamePhase === 'start' && (
-        <a
-          href='https://www.colourlovers.com/pattern/template/16/Pattern_16'
-          className='corner-button'
-          style={{ right: 0 }}>
+        <a href='https://www.colourlovers.com/pattern/template/16/Pattern_16' className='corner-button corner-right'>
           Pattern template by COLOURlover
         </a>
       )}
       {gamePhase !== 'start' && (
-        <div
-          className='corner-button'
-          style={{ right: 0, cursor: 'pointer' }}
-          onClick={() => dispatch({ type: 'togglemute' })}>
+        <div className='corner-button corner-right' onClick={() => dispatch({ type: 'togglemute' })}>
           {volume ? 'Mute Music' : 'Unmute Music'}
         </div>
       )}
