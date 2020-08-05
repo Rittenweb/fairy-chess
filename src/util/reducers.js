@@ -1,15 +1,19 @@
 import {
   getMoveableSquares,
   getEnemyMoveSquare,
-  getEnemyCapSquare,
   getAllEnemyCapSquares,
   randomizeEnemies,
   getPieceWithRarity
-
 } from './pieceData';
 import {
   initialState
 } from './baseStates'
+import checkTurnEnd from './checkTurnEnd'
+import takeEnemyTurn from './takeEnemyTurn'
+import fillBenchAfterWin from './fillBenchAfterWin';
+import highlightSquares from './highlightSquares'
+import highlightEnemySquares from './highlightEnemySquares'
+import markCaptureSquares from './markCaptureSquares';
 
 export const reducer = function reducer(state, action) {
   //The state is deep-nested, so we need to clone it so we can make mutations while keeping a reference to the old state.
@@ -44,25 +48,8 @@ export const reducer = function reducer(state, action) {
         exhausted: true
       };
 
-      //Check if the turn should end
-      let shouldTurnEnd = true;
-      let enemiesOnBoard = false;
-      for (let column in newPieces) {
-        for (let row in newPieces[column]) {
-          let piece = newPieces[column][row];
-          //If any of your own pieces have yet to move, the turn should not end
-          if (piece && piece.enemy === false && piece.exhausted === false) {
-            shouldTurnEnd = false
-          }
-          //Keep track of if there are any enemies. If there aren't the turn should end.
-          else if (piece && piece.enemy === true) {
-            enemiesOnBoard = true;
-          }
-        }
-      }
-      if (!enemiesOnBoard) {
-        shouldTurnEnd = true;
-      }
+      let shouldTurnEnd = checkTurnEnd(newPieces);
+
       return {
         ...stateClone, pieces: newPieces, shouldTurnEnd
       };
@@ -173,58 +160,22 @@ export const reducer = function reducer(state, action) {
             }
 
             let gamePhase = 'inprogress' //Change the phase from 'end turn transition' phase
-
             let enemyCount = 0; //If this count ultimately stays at zero after checking, the game is won.
 
-            for (let x = 0; x < 12; x++) {
-              for (let y = 0; y < 12; y++) {
-                //Find all enemy pieces
-                if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
-                  state.pieces[x][y].fade = 'in'; //For enemies about to move, this sets their animation
-                  enemyCount++;
-                  let capSquare = getEnemyCapSquare(x, y, newPieces); //Decide where the enemy should capture, if anywhere
-                  if (capSquare) {
-                    newPieces[x][y] = null; //Clear prior location
-                    newPieces[capSquare[0]][capSquare[1]] = state.pieces[x][y] //Put in new location
-                  }
-                  //If the enemy isn't capturing, it moves instead
-                  else {
-                    let newSquare = getEnemyMoveSquare(x, y, newPieces);
-                    if (newSquare) {
-                      newPieces[x][y] = null
-                      newPieces[newSquare[0]][newSquare[1]] = state.pieces[x][y]
-                    }
-                  }
-                }
-                //If the piece is an ally, change it from exhausted to ready
-                else if (newPieces[x][y] && newPieces[x][y].enemy === false) {
-                  newPieces[x][y].exhausted = false;
-                }
-              }
-            }
+            console.log(newPieces);
+
+            [newPieces, enemyCount] = takeEnemyTurn(newPieces, enemyCount);
+
+            console.log(newPieces);
 
             let newWave = state.wave
 
             if (enemyCount === 0) {
               gamePhase = 'rewards';
               newWave = state.wave + 1; //Difficulty increases after he game is won
-              newBenchPieces = [];
-              //First, put all pieces still on the bench into the new bench array
-              state.benchPieces.forEach((piece) => {
-                if (piece) {
-                  newBenchPieces.push(piece)
-                }
-              })
-              //Then, put all pieces on the board into the new bench array
-              for (let x = 0; x < 12; x++) {
-                for (let y = 0; y < 12; y++) {
-                  if (newPieces[x][y] && newPieces[x][y].enemy === false) {
-                    newBenchPieces.push(newPieces[x][y])
-                  }
-                }
-              }
-              newBenchPieces = newBenchPieces.sort((a, b) => a.id - b.id) //Make sure they stay in order
-              newBenchPieces.forEach((piece, i) => piece.id = i) //Hard reset their ids
+
+              newBenchPieces = fillBenchAfterWin(state.benchPieces, newPieces)
+
               piecesClone = JSON.parse(JSON.stringify(initialState.pieces)) //Clear the 'reset turn' base
             } else {
               piecesClone = JSON.parse(JSON.stringify(newPieces)) //Set the 'reset turn' base reference
@@ -266,26 +217,9 @@ export const reducer = function reducer(state, action) {
               action.pieceName,
               newPieces
             );
-            //Initialize all squares to a 'no' (which is different than an undefined)
-            for (let x = 0; x < 12; x++) {
-              for (let y = 0; y < 12; y++) {
-                newSquares[x][y] = {
-                  ...newSquares[x][y],
-                  canDrop: 'no'
-                };
-              }
-            }
 
-            //Overwrite the 'no's that are referenced in the squares array
-            for (const square of moveableSquares) {
-              let [x, y] = [square[0], square[1]]
-              //Capturing is a different color than moving, so check if an enemy is present
-              let dropType = (newPieces[x][y] && newPieces[x][y].enemy === true) ? 'cap' : 'yes'
-              newSquares[x][y] = {
-                ...newSquares[x][y],
-                canDrop: dropType
-              };
-            }
+            //Represent those squares in the global state
+            newSquares = highlightSquares(newSquares, newPieces, moveableSquares)
 
             return {
               ...stateClone,
@@ -301,31 +235,8 @@ export const reducer = function reducer(state, action) {
             ); //Will return a single tuple representing a square (enemies only have one move option)
             let cappableSquares = getAllEnemyCapSquares(action.x, action.y, newPieces) || [];
 
-            //Initialize all squares with a 'no'
-            for (let x = 0; x < 12; x++) {
-              for (let y = 0; y < 12; y++) {
-                newSquares[x][y] = {
-                  ...newSquares[x][y],
-                  canDrop: 'no'
-                };
-              }
-            }
-
-            //Mark the single square to move to, or none
-            if (moveableSquare) {
-              newSquares[moveableSquare[0]][moveableSquare[1]] = {
-                ...newSquares[moveableSquare[0]][moveableSquare[1]],
-                canDrop: 'yes',
-              };
-            }
-
-            //Mark all the squares that can be captured, if there are any
-            cappableSquares.forEach((square) => {
-              newSquares[square[0]][square[1]] = {
-                ...newSquares[square[0]][square[1]],
-                canDrop: 'enemycap'
-              }
-            })
+            //Represent those squares in the global state
+            newSquares = highlightEnemySquares(newSquares, moveableSquare, cappableSquares)
 
             return {
               ...stateClone,
@@ -340,24 +251,7 @@ export const reducer = function reducer(state, action) {
             squaresClone = state.baseSquares;
 
             if (state.enemyCaptureShown) {
-              let squares = []; //Hold all squares that should have a capture mark
-              for (let x = 0; x < 12; x++) {
-                for (let y = 0; y < 12; y++) {
-                  //If there's an enemy, call the method to add its capture squares to the array
-                  if (newPieces[x][y] && newPieces[x][y].enemy === true) {
-                    squares = squares.concat(getAllEnemyCapSquares(x, y, newPieces));
-                  }
-                  //On every square, enemy or not, initialize the capture mark as false
-                  newSquares[x][y].captureMark = false;
-                  squaresClone[x][y].captureMark = false;
-                }
-              }
-
-              //Overwrite the false capture marks for the squares stored in the array
-              squares.forEach((square) => {
-                newSquares[square[0]][square[1]].captureMark = true;
-                squaresClone[square[0]][square[1]].captureMark = true;
-              })
+              [newSquares, squaresClone] = markCaptureSquares(newPieces, newSquares, squaresClone)
             }
             //If the setting was just toggled off, all capture marks should be overwritten
             else {
