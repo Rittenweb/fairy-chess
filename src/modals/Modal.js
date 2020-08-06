@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ModalBoard from './ModalBoard';
-import { getRarity } from '../util/pieceData';
+import getRarity from '../util/controller/getRarity';
 
 export default function Modal({ piece, handleClick }) {
   const [animation, setAnimation] = useState('grow 200ms ease-out');

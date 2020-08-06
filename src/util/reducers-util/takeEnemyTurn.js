@@ -1,7 +1,5 @@
-import {
-  getEnemyCapSquare,
-  getEnemyMoveSquare
-} from './pieceData'
+import getEnemyCapSquare from '../controller/getEnemyCapSquare'
+import getEnemyMoveSquare from '../controller/getEnemyMoveSquare'
 
 export default function takeEnemyTurn(pieceState, enemyCount) {
 

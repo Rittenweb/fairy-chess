@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSquareHighlights } from '../util/pieceData';
+import getSquareHighlights from '../util/controller/getSquareHighlights';
 
 let dummyPieceState = {};
 for (let i = 0; i < 12; i++) {

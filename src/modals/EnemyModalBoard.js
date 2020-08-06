@@ -1,5 +1,6 @@
 import React from 'react';
-import { getAllEnemyCapSquaresRelative, getEnemyMoveSquareRelative } from '../util/pieceData';
+import getAllEnemyCapSquaresRelative from '../util/controller/getAllEnemyCapSquaresRelative';
+import getEnemyMoveSquareRelative from '../util/controller/getEnemyMoveSquareRelative';
 
 export default function EnemyModalBoard({ piece }) {
   let squares = {};

@@ -1,7 +1,7 @@
 import React from 'react';
 import BenchSquare from './BenchSquare';
 import ReadyButton from '../ReadyButton';
-import { getRarity } from '../util/pieceData';
+import getRarity from '../util/controller/getRarity';
 
 let ready;
 

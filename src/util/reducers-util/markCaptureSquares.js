@@ -1,6 +1,4 @@
-import {
-  getAllEnemyCapSquares
-} from './pieceData'
+import getAllEnemyCapSquares from '../controller/getAllEnemyCapSquares'
 
 export default function markCaptureSquares(pieceState, squareState, squaresClone) {
   let squares = []; //Hold all squares that should have a capture mark

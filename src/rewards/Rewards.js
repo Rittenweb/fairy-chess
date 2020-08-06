@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { getPieceWithRarity } from '../util/pieceData';
+import getPieceWithRarity from '../util/controller/getPieceWithRarity';
 import UnopenedPack from './UnopenedPack';
 import OpenedPack from './OpenedPack';
 

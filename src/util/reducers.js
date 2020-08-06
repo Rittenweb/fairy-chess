@@ -1,19 +1,17 @@
-import {
-  getMoveableSquares,
-  getEnemyMoveSquare,
-  getAllEnemyCapSquares,
-  randomizeEnemies,
-  getPieceWithRarity
-} from './pieceData';
+import getMoveableSquares from './controller/getMoveableSquares'
+import getEnemyMoveSquare from './controller/getEnemyMoveSquare'
+import getAllEnemyCapSquares from './controller/getAllEnemyCapSquares'
+import randomizeEnemies from './controller/randomizeEnemies'
+import getPieceWithRarity from './controller/getPieceWithRarity'
 import {
   initialState
 } from './baseStates'
-import checkTurnEnd from './checkTurnEnd'
-import takeEnemyTurn from './takeEnemyTurn'
-import fillBenchAfterWin from './fillBenchAfterWin';
-import highlightSquares from './highlightSquares'
-import highlightEnemySquares from './highlightEnemySquares'
-import markCaptureSquares from './markCaptureSquares';
+import checkTurnEnd from './reducers-util/checkTurnEnd'
+import takeEnemyTurn from './reducers-util/takeEnemyTurn'
+import fillBenchAfterWin from './reducers-util/fillBenchAfterWin';
+import highlightSquares from './reducers-util/highlightSquares'
+import highlightEnemySquares from './reducers-util/highlightEnemySquares'
+import markCaptureSquares from './reducers-util/markCaptureSquares';
 
 export const reducer = function reducer(state, action) {
   //The state is deep-nested, so we need to clone it so we can make mutations while keeping a reference to the old state.
@@ -133,7 +131,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
+            // newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
 
             //Make a clone of the piece state for reset turn reference
             piecesClone = JSON.parse(JSON.stringify(newPieces));
