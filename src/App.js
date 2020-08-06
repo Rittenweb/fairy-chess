@@ -15,8 +15,7 @@ import TransitionComponent from './wrappercomponents/TransitionComponent';
 import { DispatchContext } from './util/Contexts';
 import { initialState } from './util/baseStates';
 import { reducer } from './util/reducers';
-
-const Rewards = lazy(() => import('./rewards/Rewards'));
+import Rewards from './rewards/Rewards';
 
 function App() {
   const [gameState, dispatch] = useReducer(reducer, initialState);
