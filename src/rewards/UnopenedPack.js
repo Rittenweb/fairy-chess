@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react';
 import useSound from 'use-sound';
 import openSound from '../audio/999 Get Small Item.mp3';
+import { DispatchContext } from '../util/Contexts';
 
 export default function UnopenedPack({ onClick, rarity, animation }) {
   const [play] = useSound(openSound, { volume: 0.6 });
+  const dispatch = useContext(DispatchContext);
 
   //Layout component doesn't work as a wrapper here, so have to implement it inside...
   let [xy, setXY] = useState([0, 0]);
@@ -27,6 +29,12 @@ export default function UnopenedPack({ onClick, rarity, animation }) {
 
   const myClick = function myClick() {
     play();
+
+    dispatch({
+      type: 'setChoices',
+      rarity,
+    });
+
     //Passed-in from rewards: sets selected pack in rewards, and resets animations
     onClick(rarity);
     updatePosition();

@@ -4,7 +4,7 @@ import ChoicePiece from './ChoicePiece';
 import useSound from 'use-sound';
 import getSound from '../audio/999 Get Frog Coin.ogg';
 
-export default function Choice({ pieces, wide, clear }) {
+export default function Choice({ pieces, wide }) {
   const dispatch = useContext(DispatchContext);
   const [myTimeout, setMyTimeout] = useState(false);
   //Layout component doesn't work as a wrapper here, so have to implement it inside...
@@ -47,7 +47,6 @@ export default function Choice({ pieces, wide, clear }) {
         dispatch({
           type: 'reSetup',
         });
-        clear();
         setMyTimeout(false);
       }, 300);
     }

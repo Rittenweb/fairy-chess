@@ -131,7 +131,7 @@ export const reducer = function reducer(state, action) {
                 }
               }
             }
-            // newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
+            newPieces = randomizeEnemies(newPieces, state.wave); //Add enemies
 
             //Make a clone of the piece state for reset turn reference
             piecesClone = JSON.parse(JSON.stringify(newPieces));
@@ -160,11 +160,7 @@ export const reducer = function reducer(state, action) {
             let gamePhase = 'inprogress' //Change the phase from 'end turn transition' phase
             let enemyCount = 0; //If this count ultimately stays at zero after checking, the game is won.
 
-            console.log(newPieces);
-
             [newPieces, enemyCount] = takeEnemyTurn(newPieces, enemyCount);
-
-            console.log(newPieces);
 
             let newWave = state.wave
 
@@ -292,83 +288,102 @@ export const reducer = function reducer(state, action) {
                 squares: squaresClone
               };
 
+              //Set the displayed reward pieces when the player selects a pack.
+              //If they weren't hard-set as global state, there would be exploits that could change them.
+            case 'setChoices':
+
+              let newChoices = [];
+              if (action.rarity === 'rare') {
+                newChoices.push([getPieceWithRarity(3).name]);
+              } else if (action.rarity === 'uncommon') {
+                newChoices.push([getPieceWithRarity(2).name]);
+                newChoices.push([getPieceWithRarity(2).name]);
+              } else if (action.rarity === 'common') {
+                newChoices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+                newChoices.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
+              }
+
+              return {
+                ...stateClone,
+                choicesList: newChoices
+              }
               //Access the last turn reference state, and set it as the current state
-            case 'resetTurn':
-              if (!stateClone.lastTurnPieceState) {
-                return state;
-              }
-
-              newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
-
-              return {
-                ...stateClone,
-                pieces: newPieces,
-                  shouldTurnEnd: false,
-              };
-
-              //Access the bench start reference state, and set it as the current state
-            case 'resetSetup':
-              //Wipe the board of all pieces as well
-              for (let x = 0; x < 12; x++) {
-                for (let y = 0; y < 12; y++) {
-                  newPieces[x][y] = null
+              case 'resetTurn':
+                if (!stateClone.lastTurnPieceState) {
+                  return state;
                 }
-              }
 
-              newBenchPieces = JSON.parse(JSON.stringify(stateClone.baseBenchPieces));
+                newPieces = JSON.parse(JSON.stringify(stateClone.lastTurnPieceState));
 
-              return {
-                ...stateClone,
-                pieces: newPieces,
-                  benchPieces: newBenchPieces
-              }
-
-              //Change the game phase temporarily for an animation buffer
-              case 'transitionstart':
                 return {
                   ...stateClone,
-                  gamePhase: 'transitionstart'
+                  pieces: newPieces,
+                    shouldTurnEnd: false,
+                };
+
+                //Access the bench start reference state, and set it as the current state
+              case 'resetSetup':
+                //Wipe the board of all pieces as well
+                for (let x = 0; x < 12; x++) {
+                  for (let y = 0; y < 12; y++) {
+                    newPieces[x][y] = null
+                  }
+                }
+
+                newBenchPieces = JSON.parse(JSON.stringify(stateClone.baseBenchPieces));
+
+                return {
+                  ...stateClone,
+                  pieces: newPieces,
+                    benchPieces: newBenchPieces
                 }
 
                 //Change the game phase temporarily for an animation buffer
-                case 'transitioninprogress':
-
-                  //If the game is won (enemy count remans zero) a different transition is needed
-                  let otherEnemyCount = 0;
-                  for (let x = 0; x < 12; x++) {
-                    for (let y = 0; y < 12; y++) {
-                      if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
-                        newPieces[x][y].fade = 'out'; //Set the temporary animation for all moving pieces (all enemy pieces)
-                        otherEnemyCount++;
-                      }
-                    }
-                  }
-
+                case 'transitionstart':
                   return {
                     ...stateClone,
-                    pieces: newPieces,
-                      gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
+                    gamePhase: 'transitionstart'
                   }
 
                   //Change the game phase temporarily for an animation buffer
-                  case 'transitionrewards':
-                    return {
-                      ...stateClone,
-                      gamePhase: 'transitionrewards'
+                  case 'transitioninprogress':
+
+                    //If the game is won (enemy count remans zero) a different transition is needed
+                    let otherEnemyCount = 0;
+                    for (let x = 0; x < 12; x++) {
+                      for (let y = 0; y < 12; y++) {
+                        if (state.pieces[x][y] && state.pieces[x][y].enemy === true) {
+                          newPieces[x][y].fade = 'out'; //Set the temporary animation for all moving pieces (all enemy pieces)
+                          otherEnemyCount++;
+                        }
+                      }
                     }
 
-                    //Change the global music volume when the mute button is clicked
-                    case 'togglemute':
-                      let volume = 0;
-                      if (!state.volume) {
-                        volume = .5;
-                      }
+                    return {
+                      ...stateClone,
+                      pieces: newPieces,
+                        gamePhase: otherEnemyCount === 0 ? 'transitionrewards' : 'transitioninprogress'
+                    }
+
+                    //Change the game phase temporarily for an animation buffer
+                    case 'transitionrewards':
                       return {
                         ...stateClone,
-                        volume
+                        gamePhase: 'transitionrewards'
                       }
 
-                      default:
-                        throw new Error('No reducer for action type');
+                      //Change the global music volume when the mute button is clicked
+                      case 'togglemute':
+                        let volume = 0;
+                        if (!state.volume) {
+                          volume = .5;
+                        }
+                        return {
+                          ...stateClone,
+                          volume
+                        }
+
+                        default:
+                          throw new Error('No reducer for action type');
   }
 }

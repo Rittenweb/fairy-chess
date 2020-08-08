@@ -1,17 +1,14 @@
-import React, { useState, useRef } from 'react';
-import getPieceWithRarity from '../util/controller/getPieceWithRarity';
+import React, { useState } from 'react';
 import UnopenedPack from './UnopenedPack';
 import OpenedPack from './OpenedPack';
 
-export default function Rewards() {
+export default function Rewards({ choices }) {
   let [selected, setSelected] = useState('all');
   let [packAnimations, setPackAnimations] = useState({
     common: 'fadeIn 1500ms',
     uncommon: 'fadeIn 1500ms',
     rare: 'fadeIn 1500ms',
   });
-  //Have to store the pieces generated so that they don't re-render, but persist until next round
-  let choicesList = useRef([]);
 
   const onClick = function onClick(selectedPack) {
     let newAnimations = {
@@ -27,30 +24,14 @@ export default function Rewards() {
     }, 1150);
   };
 
-  const clearChoices = function clearChoices() {
-    choicesList.current = [];
-  };
-
-  if (!choicesList.current.length && selected !== 'all') {
-    if (selected === 'rare') {
-      choicesList.current.push([getPieceWithRarity(3).name]);
-    } else if (selected === 'uncommon') {
-      choicesList.current.push([getPieceWithRarity(2).name]);
-      choicesList.current.push([getPieceWithRarity(2).name]);
-    } else if (selected === 'common') {
-      choicesList.current.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
-      choicesList.current.push([getPieceWithRarity(1).name, getPieceWithRarity(1).name]);
-    }
-  }
-
   return (
     <div className='rewards'>
       {selected === 'all' && <UnopenedPack rarity={'common'} onClick={onClick} animation={packAnimations.common} />}
       {selected === 'all' && <UnopenedPack rarity={'uncommon'} onClick={onClick} animation={packAnimations.uncommon} />}
       {selected === 'all' && <UnopenedPack rarity={'rare'} onClick={onClick} animation={packAnimations.rare} />}
-      {selected === 'common' && <OpenedPack rarity={'common'} choices={choicesList.current} clear={clearChoices} />}
-      {selected === 'uncommon' && <OpenedPack rarity={'uncommon'} choices={choicesList.current} clear={clearChoices} />}
-      {selected === 'rare' && <OpenedPack rarity={'rare'} choices={choicesList.current} clear={clearChoices} />}
+      {selected === 'common' && <OpenedPack rarity={'common'} choices={choices} />}
+      {selected === 'uncommon' && <OpenedPack rarity={'uncommon'} choices={choices} />}
+      {selected === 'rare' && <OpenedPack rarity={'rare'} choices={choices} />}
     </div>
   );
 }

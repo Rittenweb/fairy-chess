@@ -1,7 +1,8 @@
-import React, { useReducer, lazy, Suspense } from 'react';
+import React, { useReducer, Suspense } from 'react';
 import './App.css';
 import Board from './board/Board';
 import Bench from './bench/Bench';
+import Rewards from './rewards/Rewards';
 import ScoreBoard from './ScoreBoard';
 import StartButton from './StartButton';
 import EndTurnButton from './EndTurnButton';
@@ -15,7 +16,6 @@ import TransitionComponent from './wrappercomponents/TransitionComponent';
 import { DispatchContext } from './util/Contexts';
 import { initialState } from './util/baseStates';
 import { reducer } from './util/reducers';
-import Rewards from './rewards/Rewards';
 
 function App() {
   const [gameState, dispatch] = useReducer(reducer, initialState);
@@ -64,7 +64,7 @@ function App() {
               timeIn={1000}
               timeOut={300}>
               <Suspense fallback={<></>}>
-                <Rewards />
+                <Rewards choices={gameState.choicesList} />
               </Suspense>
             </TransitionComponent>
           </div>

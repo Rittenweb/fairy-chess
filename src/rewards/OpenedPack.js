@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import Choice from './Choice';
 
-export default function OpenedPack({ rarity, choices, clear }) {
+export default function OpenedPack({ rarity, choices }) {
   //Layout component doesn't work as a wrapper here, so have to implement it inside...
-
   let [xy, setXY] = useState([0, 0]);
   const ref = useRef(null);
 
@@ -36,7 +35,7 @@ export default function OpenedPack({ rarity, choices, clear }) {
       }}
       onClick={myClick}>
       {choices.map((choice, i) => (
-        <Choice pieces={choice} wide={rarity === 'common'} key={i} clear={clear} />
+        <Choice pieces={choice} wide={rarity === 'common'} key={i} />
       ))}
     </div>
   );
